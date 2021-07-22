@@ -21,23 +21,23 @@ jobs:
           hugo-version: 'latest'
           # extended: true
 
-     - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
+      - name: Setup Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: '12'
 
-     - name: Set Dependencies
-        run: hugo mod npm pack
+      - name: Set Dependencies
+          run: hugo mod npm pack
 
-     - name: install Dependency
-        run: npm install
+      - name: install Dependency
+          run: npm install
 
-    - name: Build
-        run: hugo -D
+      - name: Build
+          run: hugo -D
 
-    - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
-          publish_dir: ./public
+      - name: Deploy
+          uses: peaceiris/actions-gh-pages@v3
+          if: github.ref == 'refs/heads/main'
+          with:
+            github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
+            publish_dir: ./public
