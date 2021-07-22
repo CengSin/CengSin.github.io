@@ -21,8 +21,19 @@ jobs:
           hugo-version: 'latest'
           # extended: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Setup Dependencies
+        run: hugo mod npm pack
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build
-        run: hugo --minify
+        run: hugo --environment production --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
