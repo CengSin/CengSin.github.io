@@ -18,25 +18,11 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.80.0'
-          extended: true
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-
-      - name: Composite package.json
-        run: hugo mod npm pack
-
-      - name: Setup Dependency
-        run: npm install
-
-      - name: Setup public
-        run: git branch gh-pages
+          hugo-version: 'latest'
+          # extended: true
 
       - name: Build
-        run: hugo --environment production --minify
+        run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -44,4 +30,3 @@ jobs:
         with:
           github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
           publish_dir: ./public
-          publish_branch: gh-pages # default: gh-pages
