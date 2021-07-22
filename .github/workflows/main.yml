@@ -27,17 +27,17 @@ jobs:
           node-version: '12'
 
       - name: Set Dependencies
-          run: hugo mod npm pack
+        run: hugo mod npm pack
 
       - name: install Dependency
-          run: npm install
+        run: npm install
 
       - name: Build
-          run: hugo -D
+        run: hugo -D
 
       - name: Deploy
-          uses: peaceiris/actions-gh-pages@v3
-          if: github.ref == 'refs/heads/main'
-          with:
-            github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
-            publish_dir: ./public
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
+          publish_dir: ./public
