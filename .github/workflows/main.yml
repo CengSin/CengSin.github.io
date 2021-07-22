@@ -32,6 +32,9 @@ jobs:
       - name: install Dependency
         run: npm install
 
+      - name: Setup public
+        run: git worktree add -B gh-pages
+
       - name: Build
         run: hugo --environment production --minify
 
