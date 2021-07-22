@@ -18,25 +18,28 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
-          # extended: true
+          hugo-version: '0.80.0'
+          extended: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12'
 
-      - name: Set Dependencies
-        run: hugo mod npm pack
+      - name: Composite package.json
+        run: hugo -s exampleSite --themesDir=../.. mod npm pack
 
-      - name: install Dependency
-        run: npm install
+      - name: Setup Dependency
+        run: npm install --prefix exampleSite
 
       - name: Setup public
-        run: git worktree add -b gh-pages
+        run: git worktree add -B gh-pages ./exampleSite/public origin/gh-pages
+
+      - name: Clean public
+        run: rm -rf ./exampleSite/public/*
 
       - name: Build
-        run: hugo --environment production --minify
+        run: hugo -s exampleSite --themesDir=../.. --minify --environment production -b https://kaiiiz.github.io/hugo-theme-monochrome
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
