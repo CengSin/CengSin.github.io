@@ -22,9 +22,9 @@ jobs:
           # extended: true
 
       - name: Setup Node.js
-          uses: actions/setup-node@v1
-          with:
-            node-version: '12'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
 
       - name: Set Dependencies
           run: hugo mod npm pack
