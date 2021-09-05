@@ -1,0 +1,224 @@
+<!doctype html><html class="h-full w-full font-sans" lang=en-us><head>
+<meta charset=utf-8>
+<link rel="shortcut icon" href=http://example.org/favicon.ico type=image/x-icon>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Implement_rand10_use_rand7 - CengSin PERSONAL BLOG</title>
+<meta property="og:title" content="Implement_rand10_use_rand7">
+<meta property="og:description" content="使用rand7实现rand10 题目：
+已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。 不要使用系统的 Math.random() 方法。 来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。 结论：
+ (RAND_X - 1) * Y + RAND_Y = RAND_X*Y RAND_X*Y % Y + 1 = RAND_Y  证明结论1：
+使用rand2生成rand4
+使用 rand2_Row + rand2_Col 生成的随机数为：
+   Col\Row 1 2     1 2 3   2 3 4    结果生成的范围为[2,4]
+然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://example.org/posts/implement_rand10_use_rand7/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-09-05T14:50:20+08:00">
+<meta property="article:modified_time" content="2021-09-05T14:50:20+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Implement_rand10_use_rand7">
+<meta name=twitter:description content="使用rand7实现rand10 题目：
+已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。 不要使用系统的 Math.random() 方法。 来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。 结论：
+ (RAND_X - 1) * Y + RAND_Y = RAND_X*Y RAND_X*Y % Y + 1 = RAND_Y  证明结论1：
+使用rand2生成rand4
+使用 rand2_Row + rand2_Col 生成的随机数为：
+   Col\Row 1 2     1 2 3   2 3 4    结果生成的范围为[2,4]
+然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col">
+<link rel=stylesheet href="/css/styles.min.ad68f0a78b616fe22787e9ca587ae2ca7feee276768a8734e07b00f82d05b406717ad6f21da4b0d8b492f85c12b0ebba60220f8280067957da323c6a739a815f.css" integrity="sha512-rWjwp4thb+Inh+nKWHriyn/u4nZ2ioc04HsA+C0FtAZxetbyHaSw2LSS+FwSsOu6YCIPgoAGeVfaMjxqc5qBXw==">
+<script>localStorage.theme==='dark'||!('theme'in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches?document.documentElement.classList.add('dark'):document.documentElement.classList.remove('dark')</script>
+</head><body class="flex flex-col items-center w-full">
+<main class="w-full sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-5/12 m-auto px-6"><header class="mt-9 mb-8">
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<input id=navbar_btn class=hidden type=checkbox>
+<label for=navbar_btn class="menu-btn mr-4 items-center flex xl:hidden">
+<span class=navicon></span>
+</label>
+<a href=/ class="font-bold text-lg xl:text-2xl mr-auto">CengSin PERSONAL BLOG</a>
+</div>
+<div class="flex items-center">
+<div class="cursor-pointer ml-2">
+<svg id="dark_mode_btn" class="hidden" width="18" height="18" viewBox="0 0 24 24"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 15.31 23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18c-3.31.0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg></svg>
+<svg id="light_mode_btn" class="hidden" width="18" height="18" viewBox="0 0 24 24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g><path d="M0 0h24v24H0V0z" fill="none"/></g><g><g><g><path d="M14 2c1.82.0 3.53.5 5 1.35C16.01 5.08 14 8.3 14 12s2.01 6.92 5 8.65C17.53 21.5 15.82 22 14 22 8.48 22 4 17.52 4 12S8.48 2 14 2z"/></g></g></g></svg></svg>
+</div>
+</div>
+</div>
+<nav id=navbar class="mt-3 hidden xl:block"><ul class=flex></ul>
+</nav>
+<nav id=navbar_sm class="mt-2 hidden">
+<ul>
+</ul>
+<hr class=my-4>
+</nav>
+</header>
+<div id=content class=my-8>
+<div class=my-7>
+<article>
+<h1 id=使用rand7实现rand10>使用rand7实现rand10</h1>
+<p>题目：</p>
+<pre tabindex=0><code>已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。
+
+不要使用系统的 Math.random() 方法。
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+</code></pre><p>结论：</p>
+<ol>
+<li>(RAND_X - 1) * Y + RAND_Y = RAND_X*Y</li>
+<li>RAND_X*Y % Y + 1 = RAND_Y</li>
+</ol>
+<p>证明结论1：</p>
+<p>使用rand2生成rand4</p>
+<p>使用 rand2_Row + rand2_Col 生成的随机数为：</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>结果生成的范围为[2,4]</p>
+<p>然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。</p>
+<p>之后我们使用 (rand2_Row - 1) * 2 + rand2_Col</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>(1,2,3,4)出现的结果为均衡的概率。</p>
+<p>之后将结论带入(rand2 - 1) * 3 + rand3 == rand6</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>证明结论2：</p>
+<p>rand4 % 2 + 1 = rand2</p>
+<ul>
+<li>1 % 2 + 1 = 2</li>
+<li>2 % 2 + 1 = 1</li>
+<li>3 % 2 + 1 = 2</li>
+<li>4 % 2 + 1 = 1</li>
+</ul>
+<p>题目：</p>
+<p>使用rand7生成rand10</p>
+<p>我们可以使用第一个结论</p>
+<p>(rand7 - 1) * 7 + rand7 = rand49</p>
+<p>因为rand49不是rand10的倍数，所以我们要抛弃[41, 49]之间的数字：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>rand10</span>() <span style=color:#66d9ef>int</span> {
+    <span style=color:#66d9ef>for</span> {
+        <span style=color:#a6e22e>num</span> <span style=color:#f92672>:=</span> (<span style=color:#a6e22e>rand7</span>() <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>7</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>rand7</span>()
+        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>40</span> {
+            <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+        }
+    }
+}
+</code></pre></div><p>这种结论的最坏情况可能会超时，num > 40。所以进行优化，缩小不属于10的整数倍的范围：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>rand10</span>() <span style=color:#66d9ef>int</span> {
+    <span style=color:#66d9ef>for</span> {
+        <span style=color:#a6e22e>num</span> <span style=color:#f92672>:=</span> (<span style=color:#a6e22e>rand7</span>() <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>7</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>rand7</span>() <span style=color:#75715e>// rand49
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>40</span> {
+            <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+        }
+        
+        <span style=color:#a6e22e>a</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>40</span> <span style=color:#75715e>// rand9
+</span><span style=color:#75715e></span>        <span style=color:#a6e22e>b</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand7</span>()
+        <span style=color:#a6e22e>num</span> = (<span style=color:#a6e22e>a</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>7</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span> <span style=color:#75715e>// rand63
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>60</span> {
+            <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+        }
+        
+        <span style=color:#a6e22e>a</span> = <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>60</span> <span style=color:#75715e>// rand3
+</span><span style=color:#75715e></span>        <span style=color:#a6e22e>b</span> = <span style=color:#a6e22e>rand7</span>()
+        <span style=color:#a6e22e>num</span> = (<span style=color:#a6e22e>a</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>7</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span> <span style=color:#75715e>// rand21
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>20</span> {
+            <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>num</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+        }
+    }
+}
+</code></pre></div>
+</article>
+</div>
+</div>
+</main>
+<script src=/js/header.0b11855b871cb4d10c6c07b6723b9209f5c2bc9100735ab6ff47c8f9b76bb3d6ae41b488083b5fb15697987334039eb651b25c83228c29ac48a2bc168db8a894.js integrity="sha512-CxGFW4cctNEMbAe2cjuSCfXCvJEAc1q2/0fI+bdrs9auQbSICDtfsVaXmHM0A562UbJcgyKMKaxIorwWjbiolA=="></script>
+<script src=/js/zooming.10cfe42f65295a0596af3315b671956309ed1d20e299e476ca16f6f6b902421e29c6f81a8f9a7ce816f84bef0791dbad2e61e68ff8fe798bd9ce9e093756d084.js integrity="sha512-EM/kL2UpWgWWrzMVtnGVYwntHSDimeR2yhb29rkCQh4pxvgaj5p86Bb4S+8HkdutLmHmj/j+eYvZzp4JN1bQhA=="></script>
+<script src=/js/code-copy-btn.78c2b9fa7e7343f48dedd4c678f6aa49b144aa7b7e28e43d5bf5d8604134f4b2353ca3be02e66b7ace7d6ddd780de243dd71f9073446df964728e38c386e484f.js integrity="sha512-eMK5+n5zQ/SN7dTGePaqSbFEqnt+KOQ9W/XYYEE09LI1PKO+AuZres59bd14DeJD3XH5BzRG35ZHKOOMOG5ITw=="></script>
+</body>
+</html>
