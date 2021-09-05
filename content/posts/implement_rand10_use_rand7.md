@@ -1,7 +1,7 @@
 ---
 title: "Implement_rand10_use_rand7"
 date: 2021-09-05T14:50:20+08:00
-draft: true
+draft: false
 ---
 
 # 使用rand7实现rand10
