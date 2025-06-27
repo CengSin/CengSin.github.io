@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CengSin PERSONAL BLOG</title><link>/</link><description>Recent content on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Jun 2025 20:16:02 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</title><link>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</link><pubDate>Fri, 27 Jun 2025 14:26:00 +0800</pubDate><guid>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</guid><description>&lt;h1 id="go语言实现的apns推送服务一次稳定性问题的排查与优化实录">Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CengSin PERSONAL BLOG</title><link>/</link><description>Recent content on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Jun 2025 20:16:02 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>从小米YU7爆火看如今国内的品牌现状</title><link>/posts/%E4%BB%8E%E5%B0%8F%E7%B1%B3yu7%E7%88%86%E7%81%AB%E7%9C%8B%E5%A6%82%E4%BB%8A%E5%9B%BD%E5%86%85%E7%9A%84%E5%93%81%E7%89%8C%E7%8E%B0%E7%8A%B6/</link><pubDate>Fri, 27 Jun 2025 20:16:02 +0800</pubDate><guid>/posts/%E4%BB%8E%E5%B0%8F%E7%B1%B3yu7%E7%88%86%E7%81%AB%E7%9C%8B%E5%A6%82%E4%BB%8A%E5%9B%BD%E5%86%85%E7%9A%84%E5%93%81%E7%89%8C%E7%8E%B0%E7%8A%B6/</guid><description>&lt;h1 id="原版">原版&lt;/h1>
+&lt;h2 id="从小米yu7爆火看国产品牌的真实现状">从小米YU7爆火，看国产品牌的真实现状&lt;/h2>
+&lt;h3 id="3分钟大定200000这个世界好像只有我在消费降级吗">“3分钟大定200000，这个世界好像只有我在消费降级吗？”&lt;/h3>
+&lt;p>小米汽车的评论区最多的就是这句话。2025年国内经济低速增长的情况下，小米汽车的爆火揭示了中国市场正在悄然发生的变化。&lt;/p>
+&lt;h3 id="混乱的市场">混乱的市场&lt;/h3>
+&lt;p>90后、00后出了社会总是有种上当的感觉，各种付费商品的体验总是不舒服。从进入门店开始，销售的眼光、言语、各种套餐、名词层出不同。非要把你绕晕了、忘记自己最开始需求，付钱购买了好像和需求差了那么一点的商品，然后走出去。售后？这种服务根本不存在。只有闹事才能维护自己的权益。&lt;/p>
+&lt;p>但是就是这样的服务充斥着早些年的中国市场，去哪都一样，说不准还有强买强卖的事情发生。&lt;/p>
+&lt;h3 id="淘宝小米蜜雪冰城">淘宝、小米、蜜雪冰城&lt;/h3>
+&lt;p>这三家应该是透明、品质、售后这些名词的市场实体代表。&lt;/p>
+&lt;blockquote>
+&lt;p>良好的品质、透明的价格、省心的售后&lt;/p>&lt;/blockquote>
+&lt;p>淘宝这类电商直接打击了电器城，电器城的衰落就是中国市场从混乱走向透明、品质、售后的开始&lt;/p>
+&lt;p>小米通过“性价比”确定了自己的市场地位，只不过当时经济是一个快速发展的过程，这是的「性价比」更不被“吃满了时代红利，满嘴流油”的用户接受。“屌丝、性价比、低价”成为了小米的标签。&lt;/p>
+&lt;p>蜜雪冰城通过“低价高质”在河南萌芽，之后通过大量加盟、同时保证价格和品质的上限和下限在短时间内迅速成为了国内茶饮行业的老大。同样在“满嘴流油”的时代，蜜雪冰城也是“屌丝”这类形容边缘型群体的标签。&lt;/p>
+&lt;h3 id="质量决定市场的时代">质量决定市场的时代&lt;/h3>
+&lt;p>淘宝的产品是购物体验，商品品质以及售后保证。&lt;/p>
+&lt;p>小米的产品是良好的品质、透明的价格以及售后保证。&lt;/p>
+&lt;p>蜜雪冰城的产品是雪王形象、物流链路和原料品质，人员培训。&lt;/p>
+&lt;p>在现在的经济环境下，90后、00后还没挣到钱就先被社会给上了好几课。过去那些「高级、小众」如今也变成了「噶韭菜」，消费市场已经从「情绪和服务决定价格」转变到了「质量和售后决定价格」的市场。未来市场中一味用「高级」来标榜自己的品牌会丧失自己在自由市场的地位，而「品质」的品牌会加速扩大自己的市场。&lt;/p>
+&lt;p>中国的“优衣库”们将会在未来的市场出现，并且走向世界。&lt;/p>
+&lt;h1 id="chatgpt修改版本">ChatGPT修改版本&lt;/h1>
+&lt;h2 id="从小米yu7爆火看国产品牌的真实现状-1">从小米YU7爆火，看国产品牌的真实现状&lt;/h2>
+&lt;h3 id="3分钟大定20万这个世界只有我在消费降级吗">“3分钟大定20万，这个世界只有我在消费降级吗？”&lt;/h3>
+&lt;p>小米汽车发布当天，评论区里这句高赞留言反映出一个鲜明对比：在2025年整体经济放缓的大背景下，小米YU7却逆势爆火，似乎揭示出消费市场中正在悄然发生的结构性变化。&lt;/p>
+&lt;hr>
+&lt;h3 id="从糊涂消费到理性选择">从“糊涂消费”到“理性选择”&lt;/h3>
+&lt;p>90后、00后走入社会后，普遍有种“总在被坑”的感受。线下消费从踏入门店那一刻起，就被复杂的销售话术、价格套路、隐藏成本所包围。最终付钱的，常常不是自己真正需要的，而是被“绕晕”后的妥协。更糟的是，出了问题想维权，售后几乎等于摆设，只有闹才有回应。&lt;/p>
+&lt;p>这种“卖方为王”、服务混乱的市场，在十多年前的中国几乎无处不在。&lt;/p>
+&lt;hr>
+&lt;h3 id="淘宝小米蜜雪冰城理性消费的样板">淘宝、小米、蜜雪冰城：理性消费的样板&lt;/h3>
+&lt;p>在这样的背景下，淘宝、小米、蜜雪冰城三者，是“透明、品质、售后”理念落地的先行者：&lt;/p>
+&lt;blockquote>
+&lt;p>他们不是在卖产品，而是在重塑消费者的信任。&lt;/p>&lt;/blockquote>
+&lt;p>淘宝带来了价格公开、比价便利、售后保障，直接终结了“电器城”模式的生存空间，开启了透明化消费的时代。&lt;/p>
+&lt;p>小米凭借“性价比”迅速崛起，但当时处于高速增长的经济阶段，许多中产并不买账，小米一度被贴上“屌丝”“低端”的标签。&lt;/p>
+&lt;p>蜜雪冰城以“低价高质”在河南发芽，通过标准化加盟体系，既压住了价格下限，也守住了品质上限，迅速拿下国内茶饮市场的头部地位。它的成功，曾同样被人视为“屌丝文化”的代表。&lt;/p>
+&lt;hr>
+&lt;h3 id="品质是新的高级感">品质是新的“高级感”&lt;/h3>
+&lt;p>今天的90后、00后没有赶上资产和工资齐飞的年代，反而在各种“收割”中学会了精明。他们不再相信“高级”=“值得买”，而是将注意力转向了“质量”和“售后”。&lt;/p>
+&lt;p>现在的品牌竞争，已经从“讲故事”变成了“做实事”。&lt;/p>
+&lt;p>淘宝、小米、蜜雪冰城成功的本质，是对“消费体验”的精准把控：从商品品质到售后流程，从价格透明到运营形象，每个环节都在打磨可信度。&lt;/p>
+&lt;hr>
+&lt;h3 id="未来的国产品牌将走向何方">未来的国产品牌，将走向何方？&lt;/h3>
+&lt;p>曾经靠“调性”“概念”打动人的品牌，如今正陷入增长瓶颈。而那些脚踏实地、注重产品和服务体验的企业，却在逐步赢得市场。&lt;/p>
+&lt;p>中国消费者越来越理性：不盲目追求奢华，但极度重视性价比和可靠性。&lt;/p>
+&lt;p>国产的“优衣库”式品牌，将不再是例外，而是新常态。&lt;/p></description></item><item><title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</title><link>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</link><pubDate>Fri, 27 Jun 2025 14:26:00 +0800</pubDate><guid>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</guid><description>&lt;h1 id="go语言实现的apns推送服务一次稳定性问题的排查与优化实录">Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录&lt;/h1>
 &lt;p>在生产环境中部署 APNs 推送服务时，我们遇到了一个让人头疼的问题：&lt;strong>服务运行约一周后，会突然停止推送消息&lt;/strong>，且腾讯云实例的内存占用达到 100%。本文将详细记录从最初的异常现象，到最后稳定运行的整个排查与优化过程，希望对你构建稳定、高效的 Go 推送服务有所帮助。&lt;/p>
 &lt;hr>
 &lt;h2 id="一问题现象与初步排查">一、问题现象与初步排查&lt;/h2>
