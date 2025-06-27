@@ -1,7 +1,7 @@
 ---
 title: "从小米YU7爆火看如今国内的品牌现状"
 date: 2025-06-27T20:16:02+08:00
-draft: true
+draft: false
 ---
 
 # 原版
