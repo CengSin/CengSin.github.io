@@ -1,21 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CengSin PERSONAL BLOG</title><link>/</link><description>Recent content on CengSin PERSONAL BLOG</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 13 Sep 2021 11:15:13 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>回旋镖的数量</title><link>/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>/posts/number_of_boomerangs/</guid><description>&lt;h1 id="回旋镖的数量">回旋镖的数量&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CengSin PERSONAL BLOG</title><link>/</link><description>Recent content on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 13 Sep 2021 11:15:13 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>回旋镖的数量</title><link>/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>/posts/number_of_boomerangs/</guid><description>&lt;h1 id="回旋镖的数量">回旋镖的数量&lt;/h1>
 &lt;pre tabindex="0">&lt;code>给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。
 回旋镖 是由点 (i, j, k) 表示的元组 ，
 其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
-
 返回平面上所有回旋镖的数量。
-
 示例 1：
-
 输入：points = [[0,0],[1,0],[2,0]]
 输出：2
 解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
 示例 2：
-
 输入：points = [[1,1],[2,2],[3,3]]
 输出：2
 示例 3：
-
 输入：points = [[1,1]]
 输出：0
 &lt;/code>&lt;/pre>&lt;p>首先写一下自己的思路：本来我的思路是回旋镖中间的点到两边的点距离肯定是相同的。那么求回旋镖的数量就是
@@ -26,19 +21,19 @@
 回旋镖的元组即为排列，A(2, m) = m * (m - 1)&lt;/p>
 &lt;p>看代码：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">numberOfBoomerangs&lt;/span>(&lt;span style="color:#a6e22e">points&lt;/span> [][]&lt;span style="color:#66d9ef">int&lt;/span>) (&lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#a6e22e">cnt&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> make(&lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">int&lt;/span>]&lt;span style="color:#66d9ef">int&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">q&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">dis&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">+&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>])
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">cnt&lt;/span>[&lt;span style="color:#a6e22e">dis&lt;/span>] &lt;span style="color:#f92672">++&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">cnt&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> make(&lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">int&lt;/span>]&lt;span style="color:#66d9ef">int&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">q&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">dis&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">+&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">cnt&lt;/span>[&lt;span style="color:#a6e22e">dis&lt;/span>] &lt;span style="color:#f92672">++&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">cnt&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">cnt&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ans&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ans&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>不包含连续的1的整数</title><link>/posts/non_negative_integers_without_consecutive_ones/</link><pubDate>Sun, 12 Sep 2021 15:39:42 +0800</pubDate><guid>/posts/non_negative_integers_without_consecutive_ones/</guid><description>&lt;h1 id="不包含连续的1的整数">不包含连续的1的整数&lt;/h1>
 &lt;blockquote>
@@ -70,14 +65,44 @@
 &lt;p>dp[i] = dp[i - 1] + dp[i - 2]&lt;/p>
 &lt;p>dp[i - 1] 表示 0开头的，长度为i-1的二进制中不包含连续1的数量
 dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数量&lt;/p>
-&lt;p>终止条件为：&lt;/p></description></item><item><title>使用rand7实现rand10</title><link>/posts/implement_rand10_use_rand7/</link><pubDate>Sun, 05 Sep 2021 14:50:20 +0800</pubDate><guid>/posts/implement_rand10_use_rand7/</guid><description>&lt;h1 id="使用rand7实现rand10">使用rand7实现rand10&lt;/h1>
+&lt;p>终止条件为：&lt;/p>
+&lt;p>dp[0] = 1
+dp[1] = 2&lt;/p>
+&lt;p>例如：1001001&lt;/p>
+&lt;p>首先要考虑： 0000000～01111111 中不包含连续1的数字的数量&lt;/p>
+&lt;p>然后就是：1000000～1001001 中不包含连续1的数字的数量 ( ？)&lt;/p>
+&lt;p>怎么求1000000～1001001 中不包含连续1的数字的数量 ( ？)呢，我们可以计算&lt;/p>
+&lt;p>1000000~10000111和1001000到1001001的数量。&lt;/p>
+&lt;p>考虑一下边界条件：
+1001101，这种情况下，我们需要对每个为1的二进制位记录他的前一位二进制，如果两者都为1，那么返回false。否则返回true。&lt;/p>
+&lt;h4 id="代码">代码&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">findIntegers&lt;/span>(&lt;span style="color:#a6e22e">n&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>) (&lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">k&lt;/span>, &lt;span style="color:#a6e22e">dp&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#ae81ff">32&lt;/span>, [&lt;span style="color:#ae81ff">32&lt;/span>]&lt;span style="color:#66d9ef">int&lt;/span>{&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>} &lt;span style="color:#75715e">// k = 32是要从2^32（最大）开始计算&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span> &amp;lt; &lt;span style="color:#a6e22e">k&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span>&lt;span style="color:#f92672">++&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">dp&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>] = &lt;span style="color:#a6e22e">dp&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">dp&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">k&lt;/span> = &lt;span style="color:#ae81ff">31&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">pre&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">k&lt;/span> &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">n&lt;/span>&lt;span style="color:#f92672">&amp;amp;&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>&lt;span style="color:#f92672">&amp;lt;&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">k&lt;/span>) &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">dp&lt;/span>[&lt;span style="color:#a6e22e">k&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">pre&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ans&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">pre&lt;/span> = &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> } &lt;span style="color:#66d9ef">else&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">pre&lt;/span> = &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">k&lt;/span> &lt;span style="color:#f92672">-=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用rand7实现rand10</title><link>/posts/implement_rand10_use_rand7/</link><pubDate>Sun, 05 Sep 2021 14:50:20 +0800</pubDate><guid>/posts/implement_rand10_use_rand7/</guid><description>&lt;h1 id="使用rand7实现rand10">使用rand7实现rand10&lt;/h1>
 &lt;p>题目：&lt;/p>
 &lt;pre tabindex="0">&lt;code>已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。
-
 不要使用系统的 Math.random() 方法。
-
-
-
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
@@ -90,47 +115,142 @@ dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数
 &lt;p>使用rand2生成rand4&lt;/p>
 &lt;p>使用 rand2_Row + rand2_Col 生成的随机数为：&lt;/p>
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Col\Row&lt;/th>
- &lt;th>1&lt;/th>
- &lt;th>2&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>1&lt;/td>
- &lt;td>2&lt;/td>
- &lt;td>3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>2&lt;/td>
- &lt;td>3&lt;/td>
- &lt;td>4&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Col\Row&lt;/th>
+&lt;th>1&lt;/th>
+&lt;th>2&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>2&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>3&lt;/td>
+&lt;td>4&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
 &lt;p>结果生成的范围为[2,4]&lt;/p>
 &lt;p>然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col&lt;/p>
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Col\Row&lt;/th>
- &lt;th>0&lt;/th>
- &lt;th>1&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>1&lt;/td>
- &lt;td>1&lt;/td>
- &lt;td>2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>2&lt;/td>
- &lt;td>2&lt;/td>
- &lt;td>3&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Col\Row&lt;/th>
+&lt;th>0&lt;/th>
+&lt;th>1&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>2&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;p>结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。&lt;/p></description></item></channel></rss>
+&lt;p>结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。&lt;/p>
+&lt;p>之后我们使用 (rand2_Row - 1) * 2 + rand2_Col&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Col\Row&lt;/th>
+&lt;th>0&lt;/th>
+&lt;th>1&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>2&lt;/td>
+&lt;td>4&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>(1,2,3,4)出现的结果为均衡的概率。&lt;/p>
+&lt;p>之后将结论带入(rand2 - 1) * 3 + rand3 == rand6&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Col\Row&lt;/th>
+&lt;th>0&lt;/th>
+&lt;th>1&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>4&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>2&lt;/td>
+&lt;td>5&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>3&lt;/td>
+&lt;td>6&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>证明结论2：&lt;/p>
+&lt;p>rand4 % 2 + 1 = rand2&lt;/p>
+&lt;ul>
+&lt;li>1 % 2 + 1 = 2&lt;/li>
+&lt;li>2 % 2 + 1 = 1&lt;/li>
+&lt;li>3 % 2 + 1 = 2&lt;/li>
+&lt;li>4 % 2 + 1 = 1&lt;/li>
+&lt;/ul>
+&lt;p>题目：&lt;/p>
+&lt;p>使用rand7生成rand10&lt;/p>
+&lt;p>我们可以使用第一个结论&lt;/p>
+&lt;p>(rand7 - 1) * 7 + rand7 = rand49&lt;/p>
+&lt;p>因为rand49不是rand10的倍数，所以我们要抛弃[41, 49]之间的数字：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">rand10&lt;/span>() &lt;span style="color:#66d9ef">int&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> (&lt;span style="color:#a6e22e">rand7&lt;/span>() &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rand7&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">40&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这种结论的最坏情况可能会超时，num &amp;gt; 40。所以进行优化，缩小不属于10的整数倍的范围：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">rand10&lt;/span>() &lt;span style="color:#66d9ef">int&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> (&lt;span style="color:#a6e22e">rand7&lt;/span>() &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rand7&lt;/span>() &lt;span style="color:#75715e">// rand49&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">40&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">a&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">40&lt;/span> &lt;span style="color:#75715e">// rand9&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">b&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">rand7&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">num&lt;/span> = (&lt;span style="color:#a6e22e">a&lt;/span> &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">b&lt;/span> &lt;span style="color:#75715e">// rand63&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">60&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">a&lt;/span> = &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">60&lt;/span> &lt;span style="color:#75715e">// rand3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">b&lt;/span> = &lt;span style="color:#a6e22e">rand7&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">num&lt;/span> = (&lt;span style="color:#a6e22e">a&lt;/span> &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">b&lt;/span> &lt;span style="color:#75715e">// rand21&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">20&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">num&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
