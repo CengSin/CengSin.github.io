@@ -1,7 +1,5 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
+languageCode = "zh-cn"
 title = "CengSin PERSONAL BLOG"
-theme = "hugo-theme-monochrome"
 
 [build]
   writeStats = true
