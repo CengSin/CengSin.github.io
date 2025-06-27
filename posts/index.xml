@@ -1,26 +1,136 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CengSin PERSONAL BLOG</title><link>http://example.org/posts/</link><description>Recent content in Posts on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 13 Sep 2021 11:15:13 +0800</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>回旋镖的数量</title><link>http://example.org/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>http://example.org/posts/number_of_boomerangs/</guid><description>回旋镖的数量 给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。 回旋镖 是由点 (i, j, k) 表示的元组 ， 其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。 返回平面上所有回旋镖的数量。 示例 1： 输入：points = [[0,0],[1,0],[2,0]] 输出：2 解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]] 示例 2： 输入：points = [[1,1],[2,2],[3,3]] 输出：2 示例 3： 输入：points = [[1,1]] 输出：0 首先写一下自己的思路：本来我的思路是回旋镖中间的点到两边的点距离肯定是相同的。那么求回旋镖的数量就是 拿到一个符合中间点到两边点相同距离的元组的数量。到考虑元组的顺序这点我开始纠结了。这里记录一下。
-元组的顺序肯定是不相同的，这里需要用到排列组合中的概念。
-回想一下我的思路，一个点到其他两个点的距离相同。
-Leetcode这里抽象成了到某个点距离相同的所有点的距离 m , 那么在m个点中拿出两个点与最外层点p组合成一个 回旋镖的元组即为排列，A(2, m) = m * (m - 1)
-看代码：
-func numberOfBoomerangs(points [][]int) (ans int) { for _, p := range points { cnt := make(map[int]int) for _, q := range points { dis := (p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1]) cnt[dis] ++ } for _, i := range cnt { ans += i * (i - 1) } } return ans }</description></item><item><title>不包含连续的1的整数</title><link>http://example.org/posts/non_negative_integers_without_consecutive_ones/</link><pubDate>Sun, 12 Sep 2021 15:39:42 +0800</pubDate><guid>http://example.org/posts/non_negative_integers_without_consecutive_ones/</guid><description>不包含连续的1的整数 给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。
-示例 1:
-输入: 5
-输出: 5
-解释: 下面是带有相应二进制表示的非负整数&amp;lt;= 5：
-0 : 0 1 : 1 2 : 10 3 : 11 4 : 100 5 : 101 其中，只有整数3违反规则（有两个连续的1），其他5个满足规则。
-说明: 1 &amp;lt;= n &amp;lt;= 10^9
-根据题目描述，我们可以拿到1～n每个数字的二进制，然后计算二进制不包含连续的1的整数的数量，返回即可。但是 题目中的n的取值范围为[1,10^9]，暴力肯定会超时。
-我们要计算的是[0,n]范围内数字二进制不包含连续1的个数。
-假设数字n的二进制位为：1001001，如何计算范围内数字二进制不包含连续1的个数？
-首先我们假设数字开头为0，数字表示为0xxxxxx。0之后的二进制可以为1，可以为0。在这种情况下，我们唯一能够 确定的就是，开头的0那一位。xxxxxx中有多少个不包含连续1数字呢？我们先记下这个子问题。
-其次我们假设数字开头为1，那么1之后的二进制位必须为0。重申一下，二进制中不包含连续1的数字。那么我们可以确定 开头的两位二进制10。那么数字可以表示为10xxxxx。xxxxx中有多少个不包含连续1的数字呢？
-声明一个数组dp，下标i表示长度为i的二进制。dp[i]表示该二进制位不包含连续的1的数量。由于 数字的二进制的每一位不是0就是1，如果一个二进制的开头为0，那么它的的下一位就可以选择0，或者1。如果一个二 进制的开头为1，那么它的下一位只能是0，如果是1的话就不符合题目中要求的不包含连续的1。由此可以得出：
-dp[i] = dp[i - 1] + dp[i - 2]
-dp[i - 1] 表示 0开头的，长度为i-1的二进制中不包含连续1的数量 dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数量</description></item><item><title>使用rand7实现rand10</title><link>http://example.org/posts/implement_rand10_use_rand7/</link><pubDate>Sun, 05 Sep 2021 14:50:20 +0800</pubDate><guid>http://example.org/posts/implement_rand10_use_rand7/</guid><description>使用rand7实现rand10 题目：
-已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。 不要使用系统的 Math.random() 方法。 来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。 结论：
-(RAND_X - 1) * Y + RAND_Y = RAND_X*Y RAND_X*Y % Y + 1 = RAND_Y 证明结论1：
-使用rand2生成rand4
-使用 rand2_Row + rand2_Col 生成的随机数为：
-Col\Row 1 2 1 2 3 2 3 4 结果生成的范围为[2,4]
-然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CengSin PERSONAL BLOG</title><link>/posts/</link><description>Recent content in Posts on CengSin PERSONAL BLOG</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Mon, 13 Sep 2021 11:15:13 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>回旋镖的数量</title><link>/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>/posts/number_of_boomerangs/</guid><description>&lt;h1 id="回旋镖的数量">回旋镖的数量&lt;/h1>
+&lt;pre tabindex="0">&lt;code>给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。
+回旋镖 是由点 (i, j, k) 表示的元组 ，
+其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
+
+返回平面上所有回旋镖的数量。
+
+示例 1：
+
+输入：points = [[0,0],[1,0],[2,0]]
+输出：2
+解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
+示例 2：
+
+输入：points = [[1,1],[2,2],[3,3]]
+输出：2
+示例 3：
+
+输入：points = [[1,1]]
+输出：0
+&lt;/code>&lt;/pre>&lt;p>首先写一下自己的思路：本来我的思路是回旋镖中间的点到两边的点距离肯定是相同的。那么求回旋镖的数量就是
+拿到一个符合中间点到两边点相同距离的元组的数量。到考虑元组的顺序这点我开始纠结了。这里记录一下。&lt;/p>
+&lt;p>&lt;strong>元组的顺序肯定是不相同的，这里需要用到排列组合中的概念。&lt;/strong>&lt;/p>
+&lt;p>回想一下我的思路，一个点到其他两个点的距离相同。&lt;/p>
+&lt;p>Leetcode这里抽象成了到某个点距离相同的所有点的距离 m , 那么在m个点中拿出两个点与最外层点p组合成一个
+回旋镖的元组即为排列，A(2, m) = m * (m - 1)&lt;/p>
+&lt;p>看代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">numberOfBoomerangs&lt;/span>(&lt;span style="color:#a6e22e">points&lt;/span> [][]&lt;span style="color:#66d9ef">int&lt;/span>) (&lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#a6e22e">cnt&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> make(&lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">int&lt;/span>]&lt;span style="color:#66d9ef">int&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">q&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">points&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">dis&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]) &lt;span style="color:#f92672">+&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]) &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#a6e22e">q&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">cnt&lt;/span>[&lt;span style="color:#a6e22e">dis&lt;/span>] &lt;span style="color:#f92672">++&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">cnt&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#a6e22e">ans&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">*&lt;/span> (&lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ans&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>不包含连续的1的整数</title><link>/posts/non_negative_integers_without_consecutive_ones/</link><pubDate>Sun, 12 Sep 2021 15:39:42 +0800</pubDate><guid>/posts/non_negative_integers_without_consecutive_ones/</guid><description>&lt;h1 id="不包含连续的1的整数">不包含连续的1的整数&lt;/h1>
+&lt;blockquote>
+&lt;p>给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。&lt;/p>&lt;/blockquote>
+&lt;p>示例 1:&lt;/p>
+&lt;p>输入: 5&lt;/p>
+&lt;p>输出: 5&lt;/p>
+&lt;p>解释:
+下面是带有相应二进制表示的非负整数&amp;lt;= 5：&lt;/p>
+&lt;pre tabindex="0">&lt;code>0 : 0
+1 : 1
+2 : 10
+3 : 11
+4 : 100
+5 : 101
+&lt;/code>&lt;/pre>&lt;p>其中，只有整数3违反规则（有两个连续的1），其他5个满足规则。&lt;/p>
+&lt;p>说明: 1 &amp;lt;= n &amp;lt;= 10^9&lt;/p>
+&lt;p>根据题目描述，我们可以拿到1～n每个数字的二进制，然后计算二进制不包含连续的1的整数的数量，返回即可。但是
+题目中的n的取值范围为[1,10^9]，暴力肯定会超时。&lt;/p>
+&lt;p>我们要计算的是[0,n]范围内数字二进制不包含连续1的个数。&lt;/p>
+&lt;p>假设数字n的二进制位为：1001001，如何计算范围内数字二进制不包含连续1的个数？&lt;/p>
+&lt;p>首先我们假设数字开头为0，数字表示为0xxxxxx。0之后的二进制可以为1，可以为0。在这种情况下，我们唯一能够
+确定的就是，开头的0那一位。xxxxxx中有多少个不包含连续1数字呢？我们先记下这个子问题。&lt;/p>
+&lt;p>其次我们假设数字开头为1，那么1之后的二进制位必须为0。重申一下，二进制中不包含连续1的数字。那么我们可以确定
+开头的两位二进制10。那么数字可以表示为10xxxxx。xxxxx中有多少个不包含连续1的数字呢？&lt;/p>
+&lt;p>声明一个数组dp，下标i表示长度为i的二进制。&lt;strong>dp[i]表示该二进制位不包含连续的1的数量&lt;/strong>。由于
+数字的二进制的每一位不是0就是1，如果一个二进制的开头为0，那么它的的下一位就可以选择0，或者1。如果一个二
+进制的开头为1，那么它的下一位只能是0，如果是1的话就不符合题目中要求的不包含连续的1。由此可以得出：&lt;/p>
+&lt;p>dp[i] = dp[i - 1] + dp[i - 2]&lt;/p>
+&lt;p>dp[i - 1] 表示 0开头的，长度为i-1的二进制中不包含连续1的数量
+dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数量&lt;/p>
+&lt;p>终止条件为：&lt;/p></description></item><item><title>使用rand7实现rand10</title><link>/posts/implement_rand10_use_rand7/</link><pubDate>Sun, 05 Sep 2021 14:50:20 +0800</pubDate><guid>/posts/implement_rand10_use_rand7/</guid><description>&lt;h1 id="使用rand7实现rand10">使用rand7实现rand10&lt;/h1>
+&lt;p>题目：&lt;/p>
+&lt;pre tabindex="0">&lt;code>已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。
+
+不要使用系统的 Math.random() 方法。
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+&lt;/code>&lt;/pre>&lt;p>结论：&lt;/p>
+&lt;ol>
+&lt;li>(RAND_X - 1) * Y + RAND_Y = RAND_X*Y&lt;/li>
+&lt;li>RAND_X*Y % Y + 1 = RAND_Y&lt;/li>
+&lt;/ol>
+&lt;p>证明结论1：&lt;/p>
+&lt;p>使用rand2生成rand4&lt;/p>
+&lt;p>使用 rand2_Row + rand2_Col 生成的随机数为：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Col\Row&lt;/th>
+ &lt;th>1&lt;/th>
+ &lt;th>2&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>1&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>结果生成的范围为[2,4]&lt;/p>
+&lt;p>然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Col\Row&lt;/th>
+ &lt;th>0&lt;/th>
+ &lt;th>1&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>1&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。&lt;/p></description></item></channel></rss>
