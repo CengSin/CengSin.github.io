@@ -1,4 +1,114 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CengSin PERSONAL BLOG</title><link>/posts/</link><description>Recent content in Posts on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 13 Sep 2021 11:15:13 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>回旋镖的数量</title><link>/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>/posts/number_of_boomerangs/</guid><description>&lt;h1 id="回旋镖的数量">回旋镖的数量&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CengSin PERSONAL BLOG</title><link>/posts/</link><description>Recent content in Posts on CengSin PERSONAL BLOG</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Jun 2025 14:26:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</title><link>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</link><pubDate>Fri, 27 Jun 2025 14:26:00 +0800</pubDate><guid>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</guid><description>&lt;h1 id="go语言实现的apns推送服务一次稳定性问题的排查与优化实录">Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录&lt;/h1>
+&lt;p>在生产环境中部署 APNs 推送服务时，我们遇到了一个让人头疼的问题：&lt;strong>服务运行约一周后，会突然停止推送消息&lt;/strong>，且腾讯云实例的内存占用达到 100%。本文将详细记录从最初的异常现象，到最后稳定运行的整个排查与优化过程，希望对你构建稳定、高效的 Go 推送服务有所帮助。&lt;/p>
+&lt;hr>
+&lt;h2 id="一问题现象与初步排查">一、问题现象与初步排查&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>初始配置&lt;/strong>：服务启动时会根据配置创建 &lt;code>200 个 httpClient&lt;/code>，每个 client 启动 &lt;code>400 个 goroutine&lt;/code>，总计约 &lt;strong>8 万个 goroutine&lt;/strong>。&lt;/li>
+&lt;li>&lt;strong>问题表现&lt;/strong>：服务运行一周左右后 &lt;strong>完全停止推送&lt;/strong>，同时腾讯云实例内存占用达到 &lt;strong>100%&lt;/strong>。&lt;/li>
+&lt;li>&lt;strong>第一步尝试&lt;/strong>：简单地提升云主机内存，但问题并未解决，&lt;strong>仅仅延后了推送停滞的时间&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="二深入阅读源码找出并发模型的问题">二、深入阅读源码，找出并发模型的问题&lt;/h2>
+&lt;ul>
+&lt;li>阅读代码后发现，每个 HTTP client 会配套启动 goroutine 队列，导致 goroutine 数量极度膨胀。&lt;/li>
+&lt;li>初步怀疑 goroutine 与连接数的组合导致了内存膨胀与资源抢占。&lt;/li>
+&lt;/ul>
+&lt;h3 id="-动作调整配置">🔧 动作：调整配置&lt;/h3>
+&lt;ul>
+&lt;li>将配置修改为：&lt;code>10 个 httpClient&lt;/code>，每个 client 启动 &lt;code>100 个 goroutine&lt;/code>。&lt;/li>
+&lt;li>&lt;strong>效果&lt;/strong>：内存占用明显降低，但 &lt;strong>推送停止问题依然存在&lt;/strong>，只是&lt;strong>发生时间变长了&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="三提高日志等级捕获-apns-的-goaway-信号">三、提高日志等级，捕获 APNs 的 GOAWAY 信号&lt;/h2>
+&lt;ul>
+&lt;li>将日志级别调为 &lt;code>Error&lt;/code>，观察关键错误。&lt;/li>
+&lt;li>发现日志中频繁出现：&lt;code>http2: received GOAWAY&lt;/code> 的错误。&lt;/li>
+&lt;/ul>
+&lt;h3 id="-理解-goaway">🧠 理解 GOAWAY：&lt;/h3>
+&lt;ul>
+&lt;li>GOAWAY 是 HTTP/2 协议中服务端通知关闭连接的帧。&lt;/li>
+&lt;li>APNs 服务器可能因&lt;strong>连接使用过度&lt;/strong>或&lt;strong>资源占用过多&lt;/strong>而主动断开。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="四实现连接重建逻辑">四、实现连接重建逻辑&lt;/h2>
+&lt;h3 id="-初步方案">🛠 初步方案：&lt;/h3>
+&lt;ul>
+&lt;li>在捕获到 &lt;code>http2.GoAwayError&lt;/code> 时，调用 &lt;code>replaceTransport()&lt;/code> 逻辑，重建 HTTP 客户端连接。&lt;/li>
+&lt;/ul>
+&lt;h3 id="-遇到问题">🐞 遇到问题：&lt;/h3>
+&lt;ul>
+&lt;li>日志中发现：&lt;code>interface conversion: error is *errors.errorString, not http2.GoAwayError&lt;/code>&lt;/li>
+&lt;li>原因是代码错误地将 &lt;code>error&lt;/code> 类型直接断言为 &lt;code>http2.GoAwayError&lt;/code>，导致 panic。&lt;/li>
+&lt;/ul>
+&lt;h3 id="-修复方式">✅ 修复方式：&lt;/h3>
+&lt;p>使用 &lt;code>errors.As()&lt;/code> 安全判断底层错误类型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">goAwayErr&lt;/span> &lt;span style="color:#a6e22e">http2&lt;/span>.&lt;span style="color:#a6e22e">GoAwayError&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">errors&lt;/span>.&lt;span style="color:#a6e22e">As&lt;/span>(&lt;span style="color:#a6e22e">e&lt;/span>.&lt;span style="color:#a6e22e">Err&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">goAwayErr&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// 正确捕获 GOAWAY 错误&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">replaceHttpClient&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="-发布后验证">🟢 发布后验证：&lt;/h3>
+&lt;ul>
+&lt;li>日志中确认 &lt;code>replaceTransport()&lt;/code> 被触发。&lt;/li>
+&lt;li>GOAWAY 后能自动重连，服务持续运行未中断。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="五当前配置与运行状态">五、当前配置与运行状态&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>httpClient 数量&lt;/strong>：50&lt;/li>
+&lt;li>&lt;strong>每个 Client goroutine 数量&lt;/strong>：200&lt;/li>
+&lt;li>&lt;strong>状态&lt;/strong>：服务稳定运行，内存占用合理，GOAWAY 可自愈处理。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="六后续优化建议">六、后续优化建议&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>优化方向&lt;/th>
+&lt;th>建议&lt;/th>
+&lt;th>目的&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>连接池管理&lt;/td>
+&lt;td>- 统一使用 &lt;code>http.Transport&lt;/code>，设置 &lt;code>MaxIdleConnsPerHost&lt;/code> 充足&lt;!-- raw HTML omitted -->- 避免每个 client 自建 Transport&lt;/td>
+&lt;td>提升连接复用率，减少建连开销&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>并发动态调整&lt;/td>
+&lt;td>- 监控 GOAWAY、重试次数&lt;!-- raw HTML omitted -->- 高负载时自动降并发&lt;/td>
+&lt;td>降低 APNs 断连接概率&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>内存与 GC 监控&lt;/td>
+&lt;td>- 启用 &lt;code>pprof&lt;/code>&lt;!-- raw HTML omitted -->- 定期抓取堆快照&lt;/td>
+&lt;td>及时发现 goroutine 或对象泄漏&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>错误分类重试&lt;/td>
+&lt;td>- 区分 GOAWAY / 网络失败 / 非重试错误&lt;/td>
+&lt;td>提高重试成功率、减少资源浪费&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>指标监控告警&lt;/td>
+&lt;td>- 集成 Prometheus/Grafana&lt;!-- raw HTML omitted -->- 监控连接数、错误率、推送成功率等&lt;/td>
+&lt;td>快速发现问题趋势，防患未然&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="七小结">七、小结&lt;/h2>
+&lt;p>通过本次稳定性问题的排查，你已经：&lt;/p>
+&lt;ul>
+&lt;li>识别出 goroutine 与内存暴涨之间的因果关系；&lt;/li>
+&lt;li>正确理解并处理了 HTTP/2 的 GOAWAY 机制；&lt;/li>
+&lt;li>用日志 + 错误类型匹配的方式，实现了连接重建的自愈逻辑；&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>稳定的系统不是不出错，而是能&lt;strong>及时感知和快速恢复&lt;/strong>。这次经历非常有代表性，也为你构建更健壮的推送服务打下了基础。&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>如果你有类似服务，也欢迎参考这份经验流程，或与我交流进一步的系统设计和优化策略。&lt;/p></description></item><item><title>回旋镖的数量</title><link>/posts/number_of_boomerangs/</link><pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate><guid>/posts/number_of_boomerangs/</guid><description>&lt;h1 id="回旋镖的数量">回旋镖的数量&lt;/h1>
 &lt;pre tabindex="0">&lt;code>给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。
 回旋镖 是由点 (i, j, k) 表示的元组 ，
 其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
