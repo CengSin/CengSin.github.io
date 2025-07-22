@@ -46,6 +46,21 @@
 &lt;p>国产的“优衣库”式品牌，将不再是例外，而是新常态。&lt;/p></description></item><item><title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</title><link>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</link><pubDate>Fri, 27 Jun 2025 14:26:00 +0800</pubDate><guid>/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</guid><description>&lt;h1 id="go语言实现的apns推送服务一次稳定性问题的排查与优化实录">Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录&lt;/h1>
 &lt;p>在生产环境中部署 APNs 推送服务时，我们遇到了一个让人头疼的问题：&lt;strong>服务运行约一周后，会突然停止推送消息&lt;/strong>，且腾讯云实例的内存占用达到 100%。本文将详细记录从最初的异常现象，到最后稳定运行的整个排查与优化过程，希望对你构建稳定、高效的 Go 推送服务有所帮助。&lt;/p>
 &lt;hr>
+&lt;h2 id="异步问题">异步问题&lt;/h2>
+&lt;p>生产环境下，程序运行约一周后推送功能会失效。梳理相关代码流程如下：&lt;/p>
+&lt;p>生产者将消息放入队列A，Consumer-A消费后同步将响应写入队列B。Consumer-B同步消费队列B，将推送结果写入缓存，随后通过定时任务批量保存到数据库。&lt;/p>
+&lt;p>问题出在队列B：高峰期Consumer-B消费速度慢于Consumer-A，导致队列B被填满。此时，推送响应阻塞在写入队列B的操作上，程序不断创建新的goroutine，最终内存耗尽导致服务崩溃。&lt;/p>
+&lt;h3 id="优化">优化&lt;/h3>
+&lt;p>简化代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> &lt;span style="color:#e6db74">&amp;#34;time&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 优化塞入消费队列B的操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">select&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">case&lt;/span> &lt;span style="color:#a6e22e">channelB&lt;/span> &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">data&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">case&lt;/span> &lt;span style="color:#f92672">&amp;lt;-&lt;/span>&lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">After&lt;/span>(&lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Second&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样，当channelB已满时，1秒超时后直接丢弃响应，避免Consumer-A因阻塞而无限制创建goroutine。&lt;/p>
 &lt;h2 id="一问题现象与初步排查">一、问题现象与初步排查&lt;/h2>
 &lt;ul>
 &lt;li>&lt;strong>初始配置&lt;/strong>：服务启动时会根据配置创建 &lt;code>200 个 httpClient&lt;/code>，每个 client 启动 &lt;code>400 个 goroutine&lt;/code>，总计约 &lt;strong>8 万个 goroutine&lt;/strong>。&lt;/li>
