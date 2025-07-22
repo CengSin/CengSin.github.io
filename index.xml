@@ -423,4 +423,23 @@ dp[1] = 2&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title/><link>/posts/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/posts/readme/</guid><description>&lt;h1 id="contentposts-目录说明">content/posts 目录说明&lt;/h1>
+&lt;p>本目录用于存放所有博客文章的 Markdown 源文件。&lt;/p>
+&lt;h2 id="结构说明">结构说明&lt;/h2>
+&lt;ul>
+&lt;li>每篇文章为一个独立的 &lt;code>.md&lt;/code> 文件，文件名建议使用简明的中文或英文标题。&lt;/li>
+&lt;li>支持多级子目录分类（如有需要，可按主题、年份等划分）。&lt;/li>
+&lt;/ul>
+&lt;h2 id="写作建议">写作建议&lt;/h2>
+&lt;ul>
+&lt;li>使用&lt;code>hugo new content/posts/title.md&lt;/code>创建新的文件&lt;/li>
+&lt;li>文件头部需包含 Hugo 兼容的 Front Matter（如 title、date、draft 等）。&lt;/li>
+&lt;li>推荐使用 Markdown 标准语法，便于后续迁移和格式统一。&lt;/li>
+&lt;li>文章内容应结构清晰，适当分段，便于阅读。&lt;/li>
+&lt;li>技术类文章建议配合代码块、表格、列表等增强可读性。&lt;/li>
+&lt;/ul>
+&lt;h2 id="其他说明">其他说明&lt;/h2>
+&lt;ul>
+&lt;li>请勿存放非文章类文件（如图片、附件等），统一放置于 &lt;code>static&lt;/code> 或其他专用目录。&lt;/li>
+&lt;li>如需协作，请遵循统一的命名和排版规范。&lt;/li>
+&lt;/ul></description></item></channel></rss>
