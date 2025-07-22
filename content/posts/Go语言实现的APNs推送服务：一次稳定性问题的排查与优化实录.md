@@ -10,6 +10,31 @@ draft: false
 
 ---
 
+## 异步问题
+
+生产环境下，程序运行约一周后推送功能会失效。梳理相关代码流程如下：
+
+生产者将消息放入队列A，Consumer-A消费后同步将响应写入队列B。Consumer-B同步消费队列B，将推送结果写入缓存，随后通过定时任务批量保存到数据库。
+
+问题出在队列B：高峰期Consumer-B消费速度慢于Consumer-A，导致队列B被填满。此时，推送响应阻塞在写入队列B的操作上，程序不断创建新的goroutine，最终内存耗尽导致服务崩溃。
+
+### 优化
+
+简化代码如下：
+
+```go
+import "time"
+
+// 优化塞入消费队列B的操作
+select {
+    case channelB <- data:
+    case <-time.After(time.Second):
+        return
+}
+```
+
+这样，当channelB已满时，1秒超时后直接丢弃响应，避免Consumer-A因阻塞而无限制创建goroutine。
+
 ## 一、问题现象与初步排查
 
 * **初始配置**：服务启动时会根据配置创建 `200 个 httpClient`，每个 client 启动 `400 个 goroutine`，总计约 **8 万个 goroutine**。
