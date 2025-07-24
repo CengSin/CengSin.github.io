@@ -1,19 +1,609 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
-    <link>http://example.org/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <title>CengSin PERSONAL BLOG</title>
+    <link>//localhost:1313/</link>
+    <description>Recent content on CengSin PERSONAL BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 22 Jul 2021 14:21:14 +0800</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 Jun 2025 20:16:02 +0800</lastBuildDate>
+    
+	<atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>从小米YU7爆火看如今国内的品牌现状</title>
+      <link>//localhost:1313/posts/%E4%BB%8E%E5%B0%8F%E7%B1%B3yu7%E7%88%86%E7%81%AB%E7%9C%8B%E5%A6%82%E4%BB%8A%E5%9B%BD%E5%86%85%E7%9A%84%E5%93%81%E7%89%8C%E7%8E%B0%E7%8A%B6/</link>
+      <pubDate>Fri, 27 Jun 2025 20:16:02 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/%E4%BB%8E%E5%B0%8F%E7%B1%B3yu7%E7%88%86%E7%81%AB%E7%9C%8B%E5%A6%82%E4%BB%8A%E5%9B%BD%E5%86%85%E7%9A%84%E5%93%81%E7%89%8C%E7%8E%B0%E7%8A%B6/</guid>
+      <description>&lt;h1 id=&#34;原版&#34;&gt;原版&lt;/h1&gt;
+&lt;h2 id=&#34;从小米yu7爆火看国产品牌的真实现状&#34;&gt;从小米YU7爆火，看国产品牌的真实现状&lt;/h2&gt;
+&lt;h3 id=&#34;3分钟大定200000这个世界好像只有我在消费降级吗&#34;&gt;“3分钟大定200000，这个世界好像只有我在消费降级吗？”&lt;/h3&gt;
+&lt;p&gt;小米汽车的评论区最多的就是这句话。2025年国内经济低速增长的情况下，小米汽车的爆火揭示了中国市场正在悄然发生的变化。&lt;/p&gt;
+&lt;h3 id=&#34;混乱的市场&#34;&gt;混乱的市场&lt;/h3&gt;
+&lt;p&gt;90后、00后出了社会总是有种上当的感觉，各种付费商品的体验总是不舒服。从进入门店开始，销售的眼光、言语、各种套餐、名词层出不同。非要把你绕晕了、忘记自己最开始需求，付钱购买了好像和需求差了那么一点的商品，然后走出去。售后？这种服务根本不存在。只有闹事才能维护自己的权益。&lt;/p&gt;
+&lt;p&gt;但是就是这样的服务充斥着早些年的中国市场，去哪都一样，说不准还有强买强卖的事情发生。&lt;/p&gt;
+&lt;h3 id=&#34;淘宝小米蜜雪冰城&#34;&gt;淘宝、小米、蜜雪冰城&lt;/h3&gt;
+&lt;p&gt;这三家应该是透明、品质、售后这些名词的市场实体代表。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;良好的品质、透明的价格、省心的售后&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;淘宝这类电商直接打击了电器城，电器城的衰落就是中国市场从混乱走向透明、品质、售后的开始&lt;/p&gt;
+&lt;p&gt;小米通过“性价比”确定了自己的市场地位，只不过当时经济是一个快速发展的过程，这是的「性价比」更不被“吃满了时代红利，满嘴流油”的用户接受。“屌丝、性价比、低价”成为了小米的标签。&lt;/p&gt;
+&lt;p&gt;蜜雪冰城通过“低价高质”在河南萌芽，之后通过大量加盟、同时保证价格和品质的上限和下限在短时间内迅速成为了国内茶饮行业的老大。同样在“满嘴流油”的时代，蜜雪冰城也是“屌丝”这类形容边缘型群体的标签。&lt;/p&gt;
+&lt;h3 id=&#34;质量决定市场的时代&#34;&gt;质量决定市场的时代&lt;/h3&gt;
+&lt;p&gt;淘宝的产品是购物体验，商品品质以及售后保证。&lt;/p&gt;
+&lt;p&gt;小米的产品是良好的品质、透明的价格以及售后保证。&lt;/p&gt;
+&lt;p&gt;蜜雪冰城的产品是雪王形象、物流链路和原料品质，人员培训。&lt;/p&gt;
+&lt;p&gt;在现在的经济环境下，90后、00后还没挣到钱就先被社会给上了好几课。过去那些「高级、小众」如今也变成了「噶韭菜」，消费市场已经从「情绪和服务决定价格」转变到了「质量和售后决定价格」的市场。未来市场中一味用「高级」来标榜自己的品牌会丧失自己在自由市场的地位，而「品质」的品牌会加速扩大自己的市场。&lt;/p&gt;
+&lt;p&gt;中国的“优衣库”们将会在未来的市场出现，并且走向世界。&lt;/p&gt;
+&lt;h1 id=&#34;chatgpt修改版本&#34;&gt;ChatGPT修改版本&lt;/h1&gt;
+&lt;h2 id=&#34;从小米yu7爆火看国产品牌的真实现状-1&#34;&gt;从小米YU7爆火，看国产品牌的真实现状&lt;/h2&gt;
+&lt;h3 id=&#34;3分钟大定20万这个世界只有我在消费降级吗&#34;&gt;“3分钟大定20万，这个世界只有我在消费降级吗？”&lt;/h3&gt;
+&lt;p&gt;小米汽车发布当天，评论区里这句高赞留言反映出一个鲜明对比：在2025年整体经济放缓的大背景下，小米YU7却逆势爆火，似乎揭示出消费市场中正在悄然发生的结构性变化。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;从糊涂消费到理性选择&#34;&gt;从“糊涂消费”到“理性选择”&lt;/h3&gt;
+&lt;p&gt;90后、00后走入社会后，普遍有种“总在被坑”的感受。线下消费从踏入门店那一刻起，就被复杂的销售话术、价格套路、隐藏成本所包围。最终付钱的，常常不是自己真正需要的，而是被“绕晕”后的妥协。更糟的是，出了问题想维权，售后几乎等于摆设，只有闹才有回应。&lt;/p&gt;
+&lt;p&gt;这种“卖方为王”、服务混乱的市场，在十多年前的中国几乎无处不在。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;淘宝小米蜜雪冰城理性消费的样板&#34;&gt;淘宝、小米、蜜雪冰城：理性消费的样板&lt;/h3&gt;
+&lt;p&gt;在这样的背景下，淘宝、小米、蜜雪冰城三者，是“透明、品质、售后”理念落地的先行者：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;他们不是在卖产品，而是在重塑消费者的信任。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;淘宝带来了价格公开、比价便利、售后保障，直接终结了“电器城”模式的生存空间，开启了透明化消费的时代。&lt;/p&gt;
+&lt;p&gt;小米凭借“性价比”迅速崛起，但当时处于高速增长的经济阶段，许多中产并不买账，小米一度被贴上“屌丝”“低端”的标签。&lt;/p&gt;
+&lt;p&gt;蜜雪冰城以“低价高质”在河南发芽，通过标准化加盟体系，既压住了价格下限，也守住了品质上限，迅速拿下国内茶饮市场的头部地位。它的成功，曾同样被人视为“屌丝文化”的代表。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;品质是新的高级感&#34;&gt;品质是新的“高级感”&lt;/h3&gt;
+&lt;p&gt;今天的90后、00后没有赶上资产和工资齐飞的年代，反而在各种“收割”中学会了精明。他们不再相信“高级”=“值得买”，而是将注意力转向了“质量”和“售后”。&lt;/p&gt;
+&lt;p&gt;现在的品牌竞争，已经从“讲故事”变成了“做实事”。&lt;/p&gt;
+&lt;p&gt;淘宝、小米、蜜雪冰城成功的本质，是对“消费体验”的精准把控：从商品品质到售后流程，从价格透明到运营形象，每个环节都在打磨可信度。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;未来的国产品牌将走向何方&#34;&gt;未来的国产品牌，将走向何方？&lt;/h3&gt;
+&lt;p&gt;曾经靠“调性”“概念”打动人的品牌，如今正陷入增长瓶颈。而那些脚踏实地、注重产品和服务体验的企业，却在逐步赢得市场。&lt;/p&gt;
+&lt;p&gt;中国消费者越来越理性：不盲目追求奢华，但极度重视性价比和可靠性。&lt;/p&gt;
+&lt;p&gt;国产的“优衣库”式品牌，将不再是例外，而是新常态。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</title>
+      <link>//localhost:1313/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</link>
+      <pubDate>Fri, 27 Jun 2025 14:26:00 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/</guid>
+      <description>&lt;h1 id=&#34;go语言实现的apns推送服务一次稳定性问题的排查与优化实录&#34;&gt;Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录&lt;/h1&gt;
+&lt;p&gt;在生产环境中部署 APNs 推送服务时，我们遇到了一个让人头疼的问题：&lt;strong&gt;服务运行约一周后，会突然停止推送消息&lt;/strong&gt;，且腾讯云实例的内存占用达到 100%。本文将详细记录从最初的异常现象，到最后稳定运行的整个排查与优化过程，希望对你构建稳定、高效的 Go 推送服务有所帮助。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;异步问题&#34;&gt;异步问题&lt;/h2&gt;
+&lt;p&gt;生产环境下，程序运行约一周后推送功能会失效。梳理相关代码流程如下：&lt;/p&gt;
+&lt;p&gt;生产者将消息放入队列A，Consumer-A消费后同步将响应写入队列B。Consumer-B同步消费队列B，将推送结果写入缓存，随后通过定时任务批量保存到数据库。&lt;/p&gt;
+&lt;p&gt;问题出在队列B：高峰期Consumer-B消费速度慢于Consumer-A，导致队列B被填满。此时，推送响应阻塞在写入队列B的操作上，程序不断创建新的goroutine，最终内存耗尽导致服务崩溃。&lt;/p&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;p&gt;简化代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 优化塞入消费队列B的操作&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;channelB&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;After&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Second&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样，当channelB已满时，1秒超时后直接丢弃响应，避免Consumer-A因阻塞而无限制创建goroutine。&lt;/p&gt;
+&lt;h2 id=&#34;一问题现象与初步排查&#34;&gt;一、问题现象与初步排查&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;初始配置&lt;/strong&gt;：服务启动时会根据配置创建 &lt;code&gt;200 个 httpClient&lt;/code&gt;，每个 client 启动 &lt;code&gt;400 个 goroutine&lt;/code&gt;，总计约 &lt;strong&gt;8 万个 goroutine&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;问题表现&lt;/strong&gt;：服务运行一周左右后 &lt;strong&gt;完全停止推送&lt;/strong&gt;，同时腾讯云实例内存占用达到 &lt;strong&gt;100%&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;第一步尝试&lt;/strong&gt;：简单地提升云主机内存，但问题并未解决，&lt;strong&gt;仅仅延后了推送停滞的时间&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二深入阅读源码找出并发模型的问题&#34;&gt;二、深入阅读源码，找出并发模型的问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;阅读代码后发现，每个 HTTP client 会配套启动 goroutine 队列，导致 goroutine 数量极度膨胀。&lt;/li&gt;
+&lt;li&gt;初步怀疑 goroutine 与连接数的组合导致了内存膨胀与资源抢占。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-动作调整配置&#34;&gt;🔧 动作：调整配置&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将配置修改为：&lt;code&gt;10 个 httpClient&lt;/code&gt;，每个 client 启动 &lt;code&gt;100 个 goroutine&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效果&lt;/strong&gt;：内存占用明显降低，但 &lt;strong&gt;推送停止问题依然存在&lt;/strong&gt;，只是&lt;strong&gt;发生时间变长了&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三提高日志等级捕获-apns-的-goaway-信号&#34;&gt;三、提高日志等级，捕获 APNs 的 GOAWAY 信号&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;将日志级别调为 &lt;code&gt;Error&lt;/code&gt;，观察关键错误。&lt;/li&gt;
+&lt;li&gt;发现日志中频繁出现：&lt;code&gt;http2: received GOAWAY&lt;/code&gt; 的错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-理解-goaway&#34;&gt;🧠 理解 GOAWAY：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;GOAWAY 是 HTTP/2 协议中服务端通知关闭连接的帧。&lt;/li&gt;
+&lt;li&gt;APNs 服务器可能因&lt;strong&gt;连接使用过度&lt;/strong&gt;或&lt;strong&gt;资源占用过多&lt;/strong&gt;而主动断开。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;四实现连接重建逻辑&#34;&gt;四、实现连接重建逻辑&lt;/h2&gt;
+&lt;h3 id=&#34;-初步方案&#34;&gt;🛠 初步方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;在捕获到 &lt;code&gt;http2.GoAwayError&lt;/code&gt; 时，调用 &lt;code&gt;replaceTransport()&lt;/code&gt; 逻辑，重建 HTTP 客户端连接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-遇到问题&#34;&gt;🐞 遇到问题：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;日志中发现：&lt;code&gt;interface conversion: error is *errors.errorString, not http2.GoAwayError&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;原因是代码错误地将 &lt;code&gt;error&lt;/code&gt; 类型直接断言为 &lt;code&gt;http2.GoAwayError&lt;/code&gt;，导致 panic。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-修复方式&#34;&gt;✅ 修复方式：&lt;/h3&gt;
+&lt;p&gt;使用 &lt;code&gt;errors.As()&lt;/code&gt; 安全判断底层错误类型：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;goAwayErr&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http2&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;GoAwayError&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;errors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;As&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Err&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;goAwayErr&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 正确捕获 GOAWAY 错误&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;replaceHttpClient&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;-发布后验证&#34;&gt;🟢 发布后验证：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;日志中确认 &lt;code&gt;replaceTransport()&lt;/code&gt; 被触发。&lt;/li&gt;
+&lt;li&gt;GOAWAY 后能自动重连，服务持续运行未中断。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五当前配置与运行状态&#34;&gt;五、当前配置与运行状态&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;httpClient 数量&lt;/strong&gt;：50&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;每个 Client goroutine 数量&lt;/strong&gt;：200&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;状态&lt;/strong&gt;：服务稳定运行，内存占用合理，GOAWAY 可自愈处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;六后续优化建议&#34;&gt;六、后续优化建议&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;优化方向&lt;/th&gt;
+          &lt;th&gt;建议&lt;/th&gt;
+          &lt;th&gt;目的&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;连接池管理&lt;/td&gt;
+          &lt;td&gt;- 统一使用 &lt;code&gt;http.Transport&lt;/code&gt;，设置 &lt;code&gt;MaxIdleConnsPerHost&lt;/code&gt; 充足&lt;!-- raw HTML omitted --&gt;- 避免每个 client 自建 Transport&lt;/td&gt;
+          &lt;td&gt;提升连接复用率，减少建连开销&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;并发动态调整&lt;/td&gt;
+          &lt;td&gt;- 监控 GOAWAY、重试次数&lt;!-- raw HTML omitted --&gt;- 高负载时自动降并发&lt;/td&gt;
+          &lt;td&gt;降低 APNs 断连接概率&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;内存与 GC 监控&lt;/td&gt;
+          &lt;td&gt;- 启用 &lt;code&gt;pprof&lt;/code&gt;&lt;!-- raw HTML omitted --&gt;- 定期抓取堆快照&lt;/td&gt;
+          &lt;td&gt;及时发现 goroutine 或对象泄漏&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;错误分类重试&lt;/td&gt;
+          &lt;td&gt;- 区分 GOAWAY / 网络失败 / 非重试错误&lt;/td&gt;
+          &lt;td&gt;提高重试成功率、减少资源浪费&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;指标监控告警&lt;/td&gt;
+          &lt;td&gt;- 集成 Prometheus/Grafana&lt;!-- raw HTML omitted --&gt;- 监控连接数、错误率、推送成功率等&lt;/td&gt;
+          &lt;td&gt;快速发现问题趋势，防患未然&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;七小结&#34;&gt;七、小结&lt;/h2&gt;
+&lt;p&gt;通过本次稳定性问题的排查，你已经：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;识别出 goroutine 与内存暴涨之间的因果关系；&lt;/li&gt;
+&lt;li&gt;正确理解并处理了 HTTP/2 的 GOAWAY 机制；&lt;/li&gt;
+&lt;li&gt;用日志 + 错误类型匹配的方式，实现了连接重建的自愈逻辑；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;稳定的系统不是不出错，而是能&lt;strong&gt;及时感知和快速恢复&lt;/strong&gt;。这次经历非常有代表性，也为你构建更健壮的推送服务打下了基础。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;如果你有类似服务，也欢迎参考这份经验流程，或与我交流进一步的系统设计和优化策略。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>个人简历</title>
+      <link>//localhost:1313/resume/</link>
+      <pubDate>Mon, 27 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/resume/</guid>
+      <description>&lt;h1 id=&#34;张三&#34;&gt;张三&lt;/h1&gt;
+&lt;h2 id=&#34;高级前端开发工程师&#34;&gt;高级前端开发工程师&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;联系方式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📧 邮箱：zhangsan@example.com&lt;/li&gt;
+&lt;li&gt;📱 电话：+86 138-0000-0000&lt;/li&gt;
+&lt;li&gt;📍 地址：北京，中国&lt;/li&gt;
+&lt;li&gt;🌐 网站：https://cengsin.github.io&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;个人简介&#34;&gt;个人简介&lt;/h2&gt;
+&lt;p&gt;拥有5年以上前端开发经验的工程师，精通React、Vue、TypeScript等现代前端技术栈。热衷于创建高质量的用户界面和优化用户体验，具备良好的团队协作能力和项目管理经验。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;工作经验&#34;&gt;工作经验&lt;/h2&gt;
+&lt;h3 id=&#34;高级前端开发工程师--科技有限公司&#34;&gt;高级前端开发工程师 | 科技有限公司&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;2022.03 - 至今 | 北京&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责公司核心产品的前端架构设计和开发，使用React + TypeScript技术栈&lt;/li&gt;
+&lt;li&gt;优化应用性能，首屏加载时间减少40%，用户体验显著提升&lt;/li&gt;
+&lt;li&gt;建立前端开发规范和代码审查流程，提高团队开发效率&lt;/li&gt;
+&lt;li&gt;指导初级开发人员，协助团队技术成长&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;前端开发工程师--互联网科技公司&#34;&gt;前端开发工程师 | 互联网科技公司&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;2020.06 - 2022.02 | 上海&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参与多个大型B端产品的开发，负责核心业务模块的实现&lt;/li&gt;
+&lt;li&gt;使用Vue.js + Element UI开发企业级管理系统&lt;/li&gt;
+&lt;li&gt;配合UI设计师实现复杂的交互效果和动画&lt;/li&gt;
+&lt;li&gt;参与移动端H5页面的开发和微信小程序开发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;前端开发工程师--创业公司&#34;&gt;前端开发工程师 | 创业公司&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;2019.07 - 2020.05 | 深圳&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从0到1参与公司产品的前端开发，快速迭代和上线&lt;/li&gt;
+&lt;li&gt;负责响应式网站的开发，确保在各种设备上的良好体验&lt;/li&gt;
+&lt;li&gt;与后端工程师紧密配合，制定API接口规范&lt;/li&gt;
+&lt;li&gt;使用现代化的前端工具链，提高开发效率&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;专业技能&#34;&gt;专业技能&lt;/h2&gt;
+&lt;h3 id=&#34;前端技术&#34;&gt;前端技术&lt;/h3&gt;
+&lt;p&gt;React, Vue.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Sass/Less&lt;/p&gt;
+&lt;h3 id=&#34;开发工具&#34;&gt;开发工具&lt;/h3&gt;
+&lt;p&gt;Git, Webpack, Vite, ESLint, Prettier, VS Code, Chrome DevTools&lt;/p&gt;
+&lt;h3 id=&#34;ui框架&#34;&gt;UI框架&lt;/h3&gt;
+&lt;p&gt;Ant Design, Element UI, Material-UI, Tailwind CSS, Bootstrap&lt;/p&gt;
+&lt;h3 id=&#34;其他技能&#34;&gt;其他技能&lt;/h3&gt;
+&lt;p&gt;Node.js, Express, MongoDB, RESTful API, GraphQL, Docker&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;项目经历&#34;&gt;项目经历&lt;/h2&gt;
+&lt;h3 id=&#34;企业级数据分析平台&#34;&gt;企业级数据分析平台&lt;/h3&gt;
+&lt;p&gt;为大型企业开发的数据可视化和分析平台，支持多维度数据展示和实时监控。使用React + D3.js构建，支持自定义图表和仪表板。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;技术栈：&lt;/strong&gt; React, TypeScript, D3.js, Ant Design, ECharts&lt;/p&gt;
+&lt;h3 id=&#34;电商管理系统&#34;&gt;电商管理系统&lt;/h3&gt;
+&lt;p&gt;完整的电商后台管理系统，包含商品管理、订单处理、用户管理、数据统计等功能。采用微前端架构，支持模块化开发。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;技术栈：&lt;/strong&gt; Vue.js, Element UI, Vuex, Vue Router, Axios&lt;/p&gt;
+&lt;h3 id=&#34;移动端h5营销页面&#34;&gt;移动端H5营销页面&lt;/h3&gt;
+&lt;p&gt;为多个营销活动开发的移动端H5页面，包含抽奖、问卷调查、产品展示等功能。注重用户体验和转化率优化。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;技术栈：&lt;/strong&gt; React, Styled Components, Framer Motion, PWA&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;教育背景&#34;&gt;教育背景&lt;/h2&gt;
+&lt;h3 id=&#34;北京理工大学&#34;&gt;北京理工大学&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;计算机科学与技术 学士学位&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;2015.09 - 2019.06 | 北京&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;GPA: 3.8/4.0&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;最后更新：2025年1月&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>回旋镖的数量</title>
+      <link>//localhost:1313/posts/number_of_boomerangs/</link>
+      <pubDate>Mon, 13 Sep 2021 11:15:13 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/number_of_boomerangs/</guid>
+      <description>&lt;h1 id=&#34;回旋镖的数量&#34;&gt;回旋镖的数量&lt;/h1&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。
+回旋镖 是由点 (i, j, k) 表示的元组 ，
+其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
+
+返回平面上所有回旋镖的数量。
+
+示例 1：
+
+输入：points = [[0,0],[1,0],[2,0]]
+输出：2
+解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
+示例 2：
+
+输入：points = [[1,1],[2,2],[3,3]]
+输出：2
+示例 3：
+
+输入：points = [[1,1]]
+输出：0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;首先写一下自己的思路：本来我的思路是回旋镖中间的点到两边的点距离肯定是相同的。那么求回旋镖的数量就是
+拿到一个符合中间点到两边点相同距离的元组的数量。到考虑元组的顺序这点我开始纠结了。这里记录一下。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;元组的顺序肯定是不相同的，这里需要用到排列组合中的概念。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;回想一下我的思路，一个点到其他两个点的距离相同。&lt;/p&gt;
+&lt;p&gt;Leetcode这里抽象成了到某个点距离相同的所有点的距离 m , 那么在m个点中拿出两个点与最外层点p组合成一个
+回旋镖的元组即为排列，A(2, m) = m * (m - 1)&lt;/p&gt;
+&lt;p&gt;看代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;numberOfBoomerangs&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;points&lt;/span&gt; [][]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) (&lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;points&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#a6e22e&#34;&gt;cnt&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make(&lt;span style=&#34;color:#66d9ef&#34;&gt;map&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;points&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;dis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;cnt&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;dis&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cnt&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>不包含连续的1的整数</title>
+      <link>//localhost:1313/posts/non_negative_integers_without_consecutive_ones/</link>
+      <pubDate>Sun, 12 Sep 2021 15:39:42 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/non_negative_integers_without_consecutive_ones/</guid>
+      <description>&lt;h1 id=&#34;不包含连续的1的整数&#34;&gt;不包含连续的1的整数&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;示例 1:&lt;/p&gt;
+&lt;p&gt;输入: 5&lt;/p&gt;
+&lt;p&gt;输出: 5&lt;/p&gt;
+&lt;p&gt;解释:
+下面是带有相应二进制表示的非负整数&amp;lt;= 5：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;0 : 0
+1 : 1
+2 : 10
+3 : 11
+4 : 100
+5 : 101
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中，只有整数3违反规则（有两个连续的1），其他5个满足规则。&lt;/p&gt;
+&lt;p&gt;说明: 1 &amp;lt;= n &amp;lt;= 10^9&lt;/p&gt;
+&lt;p&gt;根据题目描述，我们可以拿到1～n每个数字的二进制，然后计算二进制不包含连续的1的整数的数量，返回即可。但是
+题目中的n的取值范围为[1,10^9]，暴力肯定会超时。&lt;/p&gt;
+&lt;p&gt;我们要计算的是[0,n]范围内数字二进制不包含连续1的个数。&lt;/p&gt;
+&lt;p&gt;假设数字n的二进制位为：1001001，如何计算范围内数字二进制不包含连续1的个数？&lt;/p&gt;
+&lt;p&gt;首先我们假设数字开头为0，数字表示为0xxxxxx。0之后的二进制可以为1，可以为0。在这种情况下，我们唯一能够
+确定的就是，开头的0那一位。xxxxxx中有多少个不包含连续1数字呢？我们先记下这个子问题。&lt;/p&gt;
+&lt;p&gt;其次我们假设数字开头为1，那么1之后的二进制位必须为0。重申一下，二进制中不包含连续1的数字。那么我们可以确定
+开头的两位二进制10。那么数字可以表示为10xxxxx。xxxxx中有多少个不包含连续1的数字呢？&lt;/p&gt;
+&lt;p&gt;声明一个数组dp，下标i表示长度为i的二进制。&lt;strong&gt;dp[i]表示该二进制位不包含连续的1的数量&lt;/strong&gt;。由于
+数字的二进制的每一位不是0就是1，如果一个二进制的开头为0，那么它的的下一位就可以选择0，或者1。如果一个二
+进制的开头为1，那么它的下一位只能是0，如果是1的话就不符合题目中要求的不包含连续的1。由此可以得出：&lt;/p&gt;
+&lt;p&gt;dp[i] = dp[i - 1] + dp[i - 2]&lt;/p&gt;
+&lt;p&gt;dp[i - 1] 表示 0开头的，长度为i-1的二进制中不包含连续1的数量
+dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数量&lt;/p&gt;
+&lt;p&gt;终止条件为：&lt;/p&gt;
+&lt;p&gt;dp[0] = 1
+dp[1] = 2&lt;/p&gt;
+&lt;p&gt;例如：1001001&lt;/p&gt;
+&lt;p&gt;首先要考虑： 0000000～01111111 中不包含连续1的数字的数量&lt;/p&gt;
+&lt;p&gt;然后就是：1000000～1001001 中不包含连续1的数字的数量 ( ？)&lt;/p&gt;
+&lt;p&gt;怎么求1000000～1001001 中不包含连续1的数字的数量 ( ？)呢，我们可以计算&lt;/p&gt;
+&lt;p&gt;1000000~10000111和1001000到1001001的数量。&lt;/p&gt;
+&lt;p&gt;考虑一下边界条件：
+1001101，这种情况下，我们需要对每个为1的二进制位记录他的前一位二进制，如果两者都为1，那么返回false。否则返回true。&lt;/p&gt;
+&lt;h4 id=&#34;代码&#34;&gt;代码&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;findIntegers&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) (&lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;dp&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;, [&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;} &lt;span style=&#34;color:#75715e&#34;&gt;// k = 32是要从2^32（最大）开始计算&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &amp;lt; &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#a6e22e&#34;&gt;dp&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;] = &lt;span style=&#34;color:#a6e22e&#34;&gt;dp&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dp&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dp&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		} &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用rand7实现rand10</title>
+      <link>//localhost:1313/posts/implement_rand10_use_rand7/</link>
+      <pubDate>Sun, 05 Sep 2021 14:50:20 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/implement_rand10_use_rand7/</guid>
+      <description>&lt;h1 id=&#34;使用rand7实现rand10&#34;&gt;使用rand7实现rand10&lt;/h1&gt;
+&lt;p&gt;题目：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。
+
+不要使用系统的 Math.random() 方法。
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;结论：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;(RAND_X - 1) * Y + RAND_Y = RAND_X*Y&lt;/li&gt;
+&lt;li&gt;RAND_X*Y % Y + 1 = RAND_Y&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;证明结论1：&lt;/p&gt;
+&lt;p&gt;使用rand2生成rand4&lt;/p&gt;
+&lt;p&gt;使用 rand2_Row + rand2_Col 生成的随机数为：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Col\Row&lt;/th&gt;
+          &lt;th&gt;1&lt;/th&gt;
+          &lt;th&gt;2&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;结果生成的范围为[2,4]&lt;/p&gt;
+&lt;p&gt;然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Col\Row&lt;/th&gt;
+          &lt;th&gt;0&lt;/th&gt;
+          &lt;th&gt;1&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。&lt;/p&gt;
+&lt;p&gt;之后我们使用 (rand2_Row - 1) * 2 + rand2_Col&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Col\Row&lt;/th&gt;
+          &lt;th&gt;0&lt;/th&gt;
+          &lt;th&gt;1&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;(1,2,3,4)出现的结果为均衡的概率。&lt;/p&gt;
+&lt;p&gt;之后将结论带入(rand2 - 1) * 3 + rand3 == rand6&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Col\Row&lt;/th&gt;
+          &lt;th&gt;0&lt;/th&gt;
+          &lt;th&gt;1&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;6&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;证明结论2：&lt;/p&gt;
+&lt;p&gt;rand4 % 2 + 1 = rand2&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1 % 2 + 1 = 2&lt;/li&gt;
+&lt;li&gt;2 % 2 + 1 = 1&lt;/li&gt;
+&lt;li&gt;3 % 2 + 1 = 2&lt;/li&gt;
+&lt;li&gt;4 % 2 + 1 = 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;题目：&lt;/p&gt;
+&lt;p&gt;使用rand7生成rand10&lt;/p&gt;
+&lt;p&gt;我们可以使用第一个结论&lt;/p&gt;
+&lt;p&gt;(rand7 - 1) * 7 + rand7 = rand49&lt;/p&gt;
+&lt;p&gt;因为rand49不是rand10的倍数，所以我们要抛弃[41, 49]之间的数字：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand10&lt;/span&gt;() &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种结论的最坏情况可能会超时，num &amp;gt; 40。所以进行优化，缩小不属于10的整数倍的范围：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand10&lt;/span&gt;() &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;() &lt;span style=&#34;color:#75715e&#34;&gt;// rand49&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// rand9&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; = (&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// rand63&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// rand3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;rand7&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; = (&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// rand21&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>My First Post</title>
-      <link>http://example.org/posts/my-first-post/</link>
+      <link>//localhost:1313/posts/my-first-post/</link>
       <pubDate>Thu, 22 Jul 2021 14:21:14 +0800</pubDate>
       
-      <guid>http://example.org/posts/my-first-post/</guid>
+      <guid>//localhost:1313/posts/my-first-post/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>//localhost:1313/posts/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/readme/</guid>
+      <description>&lt;h1 id=&#34;contentposts-目录说明&#34;&gt;content/posts 目录说明&lt;/h1&gt;
+&lt;p&gt;本目录用于存放所有博客文章的 Markdown 源文件。&lt;/p&gt;
+&lt;h2 id=&#34;结构说明&#34;&gt;结构说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;每篇文章为一个独立的 &lt;code&gt;.md&lt;/code&gt; 文件，文件名建议使用简明的中文或英文标题。&lt;/li&gt;
+&lt;li&gt;支持多级子目录分类（如有需要，可按主题、年份等划分）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;写作建议&#34;&gt;写作建议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;使用&lt;code&gt;hugo new content/posts/title.md&lt;/code&gt;创建新的文件&lt;/li&gt;
+&lt;li&gt;文件头部需包含 Hugo 兼容的 Front Matter（如 title、date、draft 等）。&lt;/li&gt;
+&lt;li&gt;推荐使用 Markdown 标准语法，便于后续迁移和格式统一。&lt;/li&gt;
+&lt;li&gt;文章内容应结构清晰，适当分段，便于阅读。&lt;/li&gt;
+&lt;li&gt;技术类文章建议配合代码块、表格、列表等增强可读性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;其他说明&#34;&gt;其他说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;请勿存放非文章类文件（如图片、附件等），统一放置于 &lt;code&gt;static&lt;/code&gt; 或其他专用目录。&lt;/li&gt;
+&lt;li&gt;如需协作，请遵循统一的命名和排版规范。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
   </channel>

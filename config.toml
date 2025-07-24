@@ -16,3 +16,8 @@ env = "production"      # 启用 Google Analytics、DISQUS 等
   name = "标签"
   url = "/tags/"
   weight = 2
+[[menu.main]]
+  name = "简历"
+  url = "/resume/"
+  weight = 3
+

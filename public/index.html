@@ -1,137 +1,464 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
-<html class="h-full w-full font-sans" lang='en-us'><head>
-	<meta name="generator" content="Hugo 0.85.0" />
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href='http://example.org/favicon.ico' type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My New Hugo Site</title>
+<html lang="zh-cn">
 
-    
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>CengSin PERSONAL BLOG </title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.147.3">
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-    
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-    
+	
 
-    
-        <meta property="og:title" content="My New Hugo Site" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://example.org/" />
+	
+	
 
+	
 
-    
+	
+	<link rel="alternate" href="/index.xml" type="application/rss+xml" title="CengSin PERSONAL BLOG">
+	<link rel="feed" href="/index.xml" type="application/rss+xml" title="CengSin PERSONAL BLOG">
+	
+	
+	
+	
+	
+	
 
-    
-        <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My New Hugo Site"/>
-<meta name="twitter:description" content=""/>
-
-    <link rel="stylesheet" href="/css/styles.min.ad68f0a78b616fe22787e9ca587ae2ca7feee276768a8734e07b00f82d05b406717ad6f21da4b0d8b492f85c12b0ebba60220f8280067957da323c6a739a815f.css" integrity="sha512-rWjwp4thb+Inh+nKWHriyn/u4nZ2ioc04HsA+C0FtAZxetbyHaSw2LSS+FwSsOu6YCIPgoAGeVfaMjxqc5qBXw==">
-
-
-
-
-
-    
-    <script>
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous">
     </script>
-</head><body class="flex flex-col items-center w-full">
-        <main class="w-full sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-5/12 m-auto px-6"><header class="mt-9 mb-8">
-    <div class="flex justify-between items-center">
-        <div class="flex items-center">
-            <input id="navbar_btn" class="hidden" type="checkbox">
-            <label for="navbar_btn" class="menu-btn mr-4 items-center flex xl:hidden">
-                <span class="navicon"></span>
-            </label>
-            <a href="/" class="font-bold text-lg xl:text-2xl mr-auto">My New Hugo Site</a>
-        </div>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);">
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
 
-        <div class="flex items-center">
-            <div class="cursor-pointer ml-2">
-                <svg id="dark_mode_btn" class="hidden" width="18px" height="18px" viewBox="0 0 24 24"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg></svg>
-                <svg id="light_mode_btn" class="hidden" width="18px" height="18px" viewBox="0 0 24 24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><g><g><path d="M14,2c1.82,0,3.53,0.5,5,1.35C16.01,5.08,14,8.3,14,12s2.01,6.92,5,8.65C17.53,21.5,15.82,22,14,22C8.48,22,4,17.52,4,12 S8.48,2,14,2z"/></g></g></g></svg></svg>
-            </div>
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('\/\/localhost:1313\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('%25!s%28%3cnil%3e%29.woff2') format('woff2'),
+				url('%25!s%28%3cnil%3e%29.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
 
-            
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
 
-            
-        </div>
-    </div>
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('//localhost:1313/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
+</head>
 
-    <nav id="navbar" class="mt-3 hidden xl:block"><ul class="flex"></ul>
-    </nav>
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+					<div class="pb-4">
+		<h1 >
+			<a href="//localhost:1313/" title="CengSin PERSONAL BLOG" class="heading font-cursive icon">CengSin PERSONAL BLOG</a>
+		</h1>
+	</div>
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/posts/" title="文章 page" >
+			文章
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="标签 page" >
+			标签
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/resume/" title="简历 page" >
+			简历
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href='/index.xml'>RSS</a>
+	</li>
+	
+	
+	
+</ul>
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
-    <nav id="navbar_sm" class="mt-2 hidden">
-        <ul>
-            
-        </ul>
 
-        <hr class="my-4">
-    </nav>
-</header>
-<div id="content" class="my-8">
-                
+<div>
+	<section>
+		
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/%E4%BB%8E%E5%B0%8F%E7%B1%B3yu7%E7%88%86%E7%81%AB%E7%9C%8B%E5%A6%82%E4%BB%8A%E5%9B%BD%E5%86%85%E7%9A%84%E5%93%81%E7%89%8C%E7%8E%B0%E7%8A%B6/">
+			从小米YU7爆火看如今国内的品牌现状
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2025-06-27T20:16:02&#43;08:00">2025-6-27 20:16</time>
+	</div>
+</div>
+
+		</div>
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E7%9A%84apns%E6%8E%A8%E9%80%81%E6%9C%8D%E5%8A%A1%E4%B8%80%E6%AC%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E5%BD%95/">
+			Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2025-06-27T14:26:00&#43;08:00">2025-6-27 14:26</time>
+	</div>
+</div>
+
+		</div>
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/number_of_boomerangs/">
+			回旋镖的数量
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2021-09-13T11:15:13&#43;08:00">2021-9-13 11:15</time>
+	</div>
+</div>
+
+		</div>
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/non_negative_integers_without_consecutive_ones/">
+			不包含连续的1的整数
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2021-09-12T15:39:42&#43;08:00">2021-9-12 15:39</time>
+	</div>
+</div>
+
+		</div>
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/implement_rand10_use_rand7/">
+			使用rand7实现rand10
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2021-09-05T14:50:20&#43;08:00">2021-9-5 14:50</time>
+	</div>
+</div>
+
+		</div>
+		<div>
+			<div class="pb-8">
+	<div class="font-serif font-medium text-xl">
+		<a href="//localhost:1313/posts/my-first-post/">
+			My First Post
+		</a>
+	</div>
+	
+	
+	
+	
+	<div class="flex flex-wrap justify-between pt-1"><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light"
+			datetime="2021-07-22T14:21:14&#43;08:00">2021-7-22 14:21</time>
+	</div>
+</div>
+
+		</div>
+		
+	</section>
+</div>
+
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
 
 
 
 
 
 
-    <div class="my-8">
-        <h1 class="text-xl font-semibold my-3">Recent Posts</h1><ul class="my-2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="md:max-w-xs  flex flex-col md:items-end pt-2">
+	
+
+	<div class="a-gray text-sm text-gray-500 leading-tight">
+		
+		<br />
+		Built with Hugo and theme <a 
+			href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>.
+			<br />
+			12 pages, 1013 words in total.
+	</div>
+</div>
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+
+
+
+<hr />
+
+
+<ul class="flex justify-between">
     
-        <li class="mb-2 leading-relaxed list-item">
-            <a href="/posts/my-first-post/" class="text-base border-b-2">My First Post</a>
-            <span class="text-xs">2021/07/22</span>
-        </li>
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-chevrons-left h-4 w-4 relative -bottom-1">
+                    <polyline points="11 17 6 12 11 7"></polyline>
+                    <polyline points="18 17 13 12 18 7"></polyline>
+                </svg>
+            </span></a>
+    </li>
     
-</ul></div>
+    <li class="page-item disabled">
+        <a  class="page-link" aria-label="Previous"><span
+                aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-chevron-left h-4 w-4 relative -bottom-1">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </span></a>
+    </li>
+    <div class="flex-grow-3"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li class="page-item active"><a class="page-link" href="/">1</a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a>
+    </li>
+    
+    
+    <div class="flex-grow-3"></div>
+    <li class="page-item">
+        <a href="/page/2/"  class="page-link" aria-label="Next"><span
+                aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-chevron-right h-4 w-4 relative -bottom-1">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-chevrons-right h-4 w-4 relative -bottom-1">
+                    <polyline points="13 17 18 12 13 7"></polyline>
+                    <polyline points="6 17 11 12 6 7"></polyline>
+                </svg>
+            </span></a>
+    </li>
+    
+</ul>
 
 
 
 
-                
-                    
-                
-            </div>
-</main>
-<script src="/js/header.0b11855b871cb4d10c6c07b6723b9209f5c2bc9100735ab6ff47c8f9b76bb3d6ae41b488083b5fb15697987334039eb651b25c83228c29ac48a2bc168db8a894.js" integrity="sha512-CxGFW4cctNEMbAe2cjuSCfXCvJEAc1q2/0fI&#43;bdrs9auQbSICDtfsVaXmHM0A562UbJcgyKMKaxIorwWjbiolA=="></script>
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-
-    <script src="/js/zooming.10cfe42f65295a0596af3315b671956309ed1d20e299e476ca16f6f6b902421e29c6f81a8f9a7ce816f84bef0791dbad2e61e68ff8fe798bd9ce9e093756d084.js" integrity="sha512-EM/kL2UpWgWWrzMVtnGVYwntHSDimeR2yhb29rkCQh4pxvgaj5p86Bb4S&#43;8HkdutLmHmj/j&#43;eYvZzp4JN1bQhA=="></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
+	</div>
 </body>
+
 </html>
