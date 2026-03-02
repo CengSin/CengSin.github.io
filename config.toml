@@ -2,6 +2,10 @@ theme = "tokiwa"
 languageCode = "zh-cn"
 title = "CengSin PERSONAL BLOG"
 
+[author]
+  name = "CengSin"
+  email = "zephone0724@gmail.com"
+
 [params]
 useChineseFonts = true
 math = true
