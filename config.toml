@@ -4,12 +4,15 @@ title = "CengSin PERSONAL BLOG"
 
 [author]
   name = "CengSin"
+  handle = "CengSin"
   email = "zephone0724@gmail.com"
 
 [params]
+author = "CengSin"
+author_email = "zephone0724@gmail.com"
 useChineseFonts = true
 math = true
-env = "production"      # 启用 Google Analytics、DISQUS 等
+env = "production"
 
 [menu]
 [[menu.main]]
