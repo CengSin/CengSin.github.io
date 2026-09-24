@@ -10,6 +10,7 @@
 
 - / 首页
 - /projects 作品
+- /posts/ 文章
 - /about 介绍
 - /agent 把这份介绍交给 Agent
 

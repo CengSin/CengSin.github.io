@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F5F7FA">
-  <meta name="description" content="让 GORM 连上 Oracle。">
-  <title>gorm-oracle · CengSin</title>
+  <meta name="description" content="AI Agent">
+  <title>AI Agent · CengSin</title>
   <script>(function () {
   var saved;
   try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
@@ -25,29 +25,23 @@
       <header class="site-header">
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
-          <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
-              <div class="mobile-links"><a href="/projects" aria-current="page">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
             </details>
           </nav>
         </div>
       </header>
     <main id="main">
       
-      <article class="page detail-top">
-        <p><a class="text-link internal" href="/projects">全部作品</a></p>
-        <p class="page-kicker micro">04 / 开源 · Go</p>
-        <h1>gorm-oracle</h1>
-        <p class="lede">让 GORM 连上 Oracle。</p>
-        <ul class="entry-links"><li><a class="text-link" href="https://github.com/CengSin/oracle" target="_blank" rel="noopener noreferrer" class="print-url">查看源码</a></li></ul>
-        
-        <div class="prose"><section><h2>它解决什么问题</h2><p>GORM 没有现成的 Oracle 用法时，需要一个能打开连接、跟着 GORM 走的驱动。</p></section><section><h2>访客如何使用</h2><p>安装是 go get github.com/cengsin/oracle。打开数据库用 gorm.Open(oracle.Open(连接串), &amp;gorm.Config{})。需要 Oracle 12c 或更新版本、Go 1.13 或更新版本，以及 ODPI-C。</p></section><section><h2>我做的取舍</h2><p>仓库 README 写明不建议用于生产。驱动在另一份实现上继续适配，而不是从零重写 Oracle 协议。</p></section></div>
-        
-        <p class="source-note">依据仓库 README。实现基于 stevefan1999-personal/gorm-driver-oracle。</p>
-      </article>
+      <div class="page narrow">
+        <p class="page-kicker micro">Writing</p>
+        <h1>AI Agent</h1>
+        <ul class="post-list"><li><a href="/posts/-代理社会的黎明/"><span>2026-03-01</span><strong>🧶 代理社会的黎明：物理协议、法律真空与人类的阶级退行</strong></a></li></ul>
+      </div>
     </main>
     
       <footer class="site-footer">

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="不包含连续的1的整数">
+  <title>不包含连续的1的整数 · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page narrow article-page">
+        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
+        <h1>不包含连续的1的整数</h1>
+        <p class="article-date"><time datetime="2021-09-12">2021-09-12</time></p>
+        <div class="prose article-prose"><h1>不包含连续的1的整数</h1>
+<blockquote>
+<p>给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。</p>
+</blockquote>
+<p>示例 1:</p>
+<p>输入: 5</p>
+<p>输出: 5</p>
+<p>解释:
+下面是带有相应二进制表示的非负整数&lt;= 5：</p>
+<pre><code>0 : 0
+1 : 1
+2 : 10
+3 : 11
+4 : 100
+5 : 101
+</code></pre>
+<p>其中，只有整数3违反规则（有两个连续的1），其他5个满足规则。</p>
+<p>说明: 1 &lt;= n &lt;= 10^9</p>
+<p>根据题目描述，我们可以拿到1～n每个数字的二进制，然后计算二进制不包含连续的1的整数的数量，返回即可。但是
+题目中的n的取值范围为[1,10^9]，暴力肯定会超时。</p>
+<p>我们要计算的是[0,n]范围内数字二进制不包含连续1的个数。</p>
+<p>假设数字n的二进制位为：1001001，如何计算范围内数字二进制不包含连续1的个数？</p>
+<p>首先我们假设数字开头为0，数字表示为0xxxxxx。0之后的二进制可以为1，可以为0。在这种情况下，我们唯一能够
+确定的就是，开头的0那一位。xxxxxx中有多少个不包含连续1数字呢？我们先记下这个子问题。</p>
+<p>其次我们假设数字开头为1，那么1之后的二进制位必须为0。重申一下，二进制中不包含连续1的数字。那么我们可以确定
+开头的两位二进制10。那么数字可以表示为10xxxxx。xxxxx中有多少个不包含连续1的数字呢？</p>
+<p>声明一个数组dp，下标i表示长度为i的二进制。<strong>dp[i]表示该二进制位不包含连续的1的数量</strong>。由于
+数字的二进制的每一位不是0就是1，如果一个二进制的开头为0，那么它的的下一位就可以选择0，或者1。如果一个二
+进制的开头为1，那么它的下一位只能是0，如果是1的话就不符合题目中要求的不包含连续的1。由此可以得出：</p>
+<p>dp[i] = dp[i - 1] + dp[i - 2]</p>
+<p>dp[i - 1] 表示 0开头的，长度为i-1的二进制中不包含连续1的数量
+dp[i - 2] 表示 10开头的，长度为i-2的二进制中不包含连续1的数量</p>
+<p>终止条件为：</p>
+<p>dp[0] = 1
+dp[1] = 2</p>
+<p>例如：1001001</p>
+<p>首先要考虑： 0000000～01111111 中不包含连续1的数字的数量</p>
+<p>然后就是：1000000～1001001 中不包含连续1的数字的数量 ( ？)</p>
+<p>怎么求1000000～1001001 中不包含连续1的数字的数量 ( ？)呢，我们可以计算</p>
+<p>1000000~10000111和1001000到1001001的数量。</p>
+<p>考虑一下边界条件：
+1001101，这种情况下，我们需要对每个为1的二进制位记录他的前一位二进制，如果两者都为1，那么返回false。否则返回true。</p>
+<h4>代码</h4>
+<pre><code class="language-go">func findIntegers(n int) (ans int) {
+	k, dp := 32, [32]int{1, 2} // k = 32是要从2^32（最大）开始计算
+	for i := 2; i &lt; k; i++ {
+		dp[i] = dp[i-1] + dp[i-2]
+	}
+
+	k = 31
+	pre := 0
+	for k &gt;= 0 {
+		if n&amp;(1&lt;&lt;k) != 0 {
+			ans += dp[k]
+			if pre == 1 {
+				return ans
+			}
+			pre = 1
+		} else {
+			pre = 0
+		}
+		k -= 1
+	}
+
+	return ans + 1
+}
+</code></pre>
+</div>
+        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/posts/">文章</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

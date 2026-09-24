@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="使用rand7实现rand10">
+  <title>使用rand7实现rand10 · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page narrow article-page">
+        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
+        <h1>使用rand7实现rand10</h1>
+        <p class="article-date"><time datetime="2021-09-05">2021-09-05</time></p>
+        <div class="prose article-prose"><h1>使用rand7实现rand10</h1>
+<p>题目：</p>
+<pre><code>已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。
+
+不要使用系统的 Math.random() 方法。
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+</code></pre>
+<p>结论：</p>
+<ol>
+<li>(RAND_X - 1) * Y + RAND_Y = RAND_X*Y</li>
+<li>RAND_X*Y % Y + 1 = RAND_Y</li>
+</ol>
+<p>证明结论1：</p>
+<p>使用rand2生成rand4</p>
+<p>使用 rand2_Row + rand2_Col 生成的随机数为：</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>结果生成的范围为[2,4]</p>
+<p>然后我们缩小结果的范围，用 rand2_Row - 1 替换 原来式子中的 rand2_Row，上面的式子就变成了：(rand2_Row - 1) + rand2_Col</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>结果生成的范围为[1,3]。但显然结果出现的概论并不是平均的，1，3的概率分别为25%，2的概率最大，为50%。</p>
+<p>之后我们使用 (rand2_Row - 1) * 2 + rand2_Col</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>(1,2,3,4)出现的结果为均衡的概率。</p>
+<p>之后将结论带入(rand2 - 1) * 3 + rand3 == rand6</p>
+<table>
+<thead>
+<tr>
+<th>Col\Row</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>证明结论2：</p>
+<p>rand4 % 2 + 1 = rand2</p>
+<ul>
+<li>1 % 2 + 1 = 2</li>
+<li>2 % 2 + 1 = 1</li>
+<li>3 % 2 + 1 = 2</li>
+<li>4 % 2 + 1 = 1</li>
+</ul>
+<p>题目：</p>
+<p>使用rand7生成rand10</p>
+<p>我们可以使用第一个结论</p>
+<p>(rand7 - 1) * 7 + rand7 = rand49</p>
+<p>因为rand49不是rand10的倍数，所以我们要抛弃[41, 49]之间的数字：</p>
+<pre><code class="language-go">func rand10() int {
+    for {
+        num := (rand7() - 1) * 7 + rand7()
+        if num &lt;= 40 {
+            return num % 10 + 1
+        }
+    }
+}
+</code></pre>
+<p>这种结论的最坏情况可能会超时，num &gt; 40。所以进行优化，缩小不属于10的整数倍的范围：</p>
+<pre><code class="language-go">func rand10() int {
+    for {
+        num := (rand7() - 1) * 7 + rand7() // rand49
+        if num &lt;= 40 {
+            return num % 10 + 1
+        }
+        
+        a := num % 40 // rand9
+        b := rand7()
+        num = (a - 1) * 7 + b // rand63
+        if num &lt;= 60 {
+            return num % 10 + 1
+        }
+        
+        a = num % 60 // rand3
+        b = rand7()
+        num = (a - 1) * 7 + b // rand21
+        if num &lt;= 20 {
+            return num % 10 + 1
+        }
+    }
+}
+</code></pre>
+</div>
+        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/posts/">文章</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

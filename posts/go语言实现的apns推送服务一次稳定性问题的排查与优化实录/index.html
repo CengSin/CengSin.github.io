@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录">
+  <title>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录 · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page narrow article-page">
+        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
+        <h1>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</h1>
+        <p class="article-date"><time datetime="2025-06-27">2025-06-27</time></p>
+        <div class="prose article-prose"><h1>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</h1>
+<p>在生产环境中部署 APNs 推送服务时，我们遇到了一个让人头疼的问题：<strong>服务运行约一周后，会突然停止推送消息</strong>，且腾讯云实例的内存占用达到 100%。本文将详细记录从最初的异常现象，到最后稳定运行的整个排查与优化过程，希望对你构建稳定、高效的 Go 推送服务有所帮助。</p>
+<hr />
+<h2>异步问题</h2>
+<p>生产环境下，程序运行约一周后推送功能会失效。梳理相关代码流程如下：</p>
+<p>生产者将消息放入队列A，Consumer-A消费后同步将响应写入队列B。Consumer-B同步消费队列B，将推送结果写入缓存，随后通过定时任务批量保存到数据库。</p>
+<p>问题出在队列B：高峰期Consumer-B消费速度慢于Consumer-A，导致队列B被填满。此时，推送响应阻塞在写入队列B的操作上，程序不断创建新的goroutine，最终内存耗尽导致服务崩溃。</p>
+<h3>优化</h3>
+<p>简化代码如下：</p>
+<pre><code class="language-go">import &quot;time&quot;
+
+// 优化塞入消费队列B的操作
+select {
+    case channelB &lt;- data:
+    case &lt;-time.After(time.Second):
+        return
+}
+</code></pre>
+<p>这样，当channelB已满时，1秒超时后直接丢弃响应，避免Consumer-A因阻塞而无限制创建goroutine。</p>
+<h2>一、问题现象与初步排查</h2>
+<ul>
+<li><strong>初始配置</strong>：服务启动时会根据配置创建 <code>200 个 httpClient</code>，每个 client 启动 <code>400 个 goroutine</code>，总计约 <strong>8 万个 goroutine</strong>。</li>
+<li><strong>问题表现</strong>：服务运行一周左右后 <strong>完全停止推送</strong>，同时腾讯云实例内存占用达到 <strong>100%</strong>。</li>
+<li><strong>第一步尝试</strong>：简单地提升云主机内存，但问题并未解决，<strong>仅仅延后了推送停滞的时间</strong>。</li>
+</ul>
+<hr />
+<h2>二、深入阅读源码，找出并发模型的问题</h2>
+<ul>
+<li>阅读代码后发现，每个 HTTP client 会配套启动 goroutine 队列，导致 goroutine 数量极度膨胀。</li>
+<li>初步怀疑 goroutine 与连接数的组合导致了内存膨胀与资源抢占。</li>
+</ul>
+<h3>🔧 动作：调整配置</h3>
+<ul>
+<li>将配置修改为：<code>10 个 httpClient</code>，每个 client 启动 <code>100 个 goroutine</code>。</li>
+<li><strong>效果</strong>：内存占用明显降低，但 <strong>推送停止问题依然存在</strong>，只是<strong>发生时间变长了</strong>。</li>
+</ul>
+<hr />
+<h2>三、提高日志等级，捕获 APNs 的 GOAWAY 信号</h2>
+<ul>
+<li>将日志级别调为 <code>Error</code>，观察关键错误。</li>
+<li>发现日志中频繁出现：<code>http2: received GOAWAY</code> 的错误。</li>
+</ul>
+<h3>🧠 理解 GOAWAY：</h3>
+<ul>
+<li>GOAWAY 是 HTTP/2 协议中服务端通知关闭连接的帧。</li>
+<li>APNs 服务器可能因<strong>连接使用过度</strong>或<strong>资源占用过多</strong>而主动断开。</li>
+</ul>
+<hr />
+<h2>四、实现连接重建逻辑</h2>
+<h3>🛠 初步方案：</h3>
+<ul>
+<li>在捕获到 <code>http2.GoAwayError</code> 时，调用 <code>replaceTransport()</code> 逻辑，重建 HTTP 客户端连接。</li>
+</ul>
+<h3>🐞 遇到问题：</h3>
+<ul>
+<li>日志中发现：<code>interface conversion: error is *errors.errorString, not http2.GoAwayError</code></li>
+<li>原因是代码错误地将 <code>error</code> 类型直接断言为 <code>http2.GoAwayError</code>，导致 panic。</li>
+</ul>
+<h3>✅ 修复方式：</h3>
+<p>使用 <code>errors.As()</code> 安全判断底层错误类型：</p>
+<pre><code class="language-go">var goAwayErr http2.GoAwayError
+if errors.As(e.Err, &amp;goAwayErr) {
+    // 正确捕获 GOAWAY 错误
+    s.replaceHttpClient()
+}
+</code></pre>
+<h3>🟢 发布后验证：</h3>
+<ul>
+<li>日志中确认 <code>replaceTransport()</code> 被触发。</li>
+<li>GOAWAY 后能自动重连，服务持续运行未中断。</li>
+</ul>
+<hr />
+<h2>五、当前配置与运行状态</h2>
+<ul>
+<li><strong>httpClient 数量</strong>：50</li>
+<li><strong>每个 Client goroutine 数量</strong>：200</li>
+<li><strong>状态</strong>：服务稳定运行，内存占用合理，GOAWAY 可自愈处理。</li>
+</ul>
+<hr />
+<h2>六、后续优化建议</h2>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>建议</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连接池管理</td>
+<td>- 统一使用 <code>http.Transport</code>，设置 <code>MaxIdleConnsPerHost</code> 充足&lt;br&gt;- 避免每个 client 自建 Transport</td>
+<td>提升连接复用率，减少建连开销</td>
+</tr>
+<tr>
+<td>并发动态调整</td>
+<td>- 监控 GOAWAY、重试次数&lt;br&gt;- 高负载时自动降并发</td>
+<td>降低 APNs 断连接概率</td>
+</tr>
+<tr>
+<td>内存与 GC 监控</td>
+<td>- 启用 <code>pprof</code>&lt;br&gt;- 定期抓取堆快照</td>
+<td>及时发现 goroutine 或对象泄漏</td>
+</tr>
+<tr>
+<td>错误分类重试</td>
+<td>- 区分 GOAWAY / 网络失败 / 非重试错误</td>
+<td>提高重试成功率、减少资源浪费</td>
+</tr>
+<tr>
+<td>指标监控告警</td>
+<td>- 集成 Prometheus/Grafana&lt;br&gt;- 监控连接数、错误率、推送成功率等</td>
+<td>快速发现问题趋势，防患未然</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>七、小结</h2>
+<p>通过本次稳定性问题的排查，你已经：</p>
+<ul>
+<li>识别出 goroutine 与内存暴涨之间的因果关系；</li>
+<li>正确理解并处理了 HTTP/2 的 GOAWAY 机制；</li>
+<li>用日志 + 错误类型匹配的方式，实现了连接重建的自愈逻辑；</li>
+</ul>
+<blockquote>
+<p>稳定的系统不是不出错，而是能<strong>及时感知和快速恢复</strong>。这次经历非常有代表性，也为你构建更健壮的推送服务打下了基础。</p>
+</blockquote>
+<hr />
+<p>如果你有类似服务，也欢迎参考这份经验流程，或与我交流进一步的系统设计和优化策略。</p>
+</div>
+        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/posts/">文章</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

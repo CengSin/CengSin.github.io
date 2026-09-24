@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="回旋镖的数量">
+  <title>回旋镖的数量 · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/" aria-current="page">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page narrow article-page">
+        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
+        <h1>回旋镖的数量</h1>
+        <p class="article-date"><time datetime="2021-09-13">2021-09-13</time></p>
+        <div class="prose article-prose"><h1>回旋镖的数量</h1>
+<pre><code>给定平面上 n 对 互不相同 的点 points ，其中 points[i] = [xi, yi] 。
+回旋镖 是由点 (i, j, k) 表示的元组 ，
+其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
+
+返回平面上所有回旋镖的数量。
+
+示例 1：
+
+输入：points = [[0,0],[1,0],[2,0]]
+输出：2
+解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
+示例 2：
+
+输入：points = [[1,1],[2,2],[3,3]]
+输出：2
+示例 3：
+
+输入：points = [[1,1]]
+输出：0
+</code></pre>
+<p>首先写一下自己的思路：本来我的思路是回旋镖中间的点到两边的点距离肯定是相同的。那么求回旋镖的数量就是
+拿到一个符合中间点到两边点相同距离的元组的数量。到考虑元组的顺序这点我开始纠结了。这里记录一下。</p>
+<p><strong>元组的顺序肯定是不相同的，这里需要用到排列组合中的概念。</strong></p>
+<p>回想一下我的思路，一个点到其他两个点的距离相同。</p>
+<p>Leetcode这里抽象成了到某个点距离相同的所有点的距离 m , 那么在m个点中拿出两个点与最外层点p组合成一个
+回旋镖的元组即为排列，A(2, m) = m * (m - 1)</p>
+<p>看代码：</p>
+<pre><code class="language-go">func numberOfBoomerangs(points [][]int) (ans int) {
+	for _, p := range points {
+		cnt := make(map[int]int)
+		for _, q := range points {
+			dis := (p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1])
+			cnt[dis] ++
+		}
+
+		for _, i := range cnt {
+			ans += i * (i - 1)
+		}
+	}
+
+	return ans
+}
+</code></pre>
+</div>
+        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/posts/">文章</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
