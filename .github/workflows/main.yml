@@ -3,45 +3,24 @@ name: github pages
 on:
   push:
     branches:
-      - main  # Set a branch to deploy
-  pull_request:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-
-      - name: Pull theme submodules
-        run: git submodule update --init --recursive
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          # extended: true
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-
-      - name: Setup Dependencies
-        run: hugo mod npm pack
-
-      - name: Install dependencies
-        run: npm install
+          python-version: "3.12"
 
       - name: Build
-        run: hugo --environment production --minify
+        run: python3 site/src/build.py
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.8.0
-        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.BLOG_DEPLOY_KEY }}
           deploy_key: ${{ secrets.BLOG_DEPLOY_KEY }}
-          publish_dir: ./public
+          publish_dir: ./site/dist
+          cname: cengsin.is-a.dev
