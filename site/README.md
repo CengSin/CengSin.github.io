@@ -21,6 +21,8 @@ python3 -m http.server 8765 --directory dist
 - `/posts/` 和原有 Hugo 文章详情、标签与分类网址
 - `/llms.txt` `/agent/profile.json` `/agent/profile.md`
 
+文章目录顶部链接到「今天的天气」的公开首页，新文章在那里发布；本页保留旧文归档。首页头像直接加载 GitHub 账号 `CengSin` 的当前头像，若外部图片不可用则显示 `CS` 字样。
+
 修改文章请编辑仓库根目录的 `content/posts/`。旧文章的网址映射保存在 `src/posts.py`，新文章在 Markdown 文件头部写 `slug` 即可。旧 `public/` 目录仅作历史归档，构建不会读取其中的 HTML。个人资料在仓库根目录 `.local/profile/`，已被 Git 忽略，不参与构建。
 
 ## 内容管理

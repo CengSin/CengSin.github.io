@@ -80,15 +80,23 @@ def article(post, layout, esc):
     return layout(f"{post['title']} · CengSin", post["title"], "posts", main)
 
 
-def listing(title, posts, layout, esc):
+def listing(title, posts, layout, esc, mood_entry=False):
     rows = "".join(
         f'<li><a href="{esc(post_url(post))}"><span>{esc(str(post["date"])[:10])}</span><strong>{esc(post["title"])}</strong></a></li>'
         for post in posts
     )
+    mood_card = """
+        <a class="writing-card" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
+          <span class="writing-card-label mono">CURRENT WRITING</span>
+          <strong>新的文字在「今天的天气」</strong>
+          <span class="writing-card-description">日常写作与新文章都在那里更新。这里继续保留早期文章归档。</span>
+          <span class="writing-card-action">去读新文章 <span aria-hidden="true">↗</span></span>
+        </a>""" if mood_entry else ""
     main = f"""
       <div class="page narrow">
         <p class="page-kicker micro">Writing</p>
         <h1>{esc(title)}</h1>
+        {mood_card}
         <ul class="post-list">{rows}</ul>
       </div>"""
     return layout(f"{title} · CengSin", title, "posts", main)
@@ -134,7 +142,7 @@ def build_posts(source, images, dist, layout, write, esc):
             continue
         write(f"posts/{post['slug']}/index.html", article(post, layout, esc))
     listed = [post for post in posts if not post["draft"]]
-    write("posts/index.html", listing("文章", listed, layout, esc))
+    write("posts/index.html", listing("文章", listed, layout, esc, mood_entry=True))
     write("posts/index.xml", rss(listed))
     write("index.xml", rss(listed))
     for group, field in (("tags", "tags"), ("categories", "categories")):

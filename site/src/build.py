@@ -195,6 +195,10 @@ def home():
     main = f"""
       <section class="hero solo" aria-labelledby="hero-title">
         <div class="hero-copy">
+          <a class="hero-identity" href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 CengSin">
+            <span class="hero-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=96" alt="" width="40" height="40" referrerpolicy="no-referrer"></span>
+            <span class="hero-identity-copy"><strong>CengSin</strong><small>个人网站 · GitHub ↗</small></span>
+          </a>
           <h1 class="display display-sentence" id="hero-title">{esc(INTRO)}</h1>
           <p class="hero-intro">{esc(TAGLINE)}</p>
           <div class="hero-actions">

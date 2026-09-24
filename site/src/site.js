@@ -31,6 +31,11 @@
     else if (systemTheme.addListener) systemTheme.addListener(onSystemTheme);
   }
 
+  document.querySelectorAll(".hero-avatar img").forEach(function (image) {
+    image.addEventListener("error", function () { image.remove(); });
+    if (image.complete && image.naturalWidth === 0) image.remove();
+  });
+
   document.querySelectorAll("[data-copy]").forEach(function (button) {
     button.addEventListener("click", function () {
       var node = document.getElementById(button.getAttribute("data-copy"));
