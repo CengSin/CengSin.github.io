@@ -1,6 +1,7 @@
 """Render archived Hugo Markdown with its original public article URLs."""
 
 import json
+import re
 import shutil
 from datetime import datetime
 from email.utils import format_datetime
@@ -47,6 +48,9 @@ def read_post(path):
     # The earlier site excluded this project from the public profile.
     body = body.replace("易搜(yisou.xin)", "一个实验项目")
     body = body.replace("易搜（yisou.xin）", "一个实验项目")
+    slug = LEGACY_SLUGS.get(path.name, meta.get("slug"))
+    if not slug or (path.name not in LEGACY_SLUGS and not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug)):
+        raise ValueError(f"new post needs an ASCII slug in front matter: {path}")
     return {
         "title": meta.get("title", path.stem),
         "date": meta.get("date", ""),
@@ -54,7 +58,7 @@ def read_post(path):
         "categories": meta.get("categories", []),
         "draft": meta.get("draft", "false") == "true",
         "body": body,
-        "slug": LEGACY_SLUGS[path.name],
+        "slug": slug,
     }
 
 
@@ -110,15 +114,24 @@ def rss(posts):
 
 
 def build_posts(source, images, dist, layout, write, esc):
-    unmapped = [
-        path.name for path in source.glob("*.md")
-        if path.name not in LEGACY_SLUGS and path.read_text(encoding="utf-8").startswith("---\n")
+    files = [
+        path for path in source.glob("*.md")
+        if path.name in LEGACY_SLUGS or path.read_text(encoding="utf-8").startswith("---\n")
     ]
-    if unmapped:
-        raise ValueError(f"Markdown posts need URL mappings: {unmapped}")
-    posts = [read_post(source / filename) for filename in LEGACY_SLUGS]
+    posts = [read_post(path) for path in files]
+    slugs = [post["slug"] for post in posts]
+    if len(slugs) != len(set(slugs)):
+        raise ValueError("duplicate article URL slug")
     posts.sort(key=lambda post: post["date"], reverse=True)
     for post in posts:
+        if post["draft"]:
+            if post["slug"] == "my-first-post":
+                # Keep the historical URL without publishing the draft body.
+                write(
+                    "posts/my-first-post/index.html",
+                    layout("文章 · CengSin", "文章归档", "posts", '<div class="page"><p>这篇文章尚未发布。<a href="/posts/">查看文章列表</a></p></div>'),
+                )
+            continue
         write(f"posts/{post['slug']}/index.html", article(post, layout, esc))
     listed = [post for post in posts if not post["draft"]]
     write("posts/index.html", listing("文章", listed, layout, esc))
