@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="从想法到作品。">
+  <title>About · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/about" aria-current="page">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/about" aria-current="page">About</a><a href="/agent">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page narrow">
+        <p class="page-kicker micro">About</p>
+        <h1>关于</h1>
+        <p class="lede">古法编程时代从事后端开发。</p>
+        <div class="prose">
+          <p>作品在 <a href="/projects">Projects</a>。</p>
+        </div>
+        <dl class="facts">
+          <div><dt>邮箱</dt><dd><a href="mailto:cengsin@icloud.com">cengsin@icloud.com</a></dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">github.com/CengSin</a></dd></div>
+        </dl>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

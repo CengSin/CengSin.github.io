@@ -1,0 +1,42 @@
+# CengSin
+
+> 从想法到作品。
+
+解决问题，探索想法，与Agent协作
+
+古法编程时代从事后端开发。
+
+## 页面
+
+- / 首页
+- /projects 作品
+- /about 介绍
+- /agent 把这份介绍交给 Agent
+
+## 机器可读
+
+- /agent/profile.json
+- /agent/profile.md
+
+## 作品
+
+- Idea Platform: /projects/idea-platform — 让一个想法可以被别人独立实现，并把结果留在同一条链路上。
+- ToubarReplace: /projects/toubar-replace — 把 Touch Bar 变成 Agent 项目启动入口。
+- ResourceSteward: /projects/resource-steward — 在菜单栏看清 CPU、内存和 GPU，再决定要不要处理某个后台应用。
+- gorm-oracle: /projects/gorm-oracle — 让 GORM 连上 Oracle。
+- Idea Platform Plugin: /projects/idea-platform-plugin — 让编辑器里的 Agent 读取 Idea Platform，而不是去爬网页。
+- Fish Audio MCP: /projects/fishaudio-mcp — 把文字交给 Fish Audio，接进支持 MCP 的客户端。
+- DirMap: /projects/dirmap — 目录一变，就给 Agent 一份带简短说明的结构。
+- weread-reading-recommender: /projects/weread-reading-recommender — 在自己的机器上，根据微信读书记录想下一本读什么。
+- Crawler Skill Studio: /projects/crawl-online — 在网页上点选字段，生成一份爬虫 skill。
+- Fold Studio: /projects/fold-studio — 看清双屏折叠时，两面的内容应该怎样交接。
+- develop-workflow: /projects/develop-workflow — 把开发和 Agent 的步骤编排成失败后可以单独重试的流程。
+- temporal-openclaw-research-agent: /projects/temporal-openclaw-research-agent — 一次要走很多步的 Agent 任务，中间失败不该从头再来。
+- Clawd Hands: /projects/clawd-hands — 集中查看、开关和分享 OpenClaw 的技能包。
+- 敲敲小世界: /projects/baby-toy — 给喜欢敲键盘的孩子一块画纸，按键不离开这台设备。
+- 今天的天气: /projects/my-face — 留一个只记心情的小站。
+
+## 联系
+
+- Email: cengsin@icloud.com
+- GitHub: https://github.com/CengSin

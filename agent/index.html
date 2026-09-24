@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F5F7FA">
+  <meta name="description" content="把 CengSin 的公开介绍交给你的 Agent。">
+  <title>For Agents · CengSin</title>
+  <script>(function () {
+  var saved;
+  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
+  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="shell">
+    
+      <header class="site-header">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/about">About</a><a href="/agent" class="agent-link" aria-current="page">For Agents</a></nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
+          <nav class="mobile-nav" aria-label="手机导航">
+            <details>
+              <summary>菜单</summary>
+              <div class="mobile-links"><a href="/projects">Projects</a><a href="/about">About</a><a href="/agent" aria-current="page">For Agents</a></div>
+            </details>
+          </nav>
+        </div>
+      </header>
+    <main id="main">
+      
+      <article class="page">
+        <p class="page-kicker micro">For Agents</p>
+        <h1>让 Agent 了解我</h1>
+        <p class="lede">把这份站点交给你的 Agent。文件和页面是同一份介绍、作品和链接。</p>
+        <table class="resource-table">
+          <thead><tr><th>资源</th><th>内容</th></tr></thead>
+          <tbody><tr><td><a href="/llms.txt">/llms.txt</a></td><td>站点地图：介绍、作品和联系方式</td></tr><tr><td><a href="/agent/profile.json">/agent/profile.json</a></td><td>同一份介绍的 JSON</td></tr><tr><td><a href="/agent/profile.md">/agent/profile.md</a></td><td>同一份介绍的 Markdown</td></tr></tbody>
+        </table>
+        <h2>复制给 Agent</h2>
+        <textarea class="prompt" id="agent-prompt" readonly>请阅读这个站点的 /llms.txt，以及其中列出的页面和 /agent/profile.json。用这些材料介绍 CengSin 和他的公开作品。</textarea>
+        <p><button class="button secondary" type="button" data-copy="agent-prompt">复制给 Agent</button></p>
+      </article>
+    </main>
+    
+      <footer class="site-footer">
+        <span class="mono">CengSin</span>
+        <div class="footer-links">
+          <a href="/projects">Projects</a>
+          <a href="/agent">For Agents</a>
+          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="mailto:cengsin@icloud.com">Email</a>
+        </div>
+      </footer>
+  </div>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
