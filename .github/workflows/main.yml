@@ -16,7 +16,9 @@ jobs:
           python-version: "3.12"
 
       - name: Build
-        run: python3 site/src/build.py
+        run: |
+          python3 -m pip install -r site/requirements.txt
+          python3 site/src/build.py
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

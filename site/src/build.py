@@ -5,6 +5,7 @@ import html
 import json
 import shutil
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
@@ -75,6 +76,7 @@ def external(href):
 
 
 from projects import GROUPS, PROJECTS
+from posts import build_posts
 
 INTRO = "从想法到作品。"
 TAGLINE = "解决问题，探索想法，与Agent协作"
@@ -109,6 +111,7 @@ def diagram(kind):
 def nav(current):
     items = [
         ("/projects", "Projects", "projects"),
+        ("/posts/", "文章", "posts"),
         ("/about", "About", "about"),
         ("/agent", "For Agents", "agent"),
     ]
@@ -142,6 +145,7 @@ def footer():
         <span class="mono">CengSin</span>
         <div class="footer-links">
           <a href="/projects">Projects</a>
+          <a href="/posts/">文章</a>
           <a href="/agent">For Agents</a>
           <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           <a href="mailto:cengsin@icloud.com">Email</a>
@@ -469,6 +473,7 @@ def llms_text():
 
 - / 首页
 - /projects 作品
+- /posts/ 文章
 - /about 介绍
 - /agent 把这份介绍交给 Agent
 
@@ -510,6 +515,19 @@ def main():
         pages[f"projects/{project['slug']}/index.html"] = project_page(project)
     for rel, content in pages.items():
         write(rel, content)
+    build_posts(ROOT.parent / "content" / "posts", ROOT.parent / "static" / "images", DIST, layout, write, esc)
+    routes = sorted(
+        "/" + path.parent.relative_to(DIST).as_posix().strip(".") + "/"
+        for path in DIST.rglob("index.html")
+    )
+    routes = ["/" if route == "//" else route for route in routes]
+    write(
+        "sitemap.xml",
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        + "".join(f"<url><loc>https://cengsin.is-a.dev{quote(route, safe='/')}</loc></url>" for route in routes)
+        + "</urlset>\n",
+    )
     data = profile_data()
     write("agent/profile.json", json.dumps(data, ensure_ascii=False, indent=2) + "\n")
     write("agent/profile.md", markdown_profile(data))
@@ -520,7 +538,11 @@ def main():
     leaked = [name for name in removed if (DIST / name).exists()]
     if leaked:
         raise SystemExit(f"removed routes still exist: {leaked}")
-    blob = "\n".join(path.read_text(encoding="utf-8") for path in DIST.rglob("*") if path.is_file())
+    blob = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in DIST.rglob("*")
+        if path.is_file() and path.suffix.lower() in {".html", ".xml", ".txt", ".json", ".md", ".css", ".js"}
+    )
     hits = [word for word in FORBIDDEN if word.lower() in blob.lower()]
     if hits:
         raise SystemExit(f"forbidden content: {hits}")
