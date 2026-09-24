@@ -232,7 +232,7 @@ def home():
       </section>
       <section aria-labelledby="work-title">
         <div class="section-heading">
-          <div><span class="micro">Selected Work</span><h2 id="work-title">做成的东西</h2></div>
+          <div><span class="micro">Selected Work</span><h2 id="work-title">作品</h2></div>
         </div>
         <div class="work-grid">
           <article class="card work-feature">
