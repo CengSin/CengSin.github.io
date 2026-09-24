@@ -183,6 +183,13 @@ h1, h2, h3 { letter-spacing: -0.04em; line-height: 1.2; font-weight: 640; }
   padding: 72px 0 88px;
 }
 .hero-copy { position: relative; z-index: 1; }
+.hero-identity { display: inline-flex; align-items: center; gap: 11px; margin-bottom: 8px; text-decoration: none; }
+.hero-avatar { position: relative; display: grid; place-items: center; flex: none; width: 42px; height: 42px; overflow: hidden; border: 1px solid var(--line); border-radius: 50%; background: var(--blue-soft); color: var(--blue); font: 650 11px/1 ui-monospace, Menlo, monospace; }
+.hero-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-identity-copy { display: grid; gap: 1px; line-height: 1.25; }
+.hero-identity-copy strong { color: var(--ink); font-size: 13px; font-weight: 650; }
+.hero-identity-copy small { color: var(--muted); font-size: 11px; }
+.hero-identity:hover .hero-identity-copy strong { color: var(--blue); }
 .mouse-scene {
   --mouse-width: 88px;
   position: absolute;
@@ -600,6 +607,12 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
 .prose ul { padding-left: 1.2em; }
 
 .post-list { list-style: none; padding: 0; margin: 32px 0 0; border-top: 1px solid var(--line); }
+.writing-card { display: grid; gap: 8px; margin-top: 28px; padding: 24px 26px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none; box-shadow: 0 8px 24px var(--shadow); }
+.writing-card:hover { border-color: var(--blue); }
+.writing-card-label { color: var(--blue); font-size: 11px; letter-spacing: .1em; }
+.writing-card > strong { color: var(--ink); font-size: 21px; line-height: 1.35; }
+.writing-card-description { color: var(--body); font-size: 14px; line-height: 1.7; }
+.writing-card-action { margin-top: 6px; color: var(--blue); font-size: 13px; font-weight: 650; }
 .post-list li { border-bottom: 1px solid var(--line); }
 .post-list a { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; text-decoration: none; }
 .post-list a:hover strong { color: var(--blue); }
