@@ -78,9 +78,12 @@ def external(href):
 from projects import PROJECTS
 from posts import build_posts
 
+WHO = "后端开发，现在和 Agent 一起做东西。"
 INTRO = "从想法到作品。"
 TAGLINE = "解决问题，探索想法，与 Agent 协作"
 BACKGROUND = "古法编程时代从事后端开发。"
+ABOUT = "古法编程时代从事后端开发。现在更常和 Agent 一起把想法推进成作品：人决定做什么，Agent 顺着准备好的上下文去实现，结果再回到同一条链路里。我在意的是，一个问题能不能被做成可以打开、也可以继续的东西。"
+DOING = "眼下主要是两件事。一件是 Idea Platform：一个想法可以被别人独立实现，完成的东西再回到同一条链路上。另一件是把身边的问题做成小工具，比如把 Touch Bar 变成 Agent 项目的启动入口。新的文字写在「今天的天气」。"
 WORKS_URL = "https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872"
 IDEA_PLATFORM_URL = "https://idea-platform.z-agent.ccwu.cc/"
 MOOD_URL = "https://mood.z-agent.ccwu.cc/"
@@ -167,7 +170,7 @@ def layout(title, description, current, main):
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
-<body>
+<body{" class='home'" if current == "home" else ""}>
   <a class="skip-link" href="#main">跳到主要内容</a>
   <div class="shell">
     {nav(current)}
@@ -184,80 +187,91 @@ def layout(title, description, current, main):
 
 def home():
     main = f"""
-      <section class="hero solo" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <a class="hero-identity" href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 CengSin">
-            <span class="hero-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=96" alt="" width="40" height="40" referrerpolicy="no-referrer"></span>
-            <span class="hero-identity-copy"><strong>CengSin</strong><small>个人网站 · GitHub ↗</small></span>
-          </a>
-          <h1 class="display display-sentence" id="hero-title">{esc(INTRO)}</h1>
-          <p class="hero-intro">{esc(TAGLINE)}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">看作品 <span class="button-arrow">↗</span></a>
-            <a class="button secondary" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">读新文章 <span class="button-arrow">↗</span></a>
+      <section class="home-hero" aria-labelledby="who-name">
+        <div class="home-hero-grid">
+          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>
+          <div>
+            <h1 id="who-name">CengSin</h1>
+            <p class="home-who">{esc(WHO)}</p>
+            <p class="home-support">{esc(INTRO)}{esc(TAGLINE)}。</p>
+            <div class="home-actions">
+              <a class="button primary" href="#about">了解我</a>
+              <a class="home-quiet" href="#doing">看我在做什么</a>
+            </div>
           </div>
         </div>
-        <div class="mouse-scene" aria-hidden="true">
-          <span class="mouse-town">
-            <span class="mouse-building mouse-building-one"><i></i><i></i><i></i><i></i></span>
-            <span class="mouse-building mouse-building-two"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-            <span class="mouse-building mouse-building-three"><i></i><i></i><i></i><i></i></span>
-          </span>
-          <span class="mouse-track"></span>
-          <span class="mouse-crate"></span>
-          <span class="mouse-cheese">
-            <svg viewBox="0 0 30 30" focusable="false">
-              <path d="M2 12L27 4V26H2Z" fill="currentColor"/>
-              <path d="M2 12L27 4V9L2 17Z" fill="var(--cheese-top)"/>
-              <path d="M7 21H11V24H7ZM18 14H22V18H18Z" fill="var(--paper)"/>
-            </svg>
-          </span>
-          <span class="mouse-runner">
-            <span class="mouse-sprite">
-              <svg viewBox="0 0 96 64" focusable="false">
-                <path d="M29 44H20V39H12V33H7V27H3" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/>
-                <path d="M32 32H40V27H69V31H77V36H85V41H91V48H83V53H75V56H39V53H32V47H28V38H32Z" fill="currentColor"/>
-                <path d="M43 29V16H57V29M64 30V20H76V34" fill="currentColor"/>
-                <path d="M47 20H53V29H47ZM68 24H72V31H68Z" fill="var(--paper)"/>
-                <path d="M74 37H79V42H74Z" fill="var(--paper)"/>
-                <path d="M88 43H94V48H88Z" fill="var(--ink)"/>
-                <path class="mouse-smile" d="M80 46V50H85" fill="none" stroke="var(--ink)" stroke-width="2"/>
-                <rect class="mouse-foot mouse-foot-back" x="42" y="54" width="12" height="6"/>
-                <rect class="mouse-foot mouse-foot-front" x="67" y="54" width="12" height="6"/>
-              </svg>
-            </span>
-          </span>
+      </section>
+      <section class="home-block" id="doing" aria-labelledby="doing-title">
+        <h2 id="doing-title">我在做什么</h2>
+        <p class="home-lede">{esc(DOING)}</p>
+        <div class="home-threads">
+          <a class="home-thread" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">
+            <strong>Idea Platform</strong>
+            <span>让一个想法可以被别人独立实现，并把结果留在同一条链路上。</span>
+          </a>
+          <a class="home-thread" href="https://toubarreplace.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
+            <strong>ToubarReplace</strong>
+            <span>把 Touch Bar 变成 Agent 项目启动入口。</span>
+          </a>
+          <a class="home-thread" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">
+            <strong>今天的天气</strong>
+            <span>新的文字写在这里。</span>
+          </a>
         </div>
       </section>
-      <section class="portal-section" aria-labelledby="portal-title">
-        <div class="section-heading">
-          <div><span class="micro">网站入口</span><h2 id="portal-title">从这里继续</h2></div>
+      <section class="home-block" id="doors" aria-labelledby="doors-title">
+        <h2 id="doors-title">从这里继续</h2>
+        <p class="home-note">三处入口。新的作品和文字在外面更新，交给 Agent 的材料留在本站。</p>
+        <div class="home-doors">
+          <a class="home-door" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
+            <span class="home-dest">跳转至 Idea Platform</span>
+            <h3>最新作品</h3>
+            <p>看我已经发布的作品，也可以顺着别人的想法继续做。</p>
+            <span class="home-go">看作品</span>
+          </a>
+          <a class="home-door" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">
+            <span class="home-dest">跳转至今天的天气</span>
+            <h3>最新文字</h3>
+            <p>新的文字写在这里，不和项目说明混在一起。</p>
+            <span class="home-go">读新文章</span>
+          </a>
         </div>
-        <div class="portal-grid">
-          <article class="portal-card">
-            <p class="micro">01 / 作品</p>
-            <h3>作品与想法</h3>
-            <p>在 Idea Platform 看我发布的作品，并进入每件作品的来源与详情。</p>
-            <a class="portal-primary" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">看作品 <span aria-hidden="true">↗</span></a>
-            <a class="portal-secondary" href="/projects">本站原有作品说明 →</a>
-          </article>
-          <article class="portal-card">
-            <p class="micro">02 / 写作</p>
-            <h3>文章与日常</h3>
-            <p>新的文字写在「今天的天气」。这里也留着以前的文章。</p>
-            <a class="portal-primary" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">读新文章 <span aria-hidden="true">↗</span></a>
-            <a class="portal-secondary" href="/posts/">旧文归档 →</a>
-          </article>
+        <div class="home-agent" id="agent">
+          <div>
+            <span class="home-dest">留在本站</span>
+            <h3>交给 Agent</h3>
+            <p>这个网站对 AI 友好。把链接丢给你的 Agent，它可以从这里了解我和公开作品。</p>
+          </div>
+          <div class="home-agent-actions">
+            <button class="button secondary" type="button" data-copy="agent-prompt">复制提示词</button>
+            <a href="/llms.txt">llms.txt</a>
+            <textarea id="agent-prompt" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
+          </div>
         </div>
       </section>
-      <p class="home-about"><a class="text-link internal" href="/about">关于</a></p>
-      <aside class="agent-strip" aria-labelledby="agent-strip-title">
-        <p id="agent-strip-title">把这份站点交给你的 Agent。</p>
-        <a href="/llms.txt">llms.txt</a>
-        <button class="button secondary" type="button" data-copy="agent-prompt">复制给 Agent</button>
-        <textarea id="agent-prompt" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
-      </aside>"""
-    return layout("CengSin — 个人网站", INTRO, "home", main)
+      <section class="home-block" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">关于</h2>
+        <p class="home-about-copy">{esc(ABOUT)}</p>
+        <ul class="keyword-tags" aria-label="关键词">
+          <li>后端</li>
+          <li>Agent</li>
+          <li>独立开发</li>
+        </ul>
+      </section>
+      <section class="home-history" aria-labelledby="history-title">
+        <h2 id="history-title">历史记录</h2>
+        <a class="home-record" href="/projects">
+          <strong>旧作品存档</strong>
+          <span>本站原来的作品说明。</span>
+          <em>留在本站</em>
+        </a>
+        <a class="home-record" href="/posts/">
+          <strong>旧文归档</strong>
+          <span>以前的文章还留在这里。</span>
+          <em>留在本站</em>
+        </a>
+      </section>"""
+    return layout("CengSin — 个人网站", WHO, "home", main)
 
 
 def projects_page():
@@ -332,7 +346,12 @@ def about_page():
       <article class="page narrow">
         <p class="page-kicker micro">关于</p>
         <h1>关于</h1>
-        <p class="lede">{esc(BACKGROUND)}</p>
+        <p class="lede">{esc(ABOUT)}</p>
+        <ul class="keyword-tags" aria-label="关键词">
+          <li>后端</li>
+          <li>Agent</li>
+          <li>独立开发</li>
+        </ul>
         <div class="prose">
           <p>作品与想法在 <a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">Idea Platform</a>，新的文字在 <a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">今天的天气</a>。</p>
           <p>本站保留 <a href="/projects">原有作品说明</a> 和 <a href="/posts/">旧文归档</a>。</p>
@@ -373,9 +392,11 @@ def agent_page():
 def profile_data():
     return {
         "handle": "CengSin",
+        "who": WHO,
         "intro": INTRO,
         "tagline": TAGLINE,
         "background": BACKGROUND,
+        "about": ABOUT,
         "contact": {"email": "cengsin@icloud.com", "github": "https://github.com/CengSin"},
         "primary_works_url": WORKS_URL,
         "idea_platform_url": IDEA_PLATFORM_URL,
@@ -399,11 +420,13 @@ def markdown_profile(data):
     lines = [
         "# CengSin",
         "",
+        data["who"],
+        "",
         data["intro"],
         "",
         data["tagline"],
         "",
-        data["background"],
+        data["about"],
         "",
         "## 联系",
         "",
@@ -441,11 +464,11 @@ def llms_text():
     )
     return f"""# CengSin
 
-> {INTRO}
+> {WHO}
 
-{TAGLINE}
+{INTRO}{TAGLINE}。
 
-{BACKGROUND}
+{ABOUT}
 
 ## 页面
 
