@@ -16,7 +16,7 @@
   if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -25,12 +25,12 @@
       <header class="site-header">
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
-          <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
-              <div class="mobile-links"><a href="/projects" aria-current="page">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+              <div class="mobile-links"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
             </details>
           </nav>
         </div>
@@ -38,10 +38,19 @@
     <main id="main">
       
       <div class="page">
-        <p class="page-kicker micro">Projects</p>
+        <p class="page-kicker micro">作品</p>
         <h1>作品</h1>
-        <p class="lede">按问题来看。能打开的站点和只能读的源码，都从作品页进去。</p>
-        <div class="feature-list">
+        <p class="lede">我的公开作品在 Idea Platform 持续更新。也可以从那里浏览其他人的想法，参与创作。</p>
+        <a class="works-portal" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872" target="_blank" rel="noopener noreferrer">
+          <span class="micro">我的公开作品</span>
+          <strong>在 Idea Platform 查看我的作品</strong>
+          <span>这里展示我已发布的作品，并可进入每件作品的来源与详情。</span>
+          <span class="works-portal-action">查看我的作品 ↗</span>
+        </a>
+        <a class="platform-entry" href="https://idea-platform.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
+        <details class="work-archive">
+          <summary>查看本站原有作品说明（15 项）</summary>
+          <div class="feature-list">
           <article class="card feature-card">
             <div class="work-copy">
               <div class="work-meta mono"><span class="number">01</span><span>/</span><span>想法与 Agent</span></div>
@@ -78,7 +87,7 @@
             </div>
             
           </article></div>
-        <section class="group"><h2>工具</h2><p class="group-note">有明确用途，可以装上或读源码。</p><ul class="catalog">
+          <section class="group"><h2>工具</h2><p class="group-note">有明确用途，可以装上或读源码。</p><ul class="catalog">
               <li><a href="/projects/idea-platform-plugin">
                 <span class="status mono">源码</span>
                 <strong>Idea Platform Plugin</strong>
@@ -145,17 +154,18 @@
                 <span class="problem">留一个只记心情的小站。</span>
                 <span class="meta mono">TypeScript</span>
               </a></li></ul></section>
+        </details>
       </div>
     </main>
     
       <footer class="site-footer">
         <span class="mono">CengSin</span>
         <div class="footer-links">
-          <a href="/projects">Projects</a>
+          <a href="/projects">作品</a>
           <a href="/posts/">文章</a>
-          <a href="/agent">For Agents</a>
+          <a href="/agent">智能体</a>
           <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">Email</a>
+          <a href="mailto:cengsin@icloud.com">邮箱</a>
         </div>
       </footer>
   </div>

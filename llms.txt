@@ -2,7 +2,7 @@
 
 > 从想法到作品。
 
-解决问题，探索想法，与Agent协作
+解决问题，探索想法，与 Agent 协作
 
 古法编程时代从事后端开发。
 
@@ -14,12 +14,20 @@
 - /about 介绍
 - /agent 把这份介绍交给 Agent
 
+## 主要入口
+
+- 作品与想法：https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872
+- Idea Platform 平台：https://idea-platform.z-agent.ccwu.cc/
+- 新文章：https://mood.z-agent.ccwu.cc/
+- 本站原有作品说明：/projects/
+- 旧文归档：/posts/
+
 ## 机器可读
 
 - /agent/profile.json
 - /agent/profile.md
 
-## 作品
+## 本站原有作品说明
 
 - Idea Platform: /projects/idea-platform — 让一个想法可以被别人独立实现，并把结果留在同一条链路上。
 - ToubarReplace: /projects/toubar-replace — 把 Touch Bar 变成 Agent 项目启动入口。

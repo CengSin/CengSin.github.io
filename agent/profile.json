@@ -1,12 +1,17 @@
 {
   "handle": "CengSin",
   "intro": "从想法到作品。",
-  "tagline": "解决问题，探索想法，与Agent协作",
+  "tagline": "解决问题，探索想法，与 Agent 协作",
   "background": "古法编程时代从事后端开发。",
   "contact": {
     "email": "cengsin@icloud.com",
     "github": "https://github.com/CengSin"
   },
+  "primary_works_url": "https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872",
+  "idea_platform_url": "https://idea-platform.z-agent.ccwu.cc/",
+  "primary_writing_url": "https://mood.z-agent.ccwu.cc/",
+  "project_archive_path": "/projects/",
+  "article_archive_path": "/posts/",
   "projects": [
     {
       "name": "Idea Platform",

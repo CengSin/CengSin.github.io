@@ -16,7 +16,7 @@
   if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -25,12 +25,12 @@
       <header class="site-header">
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
-          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent" class="agent-link">For Agents</a></nav>
+          <nav class="desktop-nav" aria-label="主导航"><a href="/projects">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
-              <div class="mobile-links"><a href="/projects">Projects</a><a href="/posts/">文章</a><a href="/about">About</a><a href="/agent">For Agents</a></div>
+              <div class="mobile-links"><a href="/projects">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
             </details>
           </nav>
         </div>
@@ -44,10 +44,10 @@
             <span class="hero-identity-copy"><strong>CengSin</strong><small>个人网站 · GitHub ↗</small></span>
           </a>
           <h1 class="display display-sentence" id="hero-title">从想法到作品。</h1>
-          <p class="hero-intro">解决问题，探索想法，与Agent协作</p>
+          <p class="hero-intro">解决问题，探索想法，与 Agent 协作</p>
           <div class="hero-actions">
-            <a class="button primary" href="/projects">看作品 <span class="button-arrow">→</span></a>
-            <a class="button secondary" href="/agent">让 Agent 了解我 <span class="button-arrow">→</span></a>
+            <a class="button primary" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872" target="_blank" rel="noopener noreferrer">看作品 <span class="button-arrow">↗</span></a>
+            <a class="button secondary" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">读新文章 <span class="button-arrow">↗</span></a>
           </div>
         </div>
         <div class="mouse-scene" aria-hidden="true">
@@ -82,50 +82,26 @@
           </span>
         </div>
       </section>
-      <section aria-labelledby="work-title">
+      <section class="portal-section" aria-labelledby="portal-title">
         <div class="section-heading">
-          <div><span class="micro">Selected Work</span><h2 id="work-title">作品</h2></div>
+          <div><span class="micro">网站入口</span><h2 id="portal-title">从这里继续</h2></div>
         </div>
-        <div class="work-grid">
-          <article class="card work-feature">
-            <div class="work-art idea-art" role="img" aria-label="示意图，不是产品截图。一个想法连接承接分支和完成的作品。"><span class="idea-node one">IDEA</span><span class="idea-node two">BRANCH</span><span class="idea-node three">WORK</span><span class="art-caption">示意图，不是产品截图</span></div>
-            <div class="work-copy">
-              <div class="work-meta mono"><span class="number">01</span><span>/</span><span>想法与 Agent</span></div>
-              <h3><a href="/projects/idea-platform">Idea Platform</a></h3>
-              <p>让一个想法可以被别人独立实现，并把结果留在同一条链路上。</p>
-              <div class="links"><a class="text-link" href="https://idea-platform.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer" class="print-url">打开线上站</a><a class="text-link internal" href="/projects/idea-platform">看这件作品</a></div>
-            </div>
+        <div class="portal-grid">
+          <article class="portal-card">
+            <p class="micro">01 / 作品</p>
+            <h3>作品与想法</h3>
+            <p>在 Idea Platform 看我发布的作品，并进入每件作品的来源与详情。</p>
+            <a class="portal-primary" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872" target="_blank" rel="noopener noreferrer">看作品 <span aria-hidden="true">↗</span></a>
+            <a class="portal-secondary" href="/projects">本站原有作品说明 →</a>
           </article>
-          <div class="work-stack">
-            <article class="card work-small">
-              <div class="work-copy small-copy">
-                <div class="work-meta mono"><span class="number">02</span><span>/</span><span>macOS</span></div>
-                <h3><a href="/projects/toubar-replace">ToubarReplace</a></h3>
-                <p>把 Touch Bar 变成 Agent 项目启动入口。</p>
-                <a class="text-link" href="https://toubarreplace.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer" class="print-url">打开官网</a>
-              </div>
-              <div class="work-art touch-art" role="img" aria-label="示意图，不是产品截图。键盘下方有一条 Touch Bar。"><div class="touch-device"><div class="touch-line"></div><div class="touch-bar"><i></i><i></i><i></i></div></div><span class="art-caption">示意图，不是产品截图</span></div>
-            </article>
-            <article class="card work-small">
-              <div class="work-copy small-copy">
-                <div class="work-meta mono"><span class="number">03</span><span>/</span><span>macOS</span></div>
-                <h3><a href="/projects/resource-steward">ResourceSteward</a></h3>
-                <p>在菜单栏看清 CPU、内存和 GPU，再决定要不要处理某个后台应用。</p>
-                <a class="text-link" href="https://github.com/CengSin/ContextAwareResourceManager" target="_blank" rel="noopener noreferrer" class="print-url">查看源码</a>
-              </div>
-              <div class="work-art resource-art" role="img" aria-label="示意图，不是产品截图。CPU、内存和 GPU 三条占用。"><div class="resource-window"><div class="resource-title mono">RESOURCE / VIEW</div><div class="resource-line"><span class="mono">CPU</span><b></b></div><div class="resource-line"><span class="mono">MEMORY</span><b></b></div><div class="resource-line"><span class="mono">GPU</span><b></b></div></div><span class="art-caption">示意图，不是产品截图</span></div>
-            </article>
-          </div>
+          <article class="portal-card">
+            <p class="micro">02 / 写作</p>
+            <h3>文章与日常</h3>
+            <p>新的文字写在「今天的天气」。这里也留着以前的文章。</p>
+            <a class="portal-primary" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">读新文章 <span aria-hidden="true">↗</span></a>
+            <a class="portal-secondary" href="/posts/">旧文归档 →</a>
+          </article>
         </div>
-        <article class="card work-wide">
-          <div class="wide-symbol" aria-hidden="true">g/o</div>
-          <div class="work-copy">
-            <div class="work-meta mono"><span class="number">04</span><span>/</span><span>OPEN SOURCE · GO</span></div>
-            <h3><a href="/projects/gorm-oracle">gorm-oracle</a></h3>
-            <p>让 GORM 连上 Oracle。</p>
-          </div>
-          <div class="links"><a class="text-link" href="https://github.com/CengSin/oracle" target="_blank" rel="noopener noreferrer" class="print-url">查看源码</a><a class="text-link internal" href="/projects/gorm-oracle">看这件作品</a></div>
-        </article>
       </section>
       <p class="home-about"><a class="text-link internal" href="/about">关于</a></p>
       <aside class="agent-strip" aria-labelledby="agent-strip-title">
@@ -139,11 +115,11 @@
       <footer class="site-footer">
         <span class="mono">CengSin</span>
         <div class="footer-links">
-          <a href="/projects">Projects</a>
+          <a href="/projects">作品</a>
           <a href="/posts/">文章</a>
-          <a href="/agent">For Agents</a>
+          <a href="/agent">智能体</a>
           <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">Email</a>
+          <a href="mailto:cengsin@icloud.com">邮箱</a>
         </div>
       </footer>
   </div>

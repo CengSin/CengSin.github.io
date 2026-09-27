@@ -2,7 +2,7 @@
 
 从想法到作品。
 
-解决问题，探索想法，与Agent协作
+解决问题，探索想法，与 Agent 协作
 
 古法编程时代从事后端开发。
 
@@ -11,7 +11,15 @@
 - 邮箱：cengsin@icloud.com
 - GitHub：https://github.com/CengSin
 
-## 作品
+## 入口
+
+- 作品与想法：https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872
+- Idea Platform 平台：https://idea-platform.z-agent.ccwu.cc/
+- 新文章：https://mood.z-agent.ccwu.cc/
+- 本站原有作品说明：/projects/
+- 旧文归档：/posts/
+
+## 本站原有作品说明
 
 ### Idea Platform
 
