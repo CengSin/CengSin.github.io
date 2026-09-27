@@ -79,8 +79,11 @@ from projects import GROUPS, PROJECTS
 from posts import build_posts
 
 INTRO = "从想法到作品。"
-TAGLINE = "解决问题，探索想法，与Agent协作"
+TAGLINE = "解决问题，探索想法，与 Agent 协作"
 BACKGROUND = "古法编程时代从事后端开发。"
+WORKS_URL = "https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872"
+IDEA_PLATFORM_URL = "https://idea-platform.z-agent.ccwu.cc/"
+MOOD_URL = "https://mood.z-agent.ccwu.cc/"
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 THEME_BOOTSTRAP = """(function () {
   var saved;
@@ -110,10 +113,10 @@ def diagram(kind):
 
 def nav(current):
     items = [
-        ("/projects", "Projects", "projects"),
+        ("/projects", "作品", "projects"),
         ("/posts/", "文章", "posts"),
-        ("/about", "About", "about"),
-        ("/agent", "For Agents", "agent"),
+        ("/about", "关于", "about"),
+        ("/agent", "智能体", "agent"),
     ]
     desktop = []
     mobile = []
@@ -144,11 +147,11 @@ def footer():
       <footer class="site-footer">
         <span class="mono">CengSin</span>
         <div class="footer-links">
-          <a href="/projects">Projects</a>
+          <a href="/projects">作品</a>
           <a href="/posts/">文章</a>
-          <a href="/agent">For Agents</a>
+          <a href="/agent">智能体</a>
           <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">Email</a>
+          <a href="mailto:cengsin@icloud.com">邮箱</a>
         </div>
       </footer>"""
 
@@ -165,7 +168,7 @@ def layout(title, description, current, main):
   <title>{esc(title)}</title>
   <script>{THEME_BOOTSTRAP}</script>
   <link rel="stylesheet" href="/assets/site.css">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -190,8 +193,6 @@ def entry_kind(project):
 
 
 def home():
-    selected = [p for p in PROJECTS if p["group"] == "selected"]
-    idea, touch, resource, oracle = selected
     main = f"""
       <section class="hero solo" aria-labelledby="hero-title">
         <div class="hero-copy">
@@ -202,8 +203,8 @@ def home():
           <h1 class="display display-sentence" id="hero-title">{esc(INTRO)}</h1>
           <p class="hero-intro">{esc(TAGLINE)}</p>
           <div class="hero-actions">
-            <a class="button primary" href="/projects">看作品 <span class="button-arrow">→</span></a>
-            <a class="button secondary" href="/agent">让 Agent 了解我 <span class="button-arrow">→</span></a>
+            <a class="button primary" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">看作品 <span class="button-arrow">↗</span></a>
+            <a class="button secondary" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">读新文章 <span class="button-arrow">↗</span></a>
           </div>
         </div>
         <div class="mouse-scene" aria-hidden="true">
@@ -238,50 +239,26 @@ def home():
           </span>
         </div>
       </section>
-      <section aria-labelledby="work-title">
+      <section class="portal-section" aria-labelledby="portal-title">
         <div class="section-heading">
-          <div><span class="micro">Selected Work</span><h2 id="work-title">作品</h2></div>
+          <div><span class="micro">网站入口</span><h2 id="portal-title">从这里继续</h2></div>
         </div>
-        <div class="work-grid">
-          <article class="card work-feature">
-            {diagram(idea["diagram"])}
-            <div class="work-copy">
-              <div class="work-meta mono"><span class="number">{idea["number"]}</span><span>/</span><span>{esc(idea["kind"])}</span></div>
-              <h3><a href="/projects/idea-platform">{esc(idea["name"])}</a></h3>
-              <p>{esc(idea["problem"])}</p>
-              <div class="links">{link_html("打开线上站", idea["links"][0][1])}{link_html("看这件作品", "/projects/idea-platform", "text-link internal")}</div>
-            </div>
+        <div class="portal-grid">
+          <article class="portal-card">
+            <p class="micro">01 / 作品</p>
+            <h3>作品与想法</h3>
+            <p>在 Idea Platform 看我发布的作品，并进入每件作品的来源与详情。</p>
+            <a class="portal-primary" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">看作品 <span aria-hidden="true">↗</span></a>
+            <a class="portal-secondary" href="/projects">本站原有作品说明 →</a>
           </article>
-          <div class="work-stack">
-            <article class="card work-small">
-              <div class="work-copy small-copy">
-                <div class="work-meta mono"><span class="number">02</span><span>/</span><span>macOS</span></div>
-                <h3><a href="/projects/toubar-replace">ToubarReplace</a></h3>
-                <p>{esc(touch["problem"])}</p>
-                {link_html("打开官网", touch["links"][0][1])}
-              </div>
-              {diagram("touch")}
-            </article>
-            <article class="card work-small">
-              <div class="work-copy small-copy">
-                <div class="work-meta mono"><span class="number">03</span><span>/</span><span>macOS</span></div>
-                <h3><a href="/projects/resource-steward">ResourceSteward</a></h3>
-                <p>{esc(resource["problem"])}</p>
-                {link_html("查看源码", resource["links"][0][1])}
-              </div>
-              {diagram("resource")}
-            </article>
-          </div>
+          <article class="portal-card">
+            <p class="micro">02 / 写作</p>
+            <h3>文章与日常</h3>
+            <p>新的文字写在「今天的天气」。这里也留着以前的文章。</p>
+            <a class="portal-primary" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">读新文章 <span aria-hidden="true">↗</span></a>
+            <a class="portal-secondary" href="/posts/">旧文归档 →</a>
+          </article>
         </div>
-        <article class="card work-wide">
-          <div class="wide-symbol" aria-hidden="true">g/o</div>
-          <div class="work-copy">
-            <div class="work-meta mono"><span class="number">04</span><span>/</span><span>OPEN SOURCE · GO</span></div>
-            <h3><a href="/projects/gorm-oracle">gorm-oracle</a></h3>
-            <p>{esc(oracle["problem"])}</p>
-          </div>
-          <div class="links">{link_html("查看源码", oracle["links"][0][1])}{link_html("看这件作品", "/projects/gorm-oracle", "text-link internal")}</div>
-        </article>
       </section>
       <p class="home-about"><a class="text-link internal" href="/about">关于</a></p>
       <aside class="agent-strip" aria-labelledby="agent-strip-title">
@@ -330,11 +307,21 @@ def projects_page():
         groups.append(f'<section class="group"><h2>{esc(title)}</h2><p class="group-note">{esc(note)}</p><ul class="catalog">{"".join(rows)}</ul></section>')
     main = f"""
       <div class="page">
-        <p class="page-kicker micro">Projects</p>
+        <p class="page-kicker micro">作品</p>
         <h1>作品</h1>
-        <p class="lede">按问题来看。能打开的站点和只能读的源码，都从作品页进去。</p>
-        <div class="feature-list">{''.join(cards)}</div>
-        {''.join(groups)}
+        <p class="lede">我的公开作品在 Idea Platform 持续更新。也可以从那里浏览其他人的想法，参与创作。</p>
+        <a class="works-portal" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
+          <span class="micro">我的公开作品</span>
+          <strong>在 Idea Platform 查看我的作品</strong>
+          <span>这里展示我已发布的作品，并可进入每件作品的来源与详情。</span>
+          <span class="works-portal-action">查看我的作品 ↗</span>
+        </a>
+        <a class="platform-entry" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
+        <details class="work-archive">
+          <summary>查看本站原有作品说明（{len(PROJECTS)} 项）</summary>
+          <div class="feature-list">{''.join(cards)}</div>
+          {''.join(groups)}
+        </details>
       </div>"""
     return layout("作品 · CengSin", "CengSin 的公开作品。", "projects", main)
 
@@ -370,18 +357,19 @@ def project_page(project):
 def about_page():
     main = f"""
       <article class="page narrow">
-        <p class="page-kicker micro">About</p>
+        <p class="page-kicker micro">关于</p>
         <h1>关于</h1>
         <p class="lede">{esc(BACKGROUND)}</p>
         <div class="prose">
-          <p>作品在 <a href="/projects">Projects</a>。</p>
+          <p>作品与想法在 <a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">Idea Platform</a>，新的文字在 <a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">今天的天气</a>。</p>
+          <p>本站保留 <a href="/projects">原有作品说明</a> 和 <a href="/posts/">旧文归档</a>。</p>
         </div>
         <dl class="facts">
           <div><dt>邮箱</dt><dd><a href="mailto:cengsin@icloud.com">cengsin@icloud.com</a></dd></div>
           <div><dt>GitHub</dt><dd><a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">github.com/CengSin</a></dd></div>
         </dl>
       </article>"""
-    return layout("About · CengSin", INTRO, "about", main)
+    return layout("关于 · CengSin", INTRO, "about", main)
 
 
 def agent_page():
@@ -395,7 +383,7 @@ def agent_page():
     )
     main = f"""
       <article class="page">
-        <p class="page-kicker micro">For Agents</p>
+        <p class="page-kicker micro">智能体</p>
         <h1>让 Agent 了解我</h1>
         <p class="lede">把这份站点交给你的 Agent。文件和页面是同一份介绍、作品和链接。</p>
         <table class="resource-table">
@@ -406,7 +394,7 @@ def agent_page():
         <textarea class="prompt" id="agent-prompt" readonly>{esc(PROMPT)}</textarea>
         <p><button class="button secondary" type="button" data-copy="agent-prompt">复制给 Agent</button></p>
       </article>"""
-    return layout("For Agents · CengSin", "把 CengSin 的公开介绍交给你的 Agent。", "agent", main)
+    return layout("智能体入口 · CengSin", "把 CengSin 的公开介绍交给你的 Agent。", "agent", main)
 
 
 def profile_data():
@@ -416,6 +404,11 @@ def profile_data():
         "tagline": TAGLINE,
         "background": BACKGROUND,
         "contact": {"email": "cengsin@icloud.com", "github": "https://github.com/CengSin"},
+        "primary_works_url": WORKS_URL,
+        "idea_platform_url": IDEA_PLATFORM_URL,
+        "primary_writing_url": MOOD_URL,
+        "project_archive_path": "/projects/",
+        "article_archive_path": "/posts/",
         "projects": [
             {
                 "name": project["name"],
@@ -444,7 +437,15 @@ def markdown_profile(data):
         "- 邮箱：cengsin@icloud.com",
         "- GitHub：https://github.com/CengSin",
         "",
-        "## 作品",
+        "## 入口",
+        "",
+        f"- 作品与想法：{WORKS_URL}",
+        f"- Idea Platform 平台：{IDEA_PLATFORM_URL}",
+        f"- 新文章：{MOOD_URL}",
+        "- 本站原有作品说明：/projects/",
+        "- 旧文归档：/posts/",
+        "",
+        "## 本站原有作品说明",
         "",
     ]
     for project in PROJECTS:
@@ -481,12 +482,20 @@ def llms_text():
 - /about 介绍
 - /agent 把这份介绍交给 Agent
 
+## 主要入口
+
+- 作品与想法：{WORKS_URL}
+- Idea Platform 平台：{IDEA_PLATFORM_URL}
+- 新文章：{MOOD_URL}
+- 本站原有作品说明：/projects/
+- 旧文归档：/posts/
+
 ## 机器可读
 
 - /agent/profile.json
 - /agent/profile.md
 
-## 作品
+## 本站原有作品说明
 
 {project_lines}
 
@@ -509,6 +518,7 @@ def main():
     (DIST / "assets").mkdir(parents=True)
     shutil.copy(SRC / "site.css", DIST / "assets" / "site.css")
     shutil.copy(SRC / "site.js", DIST / "assets" / "site.js")
+    shutil.copy(SRC / "favicon.svg", DIST / "assets" / "favicon.svg")
     pages = {
         "index.html": home(),
         "projects/index.html": projects_page(),

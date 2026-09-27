@@ -87,14 +87,14 @@ def listing(title, posts, layout, esc, mood_entry=False):
     )
     mood_card = """
         <a class="writing-card" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
-          <span class="writing-card-label mono">CURRENT WRITING</span>
+          <span class="writing-card-label mono">新的写作</span>
           <strong>新的文字在「今天的天气」</strong>
           <span class="writing-card-description">日常写作与新文章都在那里更新。这里继续保留早期文章归档。</span>
           <span class="writing-card-action">去读新文章 <span aria-hidden="true">↗</span></span>
         </a>""" if mood_entry else ""
     main = f"""
       <div class="page narrow">
-        <p class="page-kicker micro">Writing</p>
+        <p class="page-kicker micro">文章</p>
         <h1>{esc(title)}</h1>
         {mood_card}
         <ul class="post-list">{rows}</ul>

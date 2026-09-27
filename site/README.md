@@ -1,6 +1,6 @@
 # CengSin 个人站
 
-`cengsin.is-a.dev` 的静态站。唯一工作目录是本仓库。当前页面源文件在 `src/`，文章源文件在仓库根目录的 `content/posts/`，生成结果在 `dist/`。构建会将 Markdown 渲染为文章页，并保留旧 Hugo 的文章网址。GitHub Pages 从本仓库的 `gh-pages` 分支发布 `dist/`。
+`cengsin.is-a.dev` 是个人网站入口：公开作品展示在 [Idea Platform 个人作品页](https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872)，新文章在「今天的天气」发布。本站保留原有项目说明及 Hugo 文章网址。唯一工作目录是本仓库，源文件在 `src/`，旧文章 Markdown 在仓库根目录的 `content/posts/`，生成结果在 `dist/`。GitHub Pages 从本仓库的 `gh-pages` 分支发布 `dist/`。
 
 ## 预览
 
@@ -15,13 +15,13 @@ python3 -m http.server 8765 --directory dist
 ## 页面
 
 - `/` 首页
-- `/projects` 作品目录
-- `/projects/idea-platform` 以及其他项目详情
+- `/projects` Idea Platform 作品入口及本站原有项目说明
+- `/projects/idea-platform` 以及其他旧项目详情
 - `/about` `/agent`
 - `/posts/` 和原有 Hugo 文章详情、标签与分类网址
 - `/llms.txt` `/agent/profile.json` `/agent/profile.md`
 
-文章目录顶部链接到「今天的天气」的公开首页，新文章在那里发布；本页保留旧文归档。首页头像直接加载 GitHub 账号 `CengSin` 的当前头像，若外部图片不可用则显示 `CS` 字样。
+首页直接链接到 Idea Platform 的公开个人作品页和「今天的天气」；`/projects` 同时提供个人作品页与 Idea Platform 平台入口，并折叠保留本站原有作品说明；`/posts/` 保留本站旧文章。导航栏使用中文，浏览器标签图标由 `src/favicon.svg` 生成。首页头像直接加载 GitHub 账号 `CengSin` 的当前头像，若外部图片不可用则显示 `CS` 字样。
 
 修改文章请编辑仓库根目录的 `content/posts/`。旧文章的网址映射保存在 `src/posts.py`，新文章在 Markdown 文件头部写 `slug` 即可。旧 `public/` 目录仅作历史归档，构建不会读取其中的 HTML。个人资料在仓库根目录 `.local/profile/`，已被 Git 忽略，不参与构建。
 
@@ -40,6 +40,6 @@ draft: false
 
 更新文章：修改 Markdown 后重新构建和推送。删除文章：删除对应 Markdown；旧文章同时从 `src/posts.py` 的网址映射中移除。`draft: true` 的正文不会进入发布结果。
 
-作品数据在 `src/projects.py` 的 `PROJECTS` 列表中。新增或更新作品时修改对应字典；删除作品时还要清理其他作品的 `related` 引用。目前首页固定展示四个 `selected` 作品，增删精选作品还需要调整 `src/build.py` 的首页布局。
+新作品在 Idea Platform 中维护。`src/projects.py` 的 `PROJECTS` 列表只用于本站原有项目说明和旧详情页；不再控制首页展示。修改旧说明时编辑对应字典，删除旧详情时还要清理其他项目的 `related` 引用。
 
 公开站点不包含任职、求职城市、Now 和 Timeline。姓名、学校和手机号也没有写入 `dist/`。两篇旧日记中原有的一个未列入公开作品的项目名称在构建输出中替换为「一个实验项目」。

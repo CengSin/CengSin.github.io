@@ -1,6 +1,6 @@
 # CengSin 网站
 
-这个仓库是 `cengsin.is-a.dev` 的唯一工作目录。
+这个仓库是 `cengsin.is-a.dev` 的唯一工作目录。网站作为个人入口，指向 [我的公开作品](https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872)、[Idea Platform](https://idea-platform.z-agent.ccwu.cc/) 和「今天的天气」的文章；仓库保留以前的项目说明与文章网址。
 
 - `site/src/`：当前站点源码
 - `content/posts/`：文章 Markdown 源文件，构建时生成旧 `/posts/` 网址

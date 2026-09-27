@@ -591,6 +591,26 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
 .catalog .meta { color: var(--muted); font-size: 12px; text-align: right; }
 
 .feature-list { display: grid; gap: 14px; }
+.portal-section { padding-bottom: 42px; }
+.portal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.portal-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 250px; padding: 28px; border: 1px solid var(--line); background: var(--surface); }
+.portal-card .micro { margin-bottom: 22px; color: var(--blue); }
+.portal-card h3 { margin-bottom: 10px; font-size: clamp(24px, 2.5vw, 32px); }
+.portal-card > p:not(.micro) { max-width: 34ch; margin-bottom: 24px; color: var(--body); line-height: 1.7; }
+.portal-primary { margin-top: auto; color: var(--blue); font-size: 15px; font-weight: 650; text-decoration: none; }
+.portal-primary:hover, .portal-secondary:hover { text-decoration: underline; }
+.portal-secondary { margin-top: 12px; color: var(--muted); font-size: 13px; text-decoration: none; }
+.works-portal { display: grid; gap: 8px; margin: 30px 0 14px; padding: 26px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none; }
+.works-portal:hover { border-color: var(--blue); }
+.works-portal .micro, .works-portal-action { color: var(--blue); }
+.works-portal strong { font-size: 22px; }
+.works-portal > span:not(.micro):not(.works-portal-action) { color: var(--body); font-size: 14px; }
+.works-portal-action { margin-top: 6px; font-size: 13px; font-weight: 650; }
+.platform-entry { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 34px; color: var(--blue); font-size: 14px; font-weight: 600; text-decoration: none; }
+.platform-entry:hover { text-decoration: underline; }
+.work-archive { border-top: 1px solid var(--line); }
+.work-archive summary { padding: 20px 0; color: var(--body); font-weight: 600; cursor: pointer; }
+.work-archive .feature-list { margin: 10px 0 38px; }
 .feature-card { display: grid; grid-template-columns: 1.2fr 1fr; min-height: 220px; }
 .feature-card.no-art { grid-template-columns: 1fr; }
 .feature-card .work-copy p { max-width: 52ch; }
@@ -688,6 +708,8 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
 }
 
 @media (max-width: 760px) {
+  .portal-grid { grid-template-columns: 1fr; }
+  .portal-card { min-height: 220px; }
   .mouse-scene { --mouse-width: 62px; top: auto; bottom: 14px; width: min(68%, 260px); height: 96px; transform: none; }
   .mouse-building { grid-template-columns: repeat(2, 4px); }
   .mouse-building i { width: 4px; height: 4px; }
