@@ -29,6 +29,12 @@ LEGACY_SLUGS = {
 MARKDOWN = MarkdownIt("commonmark", {"html": False}).enable("table")
 
 
+def publishable_post_body(body):
+    body = body.replace("易搜(yisou.xin)", "一个实验项目")
+    body = body.replace("易搜（yisou.xin）", "一个实验项目")
+    return body
+
+
 def read_post(path):
     text = path.read_text(encoding="utf-8")
     if not text.startswith("---\n"):
@@ -46,8 +52,7 @@ def read_post(path):
             value = json.loads(value)
         meta[key.strip()] = value
     # The earlier site excluded this project from the public profile.
-    body = body.replace("易搜(yisou.xin)", "一个实验项目")
-    body = body.replace("易搜（yisou.xin）", "一个实验项目")
+    body = publishable_post_body(body)
     slug = LEGACY_SLUGS.get(path.name, meta.get("slug"))
     if not slug or (path.name not in LEGACY_SLUGS and not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug)):
         raise ValueError(f"new post needs an ASCII slug in front matter: {path}")
@@ -80,13 +85,13 @@ def article(post, layout, esc):
     return layout(f"{post['title']} · CengSin", post["title"], "posts", main)
 
 
-def listing(title, posts, layout, esc, mood_entry=False):
+def listing(title, posts, layout, esc, mood_entry=False, mood_url="https://mood.z-agent.ccwu.cc/"):
     rows = "".join(
         f'<li><a href="{esc(post_url(post))}"><span>{esc(str(post["date"])[:10])}</span><strong>{esc(post["title"])}</strong></a></li>'
         for post in posts
     )
-    mood_card = """
-        <a class="writing-card" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
+    mood_card = f"""
+        <a class="writing-card" href="{esc(mood_url)}" target="_blank" rel="noopener noreferrer">
           <span class="writing-card-label mono">新的写作</span>
           <strong>新的文字在「今天的天气」</strong>
           <span class="writing-card-description">日常写作与新文章都在那里更新。这里继续保留早期文章归档。</span>
@@ -121,7 +126,7 @@ def rss(posts):
     )
 
 
-def build_posts(source, images, dist, layout, write, esc):
+def build_posts(source, images, dist, layout, write, esc, mood_url="https://mood.z-agent.ccwu.cc/"):
     files = [
         path for path in source.glob("*.md")
         if path.name in LEGACY_SLUGS or path.read_text(encoding="utf-8").startswith("---\n")
@@ -142,7 +147,7 @@ def build_posts(source, images, dist, layout, write, esc):
             continue
         write(f"posts/{post['slug']}/index.html", article(post, layout, esc))
     listed = [post for post in posts if not post["draft"]]
-    write("posts/index.html", listing("文章", listed, layout, esc, mood_entry=True))
+    write("posts/index.html", listing("文章", listed, layout, esc, mood_entry=True, mood_url=mood_url))
     write("posts/index.xml", rss(listed))
     write("index.xml", rss(listed))
     for group, field in (("tags", "tags"), ("categories", "categories")):

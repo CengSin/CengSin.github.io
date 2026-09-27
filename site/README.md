@@ -12,6 +12,18 @@ python3 -m http.server 8765 --directory dist
 
 浏览器打开 http://127.0.0.1:8765/
 
+## 本地管理后台
+
+管理后台只在本机运行，不会放进公开的 `dist/`。只有 GitHub 账号 CengSin 可以登录，其他账号会被拒绝。
+
+```bash
+python3 src/admin_server.py
+```
+
+浏览器打开 http://127.0.0.1:8787/admin/ 。首次使用时，在 GitHub 创建一个 OAuth App：首页地址填 `http://127.0.0.1:8787`，回调地址填 `http://127.0.0.1:8787/admin/oauth/callback`。Client Secret 只保存在本机的 `.local/`，不会进入仓库。
+
+保存后会重新生成本地预览。确认页面没问题之前，不要推送。
+
 ## 页面
 
 - `/` 首页

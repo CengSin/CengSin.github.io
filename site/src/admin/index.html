@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>管理后台 · CengSin</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <main id="login" class="login-wrap" hidden>
+    <section class="card login-card">
+      <p class="kicker">CengSin</p>
+      <h1>管理后台</h1>
+      <p>使用 GitHub 账号登录。只有 CengSin 可以进入，其他账号都会被拒绝。</p>
+      <div id="setup"></div>
+      <p id="login-status" class="status" role="status"></p>
+      <div class="actions">
+        <a class="button primary" id="login-button" href="/admin/oauth/start">使用 GitHub 登录</a>
+        <a class="button" href="/">回到网站</a>
+      </div>
+      <p class="note">后台只在这台电脑上运行。保存会更新本地预览，不会推送到线上。</p>
+    </section>
+  </main>
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/">CengSin</a>
+      <p class="sidebar-label">管理后台</p>
+      <nav id="menu" aria-label="管理功能"></nav>
+      <div class="sidebar-foot">
+        <a href="/">查看网站</a>
+        <button id="logout" type="button">退出</button>
+      </div>
+    </aside>
+    <section class="workspace">
+      <header class="workspace-bar">
+        <div>
+          <p class="kicker" id="signed-in">CengSin</p>
+          <h1 id="panel-title">页面布局</h1>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </header>
+      <div class="workspace-body">
+        <div id="panel"></div>
+      </div>
+    </section>
+  </div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

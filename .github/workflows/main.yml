@@ -15,6 +15,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Remove frontend comments
+        run: python3 site/src/check_comments.py --fix site/src
+
       - name: Build
         run: |
           python3 -m pip install -r site/requirements.txt

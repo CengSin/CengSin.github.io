@@ -7,35 +7,40 @@ import shutil
 from pathlib import Path
 from urllib.parse import quote
 
+from markdown_it import MarkdownIt
+
+from content_store import forbidden_hits, load_site, resolve_href
+from posts import build_posts
+from projects import PROJECTS
+
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 DIST = ROOT / "dist"
+OUT = DIST
 SNAPSHOT = "2026-09-24"
-PROMPT = """请阅读这个站点的 /llms.txt，以及其中列出的页面和 /agent/profile.json。用这些材料介绍 CengSin 和他的公开作品。"""
-
-FORBIDDEN = [
-    "张泽涛",
-    "15262040158",
-    "中国矿业大学",
-    "徐海学院",
-    "zephone",
-    "notcallme",
-    "stock_after_action_review",
-    "stock-tinder",
-    "wearform",
-    "yisou",
-    "retrieval",
-    "openclaw_status",
-    "openclaw-workspace",
-    "icloud_key",
-    "tickflow",
-    "华尔街",
-    "赢时胜",
-    "秉坤",
-    "期望城市",
-    "简历",
-    "InvokeReplace",
-]
+SITE = load_site()
+IDENTITY = SITE["identity"]
+LINKS = SITE["links"]
+WHO = IDENTITY["who"]
+INTRO = IDENTITY["intro"]
+TAGLINE = IDENTITY["tagline"]
+BACKGROUND = IDENTITY["background"]
+ABOUT = IDENTITY["about"]
+DOING = IDENTITY["doing"]
+WORKS_URL = LINKS["works_url"]
+IDEA_PLATFORM_URL = LINKS["idea_platform_url"]
+MOOD_URL = LINKS["mood_url"]
+EMAIL = IDENTITY["email"]
+GITHUB = IDENTITY["github"]
+PROMPT = SITE["prompt"]
+BY_SLUG = {item["slug"]: item for item in PROJECTS}
+RESUME_MD = MarkdownIt("commonmark", {"html": False}).enable("table")
+THEME_BOOTSTRAP = """(function () {
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+})();"""
 
 
 def esc(value):
@@ -75,27 +80,6 @@ def external(href):
     return ""
 
 
-from projects import PROJECTS
-from posts import build_posts
-
-WHO = "后端开发，现在和 Agent 一起做东西。"
-INTRO = "从想法到作品。"
-TAGLINE = "解决问题，探索想法，与 Agent 协作"
-BACKGROUND = "古法编程时代从事后端开发。"
-ABOUT = "古法编程时代从事后端开发。现在更常和 Agent 一起把想法推进成作品：人决定做什么，Agent 顺着准备好的上下文去实现，结果再回到同一条链路里。我在意的是，一个问题能不能被做成可以打开、也可以继续的东西。"
-DOING = "眼下主要是两件事。一件是 Idea Platform：一个想法可以被别人独立实现，完成的东西再回到同一条链路上。另一件是把身边的问题做成小工具，比如把 Touch Bar 变成 Agent 项目的启动入口。新的文字写在「今天的天气」。"
-WORKS_URL = "https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872"
-IDEA_PLATFORM_URL = "https://idea-platform.z-agent.ccwu.cc/"
-MOOD_URL = "https://mood.z-agent.ccwu.cc/"
-BY_SLUG = {item["slug"]: item for item in PROJECTS}
-THEME_BOOTSTRAP = """(function () {
-  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  var themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
-})();"""
-
-
 def link_html(label, href, klass="text-link"):
     return f'<a class="{klass}" href="{esc(href)}"{external(href)}>{esc(label)}</a>'
 
@@ -112,24 +96,38 @@ def diagram(kind):
     return ""
 
 
+def visible_nav():
+    resume = SITE["resume"]
+    items = []
+    for item in SITE["nav"]:
+        if not item.get("enabled", True):
+            continue
+        href = resolve_href(item["href"], SITE)
+        if not resume.get("enabled") and (item.get("key") == "resume" or href.rstrip("/") == "/resume"):
+            continue
+        items.append({**item, "href": href})
+    if resume.get("enabled") and resume.get("show_in_nav") and not any(item.get("key") == "resume" for item in items):
+        items.append({
+            "href": "/resume",
+            "label": resume.get("nav_label") or "简历",
+            "key": "resume",
+            "enabled": True,
+        })
+    return items
+
+
 def nav(current):
-    items = [
-        ("/projects", "作品", "projects"),
-        ("/posts/", "文章", "posts"),
-        ("/about", "关于", "about"),
-        ("/agent", "智能体", "agent"),
-    ]
     desktop = []
     mobile = []
-    for href, label, key in items:
+    for item in visible_nav():
+        href, label, key = item["href"], item["label"], item["key"]
         current_attr = ' aria-current="page"' if key == current else ""
-        klass = "agent-link" if key == "agent" else ""
-        class_attr = f' class="{klass}"' if klass else ""
-        desktop.append(f'<a href="{href}"{class_attr}{current_attr}>{label}</a>')
-        mobile.append(f'<a href="{href}"{current_attr}>{label}</a>')
+        class_attr = ' class="agent-link"' if key == "agent" else ""
+        desktop.append(f'<a href="{esc(href)}"{class_attr}{current_attr}>{esc(label)}</a>')
+        mobile.append(f'<a href="{esc(href)}"{current_attr}>{esc(label)}</a>')
     return f"""
       <header class="site-header">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>{esc(SITE["brand"])}</a>
         <div class="header-actions">
           <nav class="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
           <nav class="mobile-nav" aria-label="手机导航">
@@ -143,15 +141,18 @@ def nav(current):
 
 
 def footer():
+    links = []
+    for item in SITE["footer"]:
+        href = resolve_href(item["href"], SITE)
+        if not SITE["resume"].get("enabled") and href.rstrip("/") == "/resume":
+            continue
+        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("https://") else ""
+        links.append(f'          <a href="{esc(href)}"{attrs}>{esc(item["label"])}</a>')
     return f"""
       <footer class="site-footer">
-        <span class="mono">CengSin</span>
+        <span class="mono">{esc(SITE["brand"])}</span>
         <div class="footer-links">
-          <a href="/projects">作品</a>
-          <a href="/posts/">文章</a>
-          <a href="/agent">智能体</a>
-          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">邮箱</a>
+{chr(10).join(links)}
         </div>
       </footer>"""
 
@@ -185,96 +186,134 @@ def layout(title, description, current, main):
 """
 
 
-def home():
-    main = f"""
-      <section class="home-hero" aria-labelledby="who-name">
+def keyword_list():
+    return "\n".join(f"          <li>{esc(word)}</li>" for word in IDENTITY["keywords"])
+
+
+def render_hero():
+    home = SITE["home"]
+    handle = IDENTITY["github_handle"]
+    primary = resolve_href(home["hero_primary_href"], SITE)
+    secondary = resolve_href(home["hero_secondary_href"], SITE)
+    return f"""      <section class="home-hero" aria-labelledby="who-name">
         <div class="home-hero-grid">
-          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>
+          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/{esc(handle)}.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>
           <div>
-            <h1 id="who-name">CengSin</h1>
+            <h1 id="who-name">{esc(SITE["brand"])}</h1>
             <p class="home-who">{esc(WHO)}</p>
             <p class="home-support">{esc(INTRO)}{esc(TAGLINE)}。</p>
             <div class="home-actions">
-              <a class="button primary" href="#about">了解我</a>
-              <a class="home-quiet" href="#doing">看我在做什么</a>
+              <a class="button primary" href="{esc(primary)}">{esc(home["hero_primary_label"])}</a>
+              <a class="home-quiet" href="{esc(secondary)}">{esc(home["hero_secondary_label"])}</a>
             </div>
           </div>
         </div>
-      </section>
-      <section class="home-block" id="doing" aria-labelledby="doing-title">
-        <h2 id="doing-title">我在做什么</h2>
+      </section>"""
+
+
+def render_doing():
+    home = SITE["home"]
+    threads = []
+    for item in home["threads"]:
+        href = resolve_href(item["href"], SITE)
+        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("http") else ""
+        threads.append(
+            f"""          <a class="home-thread" href="{esc(href)}"{attrs}>
+            <strong>{esc(item["title"])}</strong>
+            <span>{esc(item["text"])}</span>
+          </a>"""
+        )
+    return f"""      <section class="home-block" id="doing" aria-labelledby="doing-title">
+        <h2 id="doing-title">{esc(home["doing_title"])}</h2>
         <p class="home-lede">{esc(DOING)}</p>
         <div class="home-threads">
-          <a class="home-thread" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">
-            <strong>Idea Platform</strong>
-            <span>让一个想法可以被别人独立实现，并把结果留在同一条链路上。</span>
-          </a>
-          <a class="home-thread" href="https://toubarreplace.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
-            <strong>ToubarReplace</strong>
-            <span>把 Touch Bar 变成 Agent 项目启动入口。</span>
-          </a>
-          <a class="home-thread" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">
-            <strong>今天的天气</strong>
-            <span>新的文字写在这里。</span>
-          </a>
+{chr(10).join(threads)}
         </div>
-      </section>
-      <section class="home-block" id="doors" aria-labelledby="doors-title">
-        <h2 id="doors-title">从这里继续</h2>
-        <p class="home-note">三处入口。新的作品和文字在外面更新，交给 Agent 的材料留在本站。</p>
-        <div class="home-doors">
-          <a class="home-door" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
-            <span class="home-dest">跳转至 Idea Platform</span>
-            <h3>最新作品</h3>
-            <p>看我已经发布的作品，也可以顺着别人的想法继续做。</p>
-            <span class="home-go">看作品</span>
-          </a>
-          <a class="home-door" href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">
-            <span class="home-dest">跳转至今天的天气</span>
-            <h3>最新文字</h3>
-            <p>新的文字写在这里，不和项目说明混在一起。</p>
-            <span class="home-go">读新文章</span>
-          </a>
-        </div>
+      </section>"""
+
+
+def render_doors():
+    home = SITE["home"]
+    cards = []
+    for item in home["doors"]:
+        href = resolve_href(item["href"], SITE)
+        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("http") else ""
+        cards.append(
+            f"""          <a class="home-door" href="{esc(href)}"{attrs}>
+            <span class="home-dest">{esc(item["dest"])}</span>
+            <h3>{esc(item["title"])}</h3>
+            <p>{esc(item["text"])}</p>
+            <span class="home-go">{esc(item["action"])}</span>
+          </a>"""
+        )
+    agent = home["agent"]
+    agent_html = ""
+    if agent.get("enabled", True):
+        agent_html = f"""
         <div class="home-agent" id="agent">
           <div>
-            <span class="home-dest">留在本站</span>
-            <h3>交给 Agent</h3>
-            <p>这个网站对 AI 友好。把链接丢给你的 Agent，它可以从这里了解我和公开作品。</p>
+            <span class="home-dest">{esc(agent["dest"])}</span>
+            <h3>{esc(agent["title"])}</h3>
+            <p>{esc(agent["text"])}</p>
           </div>
           <div class="home-agent-actions">
-            <button class="button secondary" type="button" data-copy="agent-prompt">复制提示词</button>
-            <a href="/llms.txt">llms.txt</a>
+            <button class="button secondary" type="button" data-copy="agent-prompt">{esc(agent["button"])}</button>
+            <a href="/llms.txt">{esc(agent["llms_label"])}</a>
             <textarea id="agent-prompt" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
           </div>
-        </div>
-      </section>
-      <section class="home-block" id="about" aria-labelledby="about-title">
-        <h2 id="about-title">关于</h2>
+        </div>"""
+    return f"""      <section class="home-block" id="doors" aria-labelledby="doors-title">
+        <h2 id="doors-title">{esc(home["doors_title"])}</h2>
+        <p class="home-note">{esc(home["doors_note"])}</p>
+        <div class="home-doors">
+{chr(10).join(cards)}
+        </div>{agent_html}
+      </section>"""
+
+
+def render_about():
+    return f"""      <section class="home-block" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">{esc(SITE["home"]["about_title"])}</h2>
         <p class="home-about-copy">{esc(ABOUT)}</p>
         <ul class="keyword-tags" aria-label="关键词">
-          <li>后端</li>
-          <li>Agent</li>
-          <li>独立开发</li>
+{keyword_list()}
         </ul>
-      </section>
-      <section class="home-history" aria-labelledby="history-title">
-        <h2 id="history-title">历史记录</h2>
-        <a class="home-record" href="/projects">
-          <strong>旧作品存档</strong>
-          <span>本站原来的作品说明。</span>
-          <em>留在本站</em>
-        </a>
-        <a class="home-record" href="/posts/">
-          <strong>旧文归档</strong>
-          <span>以前的文章还留在这里。</span>
-          <em>留在本站</em>
-        </a>
       </section>"""
-    return layout("CengSin — 个人网站", WHO, "home", main)
+
+
+def render_history():
+    records = []
+    for item in SITE["home"]["history"]:
+        href = resolve_href(item["href"], SITE)
+        records.append(
+            f"""        <a class="home-record" href="{esc(href)}">
+          <strong>{esc(item["title"])}</strong>
+          <span>{esc(item["text"])}</span>
+          <em>{esc(item["meta"])}</em>
+        </a>"""
+        )
+    return f"""      <section class="home-history" aria-labelledby="history-title">
+        <h2 id="history-title">{esc(SITE["home"]["history_title"])}</h2>
+{chr(10).join(records)}
+      </section>"""
+
+
+RENDERERS = {
+    "hero": render_hero,
+    "doing": render_doing,
+    "doors": render_doors,
+    "about": render_about,
+    "history": render_history,
+}
+
+
+def home():
+    parts = [RENDERERS[section["id"]]() for section in SITE["home"]["sections"] if section.get("enabled", True)]
+    return layout(SITE["site_title"], WHO, "home", "\n" + "\n".join(parts))
 
 
 def projects_page():
+    page = SITE["projects_page"]
     cards = []
     for project in PROJECTS:
         if project["group"] != "selected":
@@ -295,22 +334,22 @@ def projects_page():
           </article>""")
     main = f"""
       <div class="page">
-        <p class="page-kicker micro">作品</p>
-        <h1>作品</h1>
-        <p class="lede">我的公开作品在 Idea Platform 持续更新。也可以从那里浏览其他人的想法，参与创作。</p>
+        <p class="page-kicker micro">{esc(page["kicker"])}</p>
+        <h1>{esc(page["title"])}</h1>
+        <p class="lede">{esc(page["lede"])}</p>
         <a class="works-portal" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
-          <span class="micro">我的公开作品</span>
-          <strong>在 Idea Platform 查看我的作品</strong>
-          <span>这里展示我已发布的作品，并可进入每件作品的来源与详情。</span>
-          <span class="works-portal-action">查看我的作品 ↗</span>
+          <span class="micro">{esc(page["portal_kicker"])}</span>
+          <strong>{esc(page["portal_title"])}</strong>
+          <span>{esc(page["portal_text"])}</span>
+          <span class="works-portal-action">{esc(page["portal_action"])}</span>
         </a>
-        <a class="platform-entry" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
+        <a class="platform-entry" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["platform_label"])} <span aria-hidden="true">↗</span></a>
         <details class="work-archive" open>
-          <summary>本站原有作品说明（{len(cards)} 项）</summary>
+          <summary>{esc(page["archive_label"])}（{len(cards)} 项）</summary>
           <div class="feature-list">{''.join(cards)}</div>
         </details>
       </div>"""
-    return layout("作品 · CengSin", "CengSin 的公开作品。", "projects", main)
+    return layout(f"{page['title']} · {SITE['brand']}", page["description"], "projects", main)
 
 
 def project_page(project):
@@ -342,51 +381,90 @@ def project_page(project):
 
 
 def about_page():
+    page = SITE["about_page"]
+    extra_html = ""
+    if page["extra_paragraphs"]:
+        extra_html = "\n" + "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in page["extra_paragraphs"])
+    github_text = GITHUB.removeprefix("https://").removeprefix("http://")
     main = f"""
       <article class="page narrow">
-        <p class="page-kicker micro">关于</p>
-        <h1>关于</h1>
+        <p class="page-kicker micro">{esc(page["kicker"])}</p>
+        <h1>{esc(page["title"])}</h1>
         <p class="lede">{esc(ABOUT)}</p>
         <ul class="keyword-tags" aria-label="关键词">
-          <li>后端</li>
-          <li>Agent</li>
-          <li>独立开发</li>
+{keyword_list()}
         </ul>
         <div class="prose">
-          <p>作品与想法在 <a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">Idea Platform</a>，新的文字在 <a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">今天的天气</a>。</p>
-          <p>本站保留 <a href="/projects">原有作品说明</a> 和 <a href="/posts/">旧文归档</a>。</p>
+          <p>{esc(page["intro_before"])}<a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["works_link_label"])}</a>{esc(page["intro_between"])}<a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["writing_link_label"])}</a>{esc(page["intro_after"])}</p>
+          <p>{esc(page["archive_before"])}<a href="/projects">{esc(page["projects_link_label"])}</a>{esc(page["archive_between"])}<a href="/posts/">{esc(page["posts_link_label"])}</a>{esc(page["archive_after"])}</p>{extra_html}
         </div>
         <dl class="facts">
-          <div><dt>邮箱</dt><dd><a href="mailto:cengsin@icloud.com">cengsin@icloud.com</a></dd></div>
-          <div><dt>GitHub</dt><dd><a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">github.com/CengSin</a></dd></div>
+          <div><dt>{esc(page["email_label"])}</dt><dd><a href="mailto:{esc(EMAIL)}">{esc(EMAIL)}</a></dd></div>
+          <div><dt>{esc(page["github_label"])}</dt><dd><a href="{esc(GITHUB)}" target="_blank" rel="noopener noreferrer">{esc(github_text)}</a></dd></div>
         </dl>
       </article>"""
-    return layout("关于 · CengSin", INTRO, "about", main)
+    return layout(f"{page['title']} · {SITE['brand']}", INTRO, "about", main)
 
 
 def agent_page():
-    rows = [
-        ("/llms.txt", "站点地图：介绍、作品和联系方式"),
-        ("/agent/profile.json", "同一份介绍的 JSON"),
-        ("/agent/profile.md", "同一份介绍的 Markdown"),
-    ]
+    page = SITE["agent_page"]
     table = "".join(
-        f'<tr><td><a href="{esc(href)}">{esc(href)}</a></td><td>{esc(desc)}</td></tr>' for href, desc in rows
+        f'<tr><td><a href="{esc(item["href"])}">{esc(item["href"])}</a></td><td>{esc(item["description"])}</td></tr>'
+        for item in page["resources"]
     )
     main = f"""
       <article class="page">
-        <p class="page-kicker micro">智能体</p>
-        <h1>让 Agent 了解我</h1>
-        <p class="lede">把这份站点交给你的 Agent。文件和页面是同一份介绍、作品和链接。</p>
+        <p class="page-kicker micro">{esc(page["kicker"])}</p>
+        <h1>{esc(page["title"])}</h1>
+        <p class="lede">{esc(page["lede"])}</p>
         <table class="resource-table">
           <thead><tr><th>资源</th><th>内容</th></tr></thead>
           <tbody>{table}</tbody>
         </table>
-        <h2>复制给 Agent</h2>
+        <h2>{esc(page["copy_heading"])}</h2>
         <textarea class="prompt" id="agent-prompt" readonly>{esc(PROMPT)}</textarea>
-        <p><button class="button secondary" type="button" data-copy="agent-prompt">复制给 Agent</button></p>
+        <p><button class="button secondary" type="button" data-copy="agent-prompt">{esc(page["copy_button"])}</button></p>
       </article>"""
-    return layout("智能体入口 · CengSin", "把 CengSin 的公开介绍交给你的 Agent。", "agent", main)
+    return layout(f"智能体入口 · {SITE['brand']}", page["description"], "agent", main)
+
+
+def resume_markdown():
+    resume = SITE["resume"]
+    lines = [f"# {resume['title']}", ""]
+    if resume["summary"].strip():
+        lines.extend([resume["summary"].strip(), ""])
+    for section in resume["sections"]:
+        lines.extend([f"## {section['heading']}", ""])
+        if section["body"].strip():
+            lines.extend([section["body"].strip(), ""])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def resume_page():
+    resume = SITE["resume"]
+    parts = []
+    for section in resume["sections"]:
+        body = RESUME_MD.render(section["body"]) if section["body"].strip() else ""
+        parts.append(f"<section><h2>{esc(section['heading'])}</h2>{body}</section>")
+    actions = []
+    if resume.get("download"):
+        filename = resume["filename"]
+        actions.append(
+            f'<a class="button primary" href="/resume/{esc(filename)}" download="{esc(filename)}">{esc(resume["download_label"])}</a>'
+        )
+    if resume.get("print_label"):
+        actions.append(f'<button class="button" type="button" data-print>{esc(resume["print_label"])}</button>')
+    action_html = f'<div class="hero-actions">{"".join(actions)}</div>' if actions else ""
+    summary = f'<p class="lede">{esc(resume["summary"])}</p>' if resume["summary"].strip() else ""
+    main = f"""
+      <article class="page narrow">
+        <p class="page-kicker micro">{esc(resume["kicker"])}</p>
+        <h1>{esc(resume["title"])}</h1>
+        {summary}
+        {action_html}
+        <div class="prose">{''.join(parts)}</div>
+      </article>"""
+    return layout(f"{resume['title']} · {SITE['brand']}", resume["summary"] or resume["title"], "resume", main)
 
 
 def profile_data():
@@ -397,7 +475,7 @@ def profile_data():
         "tagline": TAGLINE,
         "background": BACKGROUND,
         "about": ABOUT,
-        "contact": {"email": "cengsin@icloud.com", "github": "https://github.com/CengSin"},
+        "contact": {"email": EMAIL, "github": GITHUB},
         "primary_works_url": WORKS_URL,
         "idea_platform_url": IDEA_PLATFORM_URL,
         "primary_writing_url": MOOD_URL,
@@ -430,8 +508,8 @@ def markdown_profile(data):
         "",
         "## 联系",
         "",
-        "- 邮箱：cengsin@icloud.com",
-        "- GitHub：https://github.com/CengSin",
+        f"- 邮箱：{EMAIL}",
+        f"- GitHub：{GITHUB}",
         "",
         "## 入口",
         "",
@@ -444,6 +522,8 @@ def markdown_profile(data):
         "## 本站原有作品说明",
         "",
     ]
+    if SITE["resume"]["enabled"]:
+        lines.insert(lines.index("- 旧文归档：/posts/") + 1, "- 简历：/resume")
     for project in PROJECTS:
         links = "，".join(f"{label} {href}" for label, href in project["links"])
         lines.append(f"### {project['name']}")
@@ -462,6 +542,7 @@ def llms_text():
     project_lines = "\n".join(
         f"- {project['name']}: /projects/{project['slug']} — {project['problem']}" for project in PROJECTS
     )
+    resume_line = "\n- /resume 简历" if SITE["resume"]["enabled"] else ""
     return f"""# CengSin
 
 > {WHO}
@@ -476,7 +557,7 @@ def llms_text():
 - /projects 作品
 - /posts/ 文章
 - /about 介绍
-- /agent 把这份介绍交给 Agent
+- /agent 把这份介绍交给 Agent{resume_line}
 
 ## 主要入口
 
@@ -497,38 +578,48 @@ def llms_text():
 
 ## 联系
 
-- Email: cengsin@icloud.com
-- GitHub: https://github.com/CengSin
+- Email: {EMAIL}
+- GitHub: {GITHUB}
 """
 
 
 def write(rel, content):
-    path = DIST / rel
+    path = OUT / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
 
-def main():
-    if DIST.exists():
-        shutil.rmtree(DIST)
-    (DIST / "assets").mkdir(parents=True)
-    shutil.copy(SRC / "site.css", DIST / "assets" / "site.css")
-    shutil.copy(SRC / "site.js", DIST / "assets" / "site.js")
-    shutil.copy(SRC / "favicon.svg", DIST / "assets" / "favicon.svg")
+def generate():
+    (OUT / "assets").mkdir(parents=True)
+    shutil.copy(SRC / "site.css", OUT / "assets" / "site.css")
+    shutil.copy(SRC / "site.js", OUT / "assets" / "site.js")
+    shutil.copy(SRC / "favicon.svg", OUT / "assets" / "favicon.svg")
     pages = {
         "index.html": home(),
         "projects/index.html": projects_page(),
         "about/index.html": about_page(),
         "agent/index.html": agent_page(),
     }
+    if SITE["resume"]["enabled"]:
+        pages["resume/index.html"] = resume_page()
     for project in PROJECTS:
         pages[f"projects/{project['slug']}/index.html"] = project_page(project)
     for rel, content in pages.items():
         write(rel, content)
-    build_posts(ROOT.parent / "content" / "posts", ROOT.parent / "static" / "images", DIST, layout, write, esc)
+    if SITE["resume"]["enabled"] and SITE["resume"].get("download"):
+        write(f"resume/{SITE['resume']['filename']}", resume_markdown())
+    build_posts(
+        ROOT.parent / "content" / "posts",
+        ROOT.parent / "static" / "images",
+        OUT,
+        layout,
+        write,
+        esc,
+        mood_url=MOOD_URL,
+    )
     routes = sorted(
-        "/" + path.parent.relative_to(DIST).as_posix().strip(".") + "/"
-        for path in DIST.rglob("index.html")
+        "/" + path.parent.relative_to(OUT).as_posix().strip(".") + "/"
+        for path in OUT.rglob("index.html")
     )
     routes = ["/" if route == "//" else route for route in routes]
     write(
@@ -544,19 +635,51 @@ def main():
     write("llms.txt", llms_text())
     write("CNAME", "cengsin.is-a.dev\n")
     write(".nojekyll", "")
-    removed = ["resume/index.html", "resume.md", "now/index.html", "timeline/index.html"]
-    leaked = [name for name in removed if (DIST / name).exists()]
+    removed = ["now/index.html", "timeline/index.html", "resume.md"]
+    if not SITE["resume"]["enabled"]:
+        removed.append("resume/index.html")
+    leaked = [name for name in removed if (OUT / name).exists()]
+    if not SITE["resume"]["enabled"] and (OUT / "resume").exists():
+        leaked.append("resume/")
     if leaked:
         raise SystemExit(f"removed routes still exist: {leaked}")
     blob = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in DIST.rglob("*")
+        for path in OUT.rglob("*")
         if path.is_file() and path.suffix.lower() in {".html", ".xml", ".txt", ".json", ".md", ".css", ".js"}
     )
-    hits = [word for word in FORBIDDEN if word.lower() in blob.lower()]
+    hits = forbidden_hits(blob, allow_resume_word=bool(SITE["resume"]["enabled"]))
     if hits:
         raise SystemExit(f"forbidden content: {hits}")
-    print(f"wrote {len(pages)} html pages to {DIST}")
+    return len(pages)
+
+
+def main():
+    global OUT
+    staging = DIST.parent / ".dist-staging"
+    previous = DIST.parent / ".dist-previous"
+    if staging.exists():
+        shutil.rmtree(staging)
+    staging.mkdir(parents=True)
+    OUT = staging
+    try:
+        count = generate()
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    if previous.exists():
+        shutil.rmtree(previous)
+    if DIST.exists():
+        DIST.rename(previous)
+    try:
+        staging.rename(DIST)
+    except BaseException:
+        if previous.exists() and not DIST.exists():
+            previous.rename(DIST)
+        raise
+    if previous.exists():
+        shutil.rmtree(previous)
+    print(f"wrote {count} html pages to {DIST}")
 
 
 if __name__ == "__main__":

@@ -19,6 +19,10 @@
     if (image.complete && image.naturalWidth === 0) image.remove();
   });
 
+  document.querySelectorAll("[data-print]").forEach(function (button) {
+    button.addEventListener("click", function () { window.print(); });
+  });
+
   document.querySelectorAll("[data-copy]").forEach(function (button) {
     button.addEventListener("click", function () {
       var node = document.getElementById(button.getAttribute("data-copy"));
