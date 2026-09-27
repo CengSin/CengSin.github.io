@@ -1,11 +1,5 @@
 """Public works. No employment history."""
 
-GROUPS = [
-    ("selected", "精选", "从这里开始。每件都能打开站点，或直接看源码。"),
-    ("tool", "工具", "有明确用途，可以装上或读源码。"),
-    ("experiment", "实验", "原型、工作流和小站点。"),
-]
-
 PROJECTS = [
     {
         "slug": "idea-platform",

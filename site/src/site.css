@@ -97,19 +97,6 @@ h1, h2, h3 { letter-spacing: -0.04em; line-height: 1.2; font-weight: 640; }
 }
 
 .header-actions { display: flex; align-items: center; gap: 24px; }
-.theme-toggle {
-  min-height: 44px;
-  padding: 0 2px;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 580;
-  cursor: pointer;
-}
-.theme-toggle:hover { color: var(--blue); }
-
 .brand {
   display: flex;
   gap: 10px;
@@ -569,27 +556,6 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
 .page h1 { font-size: clamp(36px, 5vw, 64px); margin-bottom: 16px; max-width: 16em; }
 .page > .lede { margin-bottom: 28px; }
 
-.group { margin-top: 36px; }
-.group h2 { font-size: 22px; margin-bottom: 6px; }
-.group .group-note { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
-
-.catalog { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.catalog a {
-  display: grid;
-  grid-template-columns: 148px minmax(0, 1.1fr) minmax(0, 1.6fr) minmax(120px, 0.8fr);
-  gap: 16px;
-  align-items: baseline;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  color: var(--ink);
-}
-.catalog a:hover { color: var(--blue); }
-.catalog .status { color: var(--muted); font-size: 12px; }
-.catalog strong { font-size: 17px; font-weight: 640; }
-.catalog .problem { color: var(--body); font-size: 14px; }
-.catalog .meta { color: var(--muted); font-size: 12px; text-align: right; }
-
 .feature-list { display: grid; gap: 14px; }
 .portal-section { padding-bottom: 42px; }
 .portal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -702,9 +668,6 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
   .work-grid, .feature-card, .lower { grid-template-columns: 1fr; }
   .work-stack { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
   .lower-block + .lower-block { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
-  .catalog a { grid-template-columns: 1fr 1fr; }
-  .catalog .problem { grid-column: 1 / -1; }
-  .catalog .meta { text-align: left; }
 }
 
 @media (max-width: 760px) {
@@ -744,7 +707,6 @@ html[data-theme="dark"] .resource-line b::after { background: #91bdd3; }
   .work-small { grid-template-columns: 1fr; }
   .small-copy { padding-bottom: 8px; }
   .touch-art, .resource-art, .idea-art { min-height: 160px; }
-  .catalog a { grid-template-columns: 1fr; gap: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

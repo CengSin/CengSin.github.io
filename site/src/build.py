@@ -75,7 +75,7 @@ def external(href):
     return ""
 
 
-from projects import GROUPS, PROJECTS
+from projects import PROJECTS
 from posts import build_posts
 
 INTRO = "从想法到作品。"
@@ -86,9 +86,7 @@ IDEA_PLATFORM_URL = "https://idea-platform.z-agent.ccwu.cc/"
 MOOD_URL = "https://mood.z-agent.ccwu.cc/"
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 THEME_BOOTSTRAP = """(function () {
-  var saved;
-  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
-  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   var themeColor = document.querySelector('meta[name="theme-color"]');
   if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
@@ -131,7 +129,6 @@ def nav(current):
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
           <nav class="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
@@ -183,13 +180,6 @@ def layout(title, description, current, main):
 </body>
 </html>
 """
-
-
-def entry_kind(project):
-    for _label, href in project["links"]:
-        if href.startswith("http") and "github.com" not in href:
-            return "可体验"
-    return "源码"
 
 
 def home():
@@ -289,22 +279,6 @@ def projects_page():
             </div>
             {art}
           </article>""")
-    groups = []
-    for key, title, note in GROUPS:
-        if key == "selected":
-            continue
-        rows = []
-        for project in PROJECTS:
-            if project["group"] != key:
-                continue
-            rows.append(f"""
-              <li><a href="/projects/{project["slug"]}">
-                <span class="status mono">{esc(entry_kind(project))}</span>
-                <strong>{esc(project["name"])}</strong>
-                <span class="problem">{esc(project["problem"])}</span>
-                <span class="meta mono">{esc(project["stack"])}</span>
-              </a></li>""")
-        groups.append(f'<section class="group"><h2>{esc(title)}</h2><p class="group-note">{esc(note)}</p><ul class="catalog">{"".join(rows)}</ul></section>')
     main = f"""
       <div class="page">
         <p class="page-kicker micro">作品</p>
@@ -317,10 +291,9 @@ def projects_page():
           <span class="works-portal-action">查看我的作品 ↗</span>
         </a>
         <a class="platform-entry" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
-        <details class="work-archive">
-          <summary>查看本站原有作品说明（{len(PROJECTS)} 项）</summary>
+        <details class="work-archive" open>
+          <summary>本站原有作品说明（{len(cards)} 项）</summary>
           <div class="feature-list">{''.join(cards)}</div>
-          {''.join(groups)}
         </details>
       </div>"""
     return layout("作品 · CengSin", "CengSin 的公开作品。", "projects", main)
