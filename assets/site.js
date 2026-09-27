@@ -14,7 +14,7 @@
     else if (systemTheme.addListener) systemTheme.addListener(onSystemTheme);
   }
 
-  document.querySelectorAll(".hero-avatar img").forEach(function (image) {
+  document.querySelectorAll(".hero-avatar img, .home-avatar img").forEach(function (image) {
     image.addEventListener("error", function () { image.remove(); });
     if (image.complete && image.naturalWidth === 0) image.remove();
   });
