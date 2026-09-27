@@ -4,3 +4,6 @@ node_modules/
 site/dist/
 .local/
 __pycache__/
+.DS_Store
+.playwright-cli/
+.obsidian/
