@@ -8,9 +8,7 @@
   <meta name="description" content="目录一变，就给 Agent 一份带简短说明的结构。">
   <title>DirMap · CengSin</title>
   <script>(function () {
-  var saved;
-  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
-  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   var themeColor = document.querySelector('meta[name="theme-color"]');
   if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
@@ -26,7 +24,6 @@
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
           <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>

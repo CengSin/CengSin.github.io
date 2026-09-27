@@ -1,31 +1,14 @@
 (function () {
-  var themeToggle = document.querySelector("[data-theme-toggle]");
   var themeColor = document.querySelector('meta[name="theme-color"]');
   var systemTheme = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-  var savedTheme = function () {
-    try { return localStorage.getItem("cengsin-theme"); } catch (err) { return null; }
-  };
-  var applyTheme = function (theme, save) {
+  var applyTheme = function (theme) {
     document.documentElement.dataset.theme = theme;
     if (themeColor) themeColor.content = theme === "dark" ? "#111B26" : "#F5F7FA";
-    if (themeToggle) {
-      var next = theme === "dark" ? "日间模式" : "夜晚模式";
-      themeToggle.textContent = next;
-      themeToggle.setAttribute("aria-label", "切换到" + next);
-    }
-    if (save) {
-      try { localStorage.setItem("cengsin-theme", theme); } catch (err) { /* Local storage is optional. */ }
-    }
   };
-  applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light", false);
-  if (themeToggle) {
-    themeToggle.addEventListener("click", function () {
-      applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
-    });
-  }
+  applyTheme(systemTheme && systemTheme.matches ? "dark" : "light");
   if (systemTheme) {
     var onSystemTheme = function (event) {
-      if (!savedTheme()) applyTheme(event.matches ? "dark" : "light", false);
+      applyTheme(event.matches ? "dark" : "light");
     };
     if (systemTheme.addEventListener) systemTheme.addEventListener("change", onSystemTheme);
     else if (systemTheme.addListener) systemTheme.addListener(onSystemTheme);

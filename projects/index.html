@@ -8,9 +8,7 @@
   <meta name="description" content="CengSin 的公开作品。">
   <title>作品 · CengSin</title>
   <script>(function () {
-  var saved;
-  try { saved = localStorage.getItem('cengsin-theme'); } catch (err) { saved = null; }
-  var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   var themeColor = document.querySelector('meta[name="theme-color"]');
   if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
@@ -26,7 +24,6 @@
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
           <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换到夜晚模式">夜晚模式</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
@@ -48,8 +45,8 @@
           <span class="works-portal-action">查看我的作品 ↗</span>
         </a>
         <a class="platform-entry" href="https://idea-platform.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
-        <details class="work-archive">
-          <summary>查看本站原有作品说明（15 项）</summary>
+        <details class="work-archive" open>
+          <summary>本站原有作品说明（4 项）</summary>
           <div class="feature-list">
           <article class="card feature-card">
             <div class="work-copy">
@@ -87,73 +84,6 @@
             </div>
             
           </article></div>
-          <section class="group"><h2>工具</h2><p class="group-note">有明确用途，可以装上或读源码。</p><ul class="catalog">
-              <li><a href="/projects/idea-platform-plugin">
-                <span class="status mono">源码</span>
-                <strong>Idea Platform Plugin</strong>
-                <span class="problem">让编辑器里的 Agent 读取 Idea Platform，而不是去爬网页。</span>
-                <span class="meta mono">JavaScript</span>
-              </a></li>
-              <li><a href="/projects/fishaudio-mcp">
-                <span class="status mono">源码</span>
-                <strong>Fish Audio MCP</strong>
-                <span class="problem">把文字交给 Fish Audio，接进支持 MCP 的客户端。</span>
-                <span class="meta mono">Python</span>
-              </a></li>
-              <li><a href="/projects/dirmap">
-                <span class="status mono">源码</span>
-                <strong>DirMap</strong>
-                <span class="problem">目录一变，就给 Agent 一份带简短说明的结构。</span>
-                <span class="meta mono">Go</span>
-              </a></li>
-              <li><a href="/projects/weread-reading-recommender">
-                <span class="status mono">源码</span>
-                <strong>weread-reading-recommender</strong>
-                <span class="problem">在自己的机器上，根据微信读书记录想下一本读什么。</span>
-                <span class="meta mono">Python</span>
-              </a></li>
-              <li><a href="/projects/crawl-online">
-                <span class="status mono">源码</span>
-                <strong>Crawler Skill Studio</strong>
-                <span class="problem">在网页上点选字段，生成一份爬虫 skill。</span>
-                <span class="meta mono">TypeScript</span>
-              </a></li></ul></section><section class="group"><h2>实验</h2><p class="group-note">原型、工作流和小站点。</p><ul class="catalog">
-              <li><a href="/projects/fold-studio">
-                <span class="status mono">可体验</span>
-                <strong>Fold Studio</strong>
-                <span class="problem">看清双屏折叠时，两面的内容应该怎样交接。</span>
-                <span class="meta mono">JavaScript</span>
-              </a></li>
-              <li><a href="/projects/develop-workflow">
-                <span class="status mono">源码</span>
-                <strong>develop-workflow</strong>
-                <span class="problem">把开发和 Agent 的步骤编排成失败后可以单独重试的流程。</span>
-                <span class="meta mono">Go</span>
-              </a></li>
-              <li><a href="/projects/temporal-openclaw-research-agent">
-                <span class="status mono">源码</span>
-                <strong>temporal-openclaw-research-agent</strong>
-                <span class="problem">一次要走很多步的 Agent 任务，中间失败不该从头再来。</span>
-                <span class="meta mono">Go</span>
-              </a></li>
-              <li><a href="/projects/clawd-hands">
-                <span class="status mono">源码</span>
-                <strong>Clawd Hands</strong>
-                <span class="problem">集中查看、开关和分享 OpenClaw 的技能包。</span>
-                <span class="meta mono">JavaScript</span>
-              </a></li>
-              <li><a href="/projects/baby-toy">
-                <span class="status mono">源码</span>
-                <strong>敲敲小世界</strong>
-                <span class="problem">给喜欢敲键盘的孩子一块画纸，按键不离开这台设备。</span>
-                <span class="meta mono">TypeScript</span>
-              </a></li>
-              <li><a href="/projects/my-face">
-                <span class="status mono">可体验</span>
-                <strong>今天的天气</strong>
-                <span class="problem">留一个只记心情的小站。</span>
-                <span class="meta mono">TypeScript</span>
-              </a></li></ul></section>
         </details>
       </div>
     </main>
