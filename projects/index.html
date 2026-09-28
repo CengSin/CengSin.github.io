@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F5F7FA">
   <meta name="description" content="CengSin 的公开作品。">
+  <meta name="site-config" content="7b12f21296f0e7e9">
   <title>作品 · CengSin</title>
   <script>(function () {
   var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -16,18 +17,18 @@
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
-<body>
+<body data-page="projects">
   <a class="skip-link" href="#main">跳到主要内容</a>
   <div class="shell">
     
       <header class="site-header">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
+        <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
-          <nav class="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
+          <nav class="desktop-nav" id="desktop-nav" aria-label="主导航"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
-              <div class="mobile-links"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
+              <div class="mobile-links" id="mobile-links"><a href="/projects" aria-current="page">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
             </details>
           </nav>
         </div>
@@ -35,18 +36,18 @@
     <main id="main">
       
       <div class="page">
-        <p class="page-kicker micro">作品</p>
-        <h1>作品</h1>
-        <p class="lede">我的公开作品在 Idea Platform 持续更新。也可以从那里浏览其他人的想法，参与创作。</p>
-        <a class="works-portal" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872" target="_blank" rel="noopener noreferrer">
-          <span class="micro">我的公开作品</span>
-          <strong>在 Idea Platform 查看我的作品</strong>
-          <span>这里展示我已发布的作品，并可进入每件作品的来源与详情。</span>
-          <span class="works-portal-action">查看我的作品 ↗</span>
+        <p class="page-kicker micro" data-config="kicker">作品</p>
+        <h1 data-config="title">作品</h1>
+        <p class="lede" data-config="lede">我的公开作品在 Idea Platform 持续更新。也可以从那里浏览其他人的想法，参与创作。</p>
+        <a class="works-portal" data-config-href="works_url" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872" target="_blank" rel="noopener noreferrer">
+          <span class="micro" data-config="portal_kicker">我的公开作品</span>
+          <strong data-config="portal_title">在 Idea Platform 查看我的作品</strong>
+          <span data-config="portal_text">这里展示我已发布的作品，并可进入每件作品的来源与详情。</span>
+          <span class="works-portal-action" data-config="portal_action">查看我的作品 ↗</span>
         </a>
-        <a class="platform-entry" href="https://idea-platform.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">探索 Idea Platform 平台 <span aria-hidden="true">↗</span></a>
+        <a class="platform-entry" data-config-href="idea_platform_url" href="https://idea-platform.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer"><span data-config="platform_label">探索 Idea Platform 平台</span> <span aria-hidden="true">↗</span></a>
         <details class="work-archive" open>
-          <summary>本站原有作品说明（4 项）</summary>
+          <summary data-config="archive_label">本站原有作品说明（4 项）</summary>
           <div class="feature-list">
           <article class="card feature-card">
             <div class="work-copy">
@@ -89,8 +90,8 @@
     </main>
     
       <footer class="site-footer">
-        <span class="mono">CengSin</span>
-        <div class="footer-links">
+        <span class="mono" id="footer-brand">CengSin</span>
+        <div class="footer-links" id="footer-links">
           <a href="/projects">作品</a>
           <a href="/posts/">文章</a>
           <a href="/agent">智能体</a>
