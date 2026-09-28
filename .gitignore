@@ -5,6 +5,7 @@ site/dist/
 site/.dist-staging/
 site/.dist-previous/
 .local/
+site/cloudflare/assets.mjs
 __pycache__/
 .DS_Store
 .playwright-cli/

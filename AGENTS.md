@@ -20,7 +20,7 @@
 
 ## 资料怎么进站点
 
-`.local/profile/` 用来核对事实。页面文案在 `site/content/site.json`，旧作品在 `site/content/projects.json`，由 `site/src/build.py` 生成。本地管理后台运行 `python3 site/src/admin_server.py`，只监听 `127.0.0.1:8787`，并且只允许 GitHub 账号 CengSin 登录；后台页面不会进入 `site/dist/`。不要把 `.local/profile/` 拷进 `public/`、`site/src/` 或 `site/dist/`。
+`.local/profile/` 用来核对事实。页面文案在 `site/content/site.json`，旧作品在 `site/content/projects.json`，由 `site/src/build.py` 生成。线上管理后台在 https://cengsin.de5.net/admin/ ，由 `site/cloudflare/worker.mjs` 提供，配置存在 Cloudflare KV。公开站 `cengsin.is-a.dev` 和 `cengsin.github.io` 在浏览器里读取 `https://cengsin.de5.net/config`。只允许 GitHub 账号 CengSin 登录。本地预览仍可运行 `python3 site/src/admin_server.py`，只监听 `127.0.0.1:8787`；后台页面不会进入 `site/dist/`。不要把 `.local/profile/` 拷进 `public/`、`site/src/` 或 `site/dist/`。
 
 公开页目前是入口首页、原有作品说明与项目详情、About、Agent 入口、旧文章 `/posts/` 与历史详情，以及 `/llms.txt`、`/agent/profile.json`、`/agent/profile.md`。
 

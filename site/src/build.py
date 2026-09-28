@@ -9,7 +9,7 @@ from urllib.parse import quote
 
 from markdown_it import MarkdownIt
 
-from content_store import forbidden_hits, load_site, resolve_href
+from content_store import config_hash, forbidden_hits, load_site, resolve_href
 from posts import build_posts
 from projects import PROJECTS
 
@@ -33,6 +33,7 @@ MOOD_URL = LINKS["mood_url"]
 EMAIL = IDENTITY["email"]
 GITHUB = IDENTITY["github"]
 PROMPT = SITE["prompt"]
+CONFIG_REV = config_hash(SITE)
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 RESUME_MD = MarkdownIt("commonmark", {"html": False}).enable("table")
 THEME_BOOTSTRAP = """(function () {
@@ -127,13 +128,13 @@ def nav(current):
         mobile.append(f'<a href="{esc(href)}"{current_attr}>{esc(label)}</a>')
     return f"""
       <header class="site-header">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>{esc(SITE["brand"])}</a>
+        <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>{esc(SITE["brand"])}</a>
         <div class="header-actions">
-          <nav class="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
+          <nav class="desktop-nav" id="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
-              <div class="mobile-links">{''.join(mobile)}</div>
+              <div class="mobile-links" id="mobile-links">{''.join(mobile)}</div>
             </details>
           </nav>
         </div>
@@ -150,8 +151,8 @@ def footer():
         links.append(f'          <a href="{esc(href)}"{attrs}>{esc(item["label"])}</a>')
     return f"""
       <footer class="site-footer">
-        <span class="mono">{esc(SITE["brand"])}</span>
-        <div class="footer-links">
+        <span class="mono" id="footer-brand">{esc(SITE["brand"])}</span>
+        <div class="footer-links" id="footer-links">
 {chr(10).join(links)}
         </div>
       </footer>"""
@@ -166,12 +167,13 @@ def layout(title, description, current, main):
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F5F7FA">
   <meta name="description" content="{esc(description)}">
+  <meta name="site-config" content="{CONFIG_REV}">
   <title>{esc(title)}</title>
   <script>{THEME_BOOTSTRAP}</script>
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
-<body{" class='home'" if current == "home" else ""}>
+<body{(' class="home" data-page="home"' if current == "home" else f' data-page="{esc(current)}"')}>
   <a class="skip-link" href="#main">跳到主要内容</a>
   <div class="shell">
     {nav(current)}
@@ -334,18 +336,18 @@ def projects_page():
           </article>""")
     main = f"""
       <div class="page">
-        <p class="page-kicker micro">{esc(page["kicker"])}</p>
-        <h1>{esc(page["title"])}</h1>
-        <p class="lede">{esc(page["lede"])}</p>
-        <a class="works-portal" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
-          <span class="micro">{esc(page["portal_kicker"])}</span>
-          <strong>{esc(page["portal_title"])}</strong>
-          <span>{esc(page["portal_text"])}</span>
-          <span class="works-portal-action">{esc(page["portal_action"])}</span>
+        <p class="page-kicker micro" data-config="kicker">{esc(page["kicker"])}</p>
+        <h1 data-config="title">{esc(page["title"])}</h1>
+        <p class="lede" data-config="lede">{esc(page["lede"])}</p>
+        <a class="works-portal" data-config-href="works_url" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
+          <span class="micro" data-config="portal_kicker">{esc(page["portal_kicker"])}</span>
+          <strong data-config="portal_title">{esc(page["portal_title"])}</strong>
+          <span data-config="portal_text">{esc(page["portal_text"])}</span>
+          <span class="works-portal-action" data-config="portal_action">{esc(page["portal_action"])}</span>
         </a>
-        <a class="platform-entry" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["platform_label"])} <span aria-hidden="true">↗</span></a>
+        <a class="platform-entry" data-config-href="idea_platform_url" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer"><span data-config="platform_label">{esc(page["platform_label"])}</span> <span aria-hidden="true">↗</span></a>
         <details class="work-archive" open>
-          <summary>{esc(page["archive_label"])}（{len(cards)} 项）</summary>
+          <summary data-config="archive_label">{esc(page["archive_label"])}（{len(cards)} 项）</summary>
           <div class="feature-list">{''.join(cards)}</div>
         </details>
       </div>"""

@@ -1,0 +1,12 @@
+name = "cengsin-admin"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+account_id = "0b6decfbed0f3439726d7ded971b57e5"
+workers_dev = false
+
+[[kv_namespaces]]
+binding = "CONFIG"
+id = "b18169de36ff4d908f216371d60c83c2"
+
+[vars]
+# GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, and SESSION_SECRET are Worker secrets.

@@ -93,11 +93,20 @@
     return data;
   }
 
+  function onCloud() {
+    return location.hostname === "cengsin.de5.net";
+  }
+
+  function previewHref(path) {
+    if (!onCloud()) return path;
+    return "https://cengsin.is-a.dev" + (path.charAt(0) === "/" ? path : "/" + path);
+  }
+
   async function run(action) {
-    setStatus("正在保存并更新本地预览…");
+    setStatus(onCloud() ? "正在保存…" : "正在保存并更新本地预览…");
     try {
       const data = await action();
-      setStatus(data.message || "已保存，本地预览已更新", "ok");
+      setStatus(data.message || (onCloud() ? "已保存。" : "已保存，本地预览已更新"), "ok");
     } catch (error) {
       setStatus(error.message, "error");
     }
@@ -106,7 +115,7 @@
   function saveBar(action, href) {
     return el("div", { class: "savebar" }, [
       el("button", { class: "button primary", type: "button", onclick: function () { run(action); } }, ["保存并更新预览"]),
-      el("a", { class: "button", href: href, target: "_blank" }, ["打开预览"]),
+      el("a", { class: "button", href: previewHref(href), target: "_blank" }, ["打开预览"]),
     ]);
   }
 
@@ -367,7 +376,7 @@
     });
     panel.append(
       saveBar(saveSite, resume.enabled ? "/resume" : "/"),
-      note("简历页默认不公开。打开后，本地预览会出现页面和下载文件。姓名、学校、手机号、公司任职、求职城市和私有仓库仍然不能保存。"),
+      note("简历页默认不公开。姓名、学校、手机号、公司任职、求职城市和私有仓库仍然不能保存。"),
       el("div", { class: "switch-row" }, [
         checkbox("公开简历页", resume.enabled, function (value) { resume.enabled = value; }),
         checkbox("放进导航栏", resume.show_in_nav, function (value) { resume.show_in_nav = value; }),
@@ -504,7 +513,7 @@
       }));
     });
     editor.append(el("button", { class: "button danger", type: "button", onclick: function () {
-      if (!window.confirm("删除「" + project.name + "」？详情页会从本地预览里消失。")) return;
+      if (!window.confirm("删除「" + project.name + "」？")) return;
       state.projects.splice(index, 1);
       state.projects.forEach(function (item) {
         item.related = item.related.filter(function (slug) { return slug !== project.slug; });
@@ -613,7 +622,7 @@
   }
 
   async function removePost(post) {
-    if (!window.confirm("删除「" + post.title + "」？本地预览里的这篇文章会消失。")) return;
+    if (!window.confirm("删除「" + post.title + "」？")) return;
     await run(function () {
       return api("/admin/api/post", { method: "DELETE", body: JSON.stringify({ filename: post.filename }) }).then(async function (result) {
         const data = await api("/admin/api/posts");
@@ -629,7 +638,9 @@
     const id = el("input", { autocomplete: "off" });
     const secret = el("input", { type: "password", autocomplete: "off" });
     return el("form", { onsubmit: function (event) { event.preventDefault(); } }, [
-      note("第一次使用需要一个只给本机用的 GitHub OAuth App。回调地址填 http://127.0.0.1:8787/admin/oauth/callback ，首页地址填 http://127.0.0.1:8787 。"),
+      note(onCloud()
+        ? "回调地址填 https://cengsin.de5.net/admin/oauth/callback ，首页地址填 https://cengsin.de5.net 。"
+        : "第一次使用需要一个只给本机用的 GitHub OAuth App。回调地址填 http://127.0.0.1:8787/admin/oauth/callback ，首页地址填 http://127.0.0.1:8787 。"),
       el("p", {}, [el("a", { href: "https://github.com/settings/applications/new", target: "_blank", rel: "noopener noreferrer" }, ["去 GitHub 创建 OAuth App"])]),
       el("label", { class: "field" }, [el("span", {}, ["Client ID"]), id]),
       el("label", { class: "field" }, [el("span", {}, ["Client Secret"]), secret]),
@@ -638,7 +649,7 @@
         try {
           await api("/admin/oauth/setup", { method: "POST", body: JSON.stringify({ client_id: id.value, client_secret: secret.value }) });
           secret.value = "";
-          setStatus("登录配置已保存在这台电脑上。", "ok");
+          setStatus("登录配置已保存。", "ok");
           document.querySelector("#login-button").hidden = false;
         } catch (error) {
           setStatus(error.message, "error");
@@ -653,6 +664,11 @@
   });
 
   async function boot() {
+    if (onCloud()) {
+      document.querySelectorAll("[data-site]").forEach(function (node) {
+        node.setAttribute("href", "https://cengsin.is-a.dev/");
+      });
+    }
     try {
       const session = await api("/admin/api/session");
       if (!session.authenticated) {

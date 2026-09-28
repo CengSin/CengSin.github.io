@@ -18,18 +18,17 @@
       <p id="login-status" class="status" role="status"></p>
       <div class="actions">
         <a class="button primary" id="login-button" href="/admin/oauth/start">使用 GitHub 登录</a>
-        <a class="button" href="/">回到网站</a>
+        <a class="button" data-site href="/">回到网站</a>
       </div>
-      <p class="note">后台只在这台电脑上运行。保存会更新本地预览，不会推送到线上。</p>
     </section>
   </main>
   <div id="app" class="app" hidden>
     <aside class="sidebar">
-      <a class="brand" href="/">CengSin</a>
+      <a class="brand" data-site href="/">CengSin</a>
       <p class="sidebar-label">管理后台</p>
       <nav id="menu" aria-label="管理功能"></nav>
       <div class="sidebar-foot">
-        <a href="/">查看网站</a>
+        <a data-site href="/">查看网站</a>
         <button id="logout" type="button">退出</button>
       </div>
     </aside>

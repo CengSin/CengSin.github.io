@@ -1,5 +1,6 @@
 """Load, validate, and save the editable site content."""
 
+import hashlib
 import json
 import re
 from datetime import datetime
@@ -552,6 +553,19 @@ def _string_list(value, label):
     if not isinstance(value, list) or len(value) > 12:
         raise ContentError(f"{label}格式不对")
     return [_text(item, label, 40).strip() for item in value]
+
+
+def public_config(site):
+    data = json.loads(json.dumps(site))
+    resume = data.get("resume") if isinstance(data.get("resume"), dict) else {}
+    if not resume.get("enabled"):
+        data["resume"] = {"enabled": False, "show_in_nav": False}
+    return data
+
+
+def config_hash(site):
+    raw = json.dumps(public_config(site), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
 def resolve_href(value, site):
