@@ -203,7 +203,7 @@
     var agent = home.agent || {};
     var agentHtml = "";
     if (agent.enabled !== false) {
-      agentHtml = '\n        <div class="home-agent" id="agent">\n          <div>\n            <span class="home-dest">' + esc(agent.dest) + '</span>\n            <h3>' + esc(agent.title) + '</h3>\n            <p>' + esc(agent.text) + '</p>\n          </div>\n          <div class="home-agent-actions">\n            <button class="button secondary" type="button" data-copy="agent-prompt">' + esc(agent.button) + '</button>\n            <a href="/llms.txt">' + esc(agent.llms_label) + '</a>\n            <textarea id="agent-prompt" class="visually-hidden" readonly>' + esc(site.prompt) + '</textarea>\n          </div>\n        </div>';
+      agentHtml = '\n        <div class="home-agent" id="agent">\n          <div>\n            <span class="home-dest">' + esc(agent.dest) + '</span>\n            <h3>' + esc(agent.title) + '</h3>\n            <p>' + esc(agent.text) + '</p>\n          </div>\n          <div class="home-agent-actions">\n            <button class="button secondary" type="button" data-copy="agent-prompt">' + esc(agent.button) + '</button>\n            <a href="/llms.txt">' + esc(agent.llms_label) + '</a>\n            <textarea id="agent-prompt" aria-label="交给 Agent 的提示词" class="visually-hidden" readonly>' + esc(site.prompt) + '</textarea>\n          </div>\n        </div>';
     }
     return '      <section class="home-block" id="doors" aria-labelledby="doors-title">\n        <h2 id="doors-title">' + esc(home.doors_title) + '</h2>\n        <p class="home-note">' + esc(home.doors_note) + '</p>\n        <div class="home-doors">\n' + cards + '\n        </div>' + agentHtml + '\n      </section>';
   }
@@ -250,7 +250,7 @@
       var href = hrefOf(item.href, site);
       return '<tr><td><a href="' + esc(href) + '">' + esc(item.href) + '</a></td><td>' + esc(item.description) + '</td></tr>';
     }).join("");
-    return '\n      <article class="page">\n        <p class="page-kicker micro">' + esc(page.kicker) + '</p>\n        <h1>' + esc(page.title) + '</h1>\n        <p class="lede">' + esc(page.lede) + '</p>\n        <table class="resource-table">\n          <thead><tr><th>资源</th><th>内容</th></tr></thead>\n          <tbody>' + table + '</tbody>\n        </table>\n        <h2>' + esc(page.copy_heading) + '</h2>\n        <textarea class="prompt" id="agent-prompt" readonly>' + esc(site.prompt) + '</textarea>\n        <p><button class="button secondary" type="button" data-copy="agent-prompt">' + esc(page.copy_button) + '</button></p>\n      </article>';
+    return '\n      <article class="page">\n        <p class="page-kicker micro">' + esc(page.kicker) + '</p>\n        <h1>' + esc(page.title) + '</h1>\n        <p class="lede">' + esc(page.lede) + '</p>\n        <table class="resource-table">\n          <thead><tr><th>资源</th><th>内容</th></tr></thead>\n          <tbody>' + table + '</tbody>\n        </table>\n        <h2>' + esc(page.copy_heading) + '</h2>\n        <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly>' + esc(site.prompt) + '</textarea>\n        <p><button class="button secondary" type="button" data-copy="agent-prompt">' + esc(page.copy_button) + '</button></p>\n      </article>';
   }
 
   function setDescription(text) {

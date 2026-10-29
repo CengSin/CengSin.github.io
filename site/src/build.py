@@ -269,7 +269,7 @@ def render_doors():
           <div class="home-agent-actions">
             <button class="button secondary" type="button" data-copy="agent-prompt">{esc(agent["button"])}</button>
             <a href="/llms.txt">{esc(agent["llms_label"])}</a>
-            <textarea id="agent-prompt" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
+            <textarea id="agent-prompt" aria-label="交给 Agent 的提示词" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
           </div>
         </div>"""
     return f"""      <section class="home-block" id="doors" aria-labelledby="doors-title">
@@ -438,7 +438,7 @@ def agent_page():
           <tbody>{table}</tbody>
         </table>
         <h2>{esc(page["copy_heading"])}</h2>
-        <textarea class="prompt" id="agent-prompt" readonly>{esc(PROMPT)}</textarea>
+        <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly>{esc(PROMPT)}</textarea>
         <p><button class="button secondary" type="button" data-copy="agent-prompt">{esc(page["copy_button"])}</button></p>
       </article>"""
     return layout(f"智能体入口 · {SITE['brand']}", page["description"], "agent", main)
@@ -666,6 +666,9 @@ def generate():
         leaked.append("resume/")
     if leaked:
         raise SystemExit(f"removed routes still exist: {leaked}")
+    OUT.chmod(0o755)
+    for path in OUT.rglob("*"):
+        path.chmod(0o755 if path.is_dir() else 0o644)
     blob = "\n".join(
         path.read_text(encoding="utf-8")
         for path in OUT.rglob("*")
