@@ -1,4 +1,5 @@
-import { ADMIN_CSS, ADMIN_HTML, ADMIN_JS, FAVICON } from "./assets.mjs";
+import { musicApi, publicMusic } from "./music.mjs";
+import { ADMIN_CSS, ADMIN_HTML, ADMIN_JS, MUSIC_ADMIN_JS, TOKENS_CSS, FAVICON } from "./assets.mjs";
 import {
   deletePost,
   listPosts,
@@ -33,6 +34,10 @@ async function route(request, env) {
   if (url.hostname !== HOST) return text(404, "not found");
   if (request.method === "OPTIONS" && url.pathname === "/config") return configCors(new Response(null, { status: 204 }));
   if (url.pathname === "/config" && request.method === "GET") return config(env);
+  if (url.pathname === "/music/public" && request.method === "GET") {
+    try { return json(200, await publicMusic(env), true); }
+    catch { return json(503, { error: "音乐暂时无法加载" }, true); }
+  }
   if (url.pathname === "/assets/favicon.svg" && request.method === "GET") {
     return new Response(FAVICON, { headers: { "Content-Type": "image/svg+xml", "Cache-Control": "public, max-age=86400" } });
   }
@@ -52,8 +57,10 @@ async function admin(request, env, url) {
     return json(403, { error: "请求来源不被接受" });
   }
   if (path === "/admin" || path === "/admin/") return adminFile(ADMIN_HTML, "text/html; charset=utf-8");
+  if (path === "/admin/tokens.css") return adminFile(TOKENS_CSS, "text/css; charset=utf-8");
   if (path === "/admin/admin.css") return adminFile(ADMIN_CSS, "text/css; charset=utf-8");
   if (path === "/admin/admin.js") return adminFile(ADMIN_JS, "text/javascript; charset=utf-8");
+  if (path === "/admin/music.js") return adminFile(MUSIC_ADMIN_JS, "text/javascript; charset=utf-8");
   if (path === "/admin/oauth/status" && request.method === "GET") {
     return json(200, { configured: (await oauthConfig(env)) !== null });
   }
@@ -131,6 +138,7 @@ async function callback(request, env, url) {
 
 async function api(request, env, path, url) {
   try {
+    if (path.startsWith("/admin/api/music")) return json(200, await musicApi(request, env, url));
     if (path === "/admin/api/site" && request.method === "GET") {
       return json(200, { site: await loadSite(env) });
     }
@@ -413,7 +421,7 @@ function securityHeaders(contentType, cookies) {
     "Referrer-Policy": "no-referrer",
     "X-Frame-Options": "DENY",
     "X-Robots-Tag": "noindex",
-    "Content-Security-Policy": "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' https://github.com; base-uri 'none'; form-action 'self'",
+    "Content-Security-Policy": "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' https://github.com https://*.music.126.net; base-uri 'none'; form-action 'self'",
   });
   for (const item of cookies || []) headers.append("Set-Cookie", item);
   return headers;

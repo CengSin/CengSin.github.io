@@ -146,8 +146,17 @@ class Handler(BaseHTTPRequestHandler):
         if path in {"/admin", "/admin/"}:
             self.send_admin_file("index.html")
             return
+        if path == "/admin/tokens.css":
+            self.send_admin_file("tokens.css")
+            return
         if path == "/admin/admin.css":
             self.send_admin_file("admin.css")
+            return
+        if path == "/music/public" and self.command == "GET":
+            self.music_api(path)
+            return
+        if path == "/admin/music.js":
+            self.send_admin_file("music.js")
             return
         if path == "/admin/admin.js":
             self.send_admin_file("admin.js")
@@ -231,6 +240,9 @@ class Handler(BaseHTTPRequestHandler):
         self.redirect("/admin/", [self.cookie("cengsin_admin", issue_session(user), SESSION_TTL), clear_state])
 
     def handle_api(self, path, query):
+        if path.startswith("/admin/api/music"):
+            self.music_api(path)
+            return
         if path == "/admin/api/site" and self.command == "GET":
             self.send_json(200, {"site": load_site()})
             return
@@ -261,6 +273,20 @@ class Handler(BaseHTTPRequestHandler):
             self.remove_post(self.read_json())
             return
         self.send_json(404, {"error": "没有这个管理功能"})
+
+    def music_api(self, path):
+        try:
+            payload = {"path": path, "method": self.command}
+            if self.command != "GET":
+                payload["body"] = self.read_json()
+            result = subprocess.run(
+                ["node", str(SITE_DIR / "tools/local-music.mjs")],
+                input=json.dumps(payload), capture_output=True, text=True, timeout=45,
+            )
+            data = json.loads(result.stdout)
+            self.send_json(data["status"], data["body"])
+        except Exception:
+            self.send_json(400, {"error": "音乐数据处理失败"})
 
     def write_document(self, save, path):
         try:
@@ -363,7 +389,7 @@ class Handler(BaseHTTPRequestHandler):
         if admin:
             self.send_header("X-Frame-Options", "DENY")
             self.send_header("X-Robots-Tag", "noindex")
-            self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' https://github.com; base-uri 'none'; form-action 'self'")
+            self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' https://github.com https://*.music.126.net; base-uri 'none'; form-action 'self'")
         for cookie in cookies or []:
             self.send_header("Set-Cookie", cookie)
         self.end_headers()
@@ -381,7 +407,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def read_json(self):
         length = int(self.headers.get("Content-Length", "0") or "0")
-        if length < 0 or length > 1_500_000:
+        if length < 0 or length > 8 * 1024 * 1024:
             raise ContentError("内容过大")
         raw = self.rfile.read(length) if length else b""
         data = json.loads(raw.decode())

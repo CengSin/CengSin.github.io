@@ -1,43 +1,11 @@
-:root {
-  --paper: #f5f7fa;
-  --surface: #ffffff;
-  --ink: #1d2932;
-  --body: #243240;
-  --muted: #3e4e5c;
-  --line: #d5dde6;
-  --line-strong: #c5d0db;
-  --blue: #315cc9;
-  --blue-soft: #e7eefb;
-  --danger: #8d3b32;
-  --danger-soft: #f8ecea;
-  --ok: #1b6b4a;
-  --ok-soft: #e7f3ec;
-  --on-blue: #ffffff;
-  --shadow: 0 1px 2px #1d29320d, 0 18px 44px #1d293214;
-  --glow: #e7eefb;
-  color-scheme: light;
-}
+@import url("/admin/tokens.css");
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #111b26;
-    --surface: #1b2a36;
-    --ink: #edf3f5;
-    --body: #d6e0e5;
-    --muted: #b4c3cd;
-    --line: #3a4e5d;
-    --line-strong: #4d6476;
-    --blue: #a9c3ff;
-    --blue-soft: #263d59;
-    --danger: #f0b2ab;
-    --danger-soft: #3d2624;
-    --ok: #91d3b1;
-    --ok-soft: #244338;
-    --on-blue: #102039;
-    --shadow: 0 1px 2px #00000055, 0 18px 44px #00000066;
-    --glow: #1a3148;
-    color-scheme: dark;
-  }
+:root {
+  --line-strong: var(--line);
+  --danger: #f0b2ab;
+  --danger-soft: #3d2624;
+  --ok: var(--blue);
+  --ok-soft: var(--blue-soft);
 }
 
 * { box-sizing: border-box; }
@@ -606,4 +574,40 @@ button:focus-visible, a:focus-visible {
   .list { position: static; max-height: 240px; }
   h1, .login-card h1 { font-size: 28px; }
   .login-card { padding: 28px 22px 22px; }
+}
+
+.music-admin { max-width: 1040px; }
+.music-toolbar { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-bottom: 32px; flex-wrap: wrap; }
+.music-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+.music-tabs button { border: 0; background: none; padding: 12px 0; cursor: pointer; white-space: nowrap; color: var(--muted); }
+.music-tabs button[aria-pressed="true"] { color: var(--blue); box-shadow: 0 2px var(--blue); }
+.music-admin select, .music-browser > input { width: min(100%, 440px); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 12px 16px; margin-bottom: 24px; }
+.music-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 24px 0 32px; }
+.music-metrics span, .music-metrics strong { display: block; }
+.music-metrics span { color: var(--muted); font-size: 14px; }
+.music-metrics strong { font-size: clamp(24px, 4vw, 38px); font-weight: 550; }
+.music-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-bottom: 32px; }
+.music-groups p { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; }
+.music-song-row { display: grid; grid-template-columns: 48px minmax(0,1fr) auto auto; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.music-song-row img, .music-cover-fallback { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; }
+.music-cover-fallback { display: grid; place-items: center; background: var(--glow); }
+.music-song-row strong, .music-song-row .music-muted { display: block; overflow-wrap: anywhere; }
+.music-song-row strong { font-size: 15px; font-weight: 600; }
+.music-muted { color: var(--muted); font-size: 14px; }
+.music-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.music-editor { padding: 28px; }
+.music-memory-text { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.9; }
+.music-memory-card { padding: 28px 0; border-bottom: 1px solid var(--line); }
+.music-preview { width: min(640px, calc(100% - 32px)); padding: 40px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); }
+.music-preview::backdrop { background: #0009; backdrop-filter: blur(8px); }
+.music-preview img { width: 100px; height: 100px; border-radius: 8px; margin-bottom: 24px; }
+.music-empty { padding: 64px 0; color: var(--muted); }
+.music-admin[data-busy="true"] .music-toolbar { opacity: .6; pointer-events: none; }
+@media (max-width: 640px) {
+  .music-groups { grid-template-columns: 1fr; gap: 8px; }
+  .music-song-row { grid-template-columns: 40px minmax(0,1fr) auto; gap: 10px; }
+  .music-song-row img { width: 40px; height: 40px; }
+  .music-count { display: none; }
+  .music-tabs { gap: 20px; overflow-x: auto; }
+  .music-preview { padding: 24px; }
 }

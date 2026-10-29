@@ -186,6 +186,11 @@ export function validateSite(site) {
   if (seen.slice().sort().join() !== SECTION_IDS.slice().sort().join()) {
     fail("首页栏目需要保留原有五项，可以调整顺序和开关");
   }
+  for (const [key, count] of [["principles", 4], ["stack", 12]]) {
+    const values = home[key] || [];
+    if (!Array.isArray(values) || values.length > count) fail("首页条目格式不对");
+    for (const value of values) text(value, "首页条目", 80);
+  }
   text(home.hero_primary_label ?? "", "首屏主按钮", 40);
   text(home.hero_secondary_label ?? "", "首屏次按钮", 40);
   href(home.hero_primary_href ?? "", "首屏主按钮", true);

@@ -165,6 +165,12 @@ def validate_site(site):
         seen.append(item["id"])
     if sorted(seen) != sorted(SECTION_IDS):
         raise ContentError("首页栏目需要保留原有五项，可以调整顺序和开关")
+    for key, count in (("principles", 4), ("stack", 12)):
+        values = home.get(key, [])
+        if not isinstance(values, list) or len(values) > count:
+            raise ContentError("首页条目格式不对")
+        for value in values:
+            _text(value, "首页条目", 80)
     _text(home.get("hero_primary_label", ""), "首屏主按钮", 40)
     _text(home.get("hero_secondary_label", ""), "首屏次按钮", 40)
     _href(home.get("hero_primary_href", ""), "首屏主按钮", allow_hash=True)

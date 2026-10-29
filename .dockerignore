@@ -1,0 +1,10 @@
+.git
+.local
+public
+node_modules
+site/node_modules
+site/dist
+site/.frontend
+site/.wrangler
+.playwright-cli
+.DS_Store

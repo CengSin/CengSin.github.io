@@ -1,5 +1,6 @@
 (function () {
   const PANELS = [
+    ["music", "音乐与回忆", "/music/"],
     ["layout", "页面布局", "/"],
     ["copy", "文案与介绍", "/"],
     ["nav", "导航栏", "/"],
@@ -29,7 +30,7 @@
     hero_secondary_href: "#doing",
     agentEnabled: true,
   };
-  const state = { panel: "layout", site: null, projects: null, posts: null, project: null, post: null };
+  const state = { panel: "music", site: null, projects: null, posts: null, project: null, post: null };
 
   const login = document.querySelector("#login");
   const app = document.querySelector("#app");
@@ -162,7 +163,8 @@
     const current = PANELS.find(function (item) { return item[0] === state.panel; });
     document.querySelector("#panel-title").textContent = current[1];
     panel.replaceChildren();
-    if (state.panel === "layout") renderLayout();
+    if (state.panel === "music") window.renderMusic(panel, { el, api, field, checkbox });
+    else if (state.panel === "layout") renderLayout();
     else if (state.panel === "copy") renderCopy();
     else if (state.panel === "nav") renderNav();
     else if (state.panel === "about") renderAbout();
@@ -236,7 +238,6 @@
       field("身份介绍", identity.who, function (value) { identity.who = value; }),
       field("标题", identity.intro, function (value) { identity.intro = value; }),
       field("副标题", identity.tagline, function (value) { identity.tagline = value; }),
-      note("标题和副标题会连在一起显示。标题里已经包含句号。"),
       field("背景", identity.background, function (value) { identity.background = value; }, true),
       field("关于", identity.about, function (value) { identity.about = value; }, true),
       field("我在做什么", identity.doing, function (value) { identity.doing = value; }, true),
@@ -250,6 +251,8 @@
       field("Idea Platform", site.links.idea_platform_url, function (value) { site.links.idea_platform_url = value; }),
       field("今天的天气", site.links.mood_url, function (value) { site.links.mood_url = value; }),
       field("交给 Agent 的提示词", site.prompt, function (value) { site.prompt = value; }, true),
+      field("做事方式，每行一条", (home.principles || []).join("\n"), function (value) { home.principles = value.split("\n").map(function (v) { return v.trim(); }).filter(Boolean); }, true),
+      field("常用工具，每行一个", (home.stack || []).join("\n"), function (value) { home.stack = value.split("\n").map(function (v) { return v.trim(); }).filter(Boolean); }, true),
       el("h2", {}, ["正在做的事"]),
       field("小标题", home.doing_title, function (value) { home.doing_title = value; }),
       cards(home.threads, ["title", "text", "href"], ["标题", "说明", "链接"], function () {

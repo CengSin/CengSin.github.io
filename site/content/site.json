@@ -94,10 +94,10 @@
         "enabled": true
       }
     ],
-    "hero_primary_label": "了解我",
-    "hero_primary_href": "#about",
-    "hero_secondary_label": "看我在做什么",
-    "hero_secondary_href": "#doing",
+    "hero_primary_label": "查看作品",
+    "hero_primary_href": "{works_url}",
+    "hero_secondary_label": "联系我",
+    "hero_secondary_href": "#contact",
     "doing_title": "我在做什么",
     "threads": [
       {
@@ -157,6 +157,18 @@
         "meta": "留在本站",
         "href": "/posts/"
       }
+    ],
+    "principles": [
+      "先验证，再相信",
+      "先做小的，再做对的",
+      "能自动化的不手工做"
+    ],
+    "stack": [
+      "Go",
+      "Docker",
+      "MySQL",
+      "Redis",
+      "Agent"
     ]
   },
   "projects_page": {

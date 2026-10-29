@@ -4,6 +4,7 @@
 import html
 import json
 import shutil
+import subprocess
 from pathlib import Path
 from urllib.parse import quote
 
@@ -37,11 +38,12 @@ CONFIG_REV = config_hash(SITE)
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 RESUME_MD = MarkdownIt("commonmark", {"html": False}).enable("table")
 THEME_BOOTSTRAP = """(function () {
-  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  var themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+  var theme = 'dark';
+  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
+  document.documentElement.dataset.theme = theme;
 })();"""
+FRONTEND_CSS = ""
+
 
 
 def esc(value):
@@ -131,6 +133,7 @@ def nav(current):
         <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>{esc(SITE["brand"])}</a>
         <div class="header-actions">
           <nav class="desktop-nav" id="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
+          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
@@ -165,12 +168,21 @@ def layout(title, description, current, main):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#F5F7FA">
+  <meta name="theme-color" content="#0B0C0E">
   <meta name="description" content="{esc(description)}">
   <meta name="site-config" content="{CONFIG_REV}">
+  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:description" content="{esc(description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cengsin.is-a.dev/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cengsin.is-a.dev/assets/og.png">
   <title>{esc(title)}</title>
   <script>{THEME_BOOTSTRAP}</script>
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/app/{FRONTEND_CSS}">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body{(' class="home" data-page="home"' if current == "home" else f' data-page="{esc(current)}"')}>
@@ -183,6 +195,7 @@ def layout(title, description, current, main):
     {footer()}
   </div>
   <script src="/assets/site.js" defer></script>
+  <script type="module" src="/assets/app/app.js"></script>
 </body>
 </html>
 """
@@ -194,20 +207,15 @@ def keyword_list():
 
 def render_hero():
     home = SITE["home"]
-    handle = IDENTITY["github_handle"]
-    primary = resolve_href(home["hero_primary_href"], SITE)
-    secondary = resolve_href(home["hero_secondary_href"], SITE)
     return f"""      <section class="home-hero" aria-labelledby="who-name">
         <div class="home-hero-grid">
-          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/{esc(handle)}.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>
-          <div>
-            <h1 id="who-name">{esc(SITE["brand"])}</h1>
-            <p class="home-who">{esc(WHO)}</p>
-            <p class="home-support">{esc(INTRO)}{esc(TAGLINE)}。</p>
-            <div class="home-actions">
-              <a class="button primary" href="{esc(primary)}">{esc(home["hero_primary_label"])}</a>
-              <a class="home-quiet" href="{esc(secondary)}">{esc(home["hero_secondary_label"])}</a>
-            </div>
+          <div class="hero-byline"><div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/{esc(IDENTITY['github_handle'])}.png?size=80" alt="" width="32" height="32" referrerpolicy="no-referrer"></div><span>{esc(SITE['brand'])}</span></div>
+          <h1 id="who-name">{esc(INTRO)}</h1>
+          <p class="home-who">{esc(WHO)}</p>
+          <p class="home-support">{esc(TAGLINE)}。</p>
+          <div class="home-actions">
+            <a class="button primary" href="{esc(resolve_href(home['hero_primary_href'], SITE))}">{esc(home['hero_primary_label'])}</a>
+            <a class="home-quiet" href="{esc(resolve_href(home['hero_secondary_href'], SITE))}">{esc(home['hero_secondary_label'])}</a>
           </div>
         </div>
       </section>"""
@@ -274,13 +282,17 @@ def render_doors():
 
 
 def render_about():
+    principles = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("principles", []))
+    stack = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("stack", []))
+    extra = (f'<section class="home-block home-method"><h2>做事方式</h2><ul>{principles}</ul></section>' if principles else "")
+    extra += (f'<section class="home-block home-stack"><h2>常用工具</h2><ul>{stack}</ul></section>' if stack else "")
     return f"""      <section class="home-block" id="about" aria-labelledby="about-title">
         <h2 id="about-title">{esc(SITE["home"]["about_title"])}</h2>
         <p class="home-about-copy">{esc(ABOUT)}</p>
         <ul class="keyword-tags" aria-label="关键词">
 {keyword_list()}
         </ul>
-      </section>"""
+      </section>{extra}"""
 
 
 def render_history():
@@ -311,6 +323,8 @@ RENDERERS = {
 
 def home():
     parts = [RENDERERS[section["id"]]() for section in SITE["home"]["sections"] if section.get("enabled", True)]
+    parts.append('<div id="music-root" data-compact="true"></div>')
+    parts.append(f'<div id="contact-root" data-email="{esc(EMAIL)}" data-github="{esc(GITHUB)}"></div>')
     return layout(SITE["site_title"], WHO, "home", "\n" + "\n".join(parts))
 
 
@@ -592,15 +606,22 @@ def write(rel, content):
 
 
 def generate():
+    global FRONTEND_CSS
+    subprocess.run(["npm", "run", "build"], cwd=ROOT, check=True, timeout=120)
+    frontend = ROOT / ".frontend"
+    FRONTEND_CSS = next(frontend.glob("*.css")).name
     (OUT / "assets").mkdir(parents=True)
     shutil.copy(SRC / "site.css", OUT / "assets" / "site.css")
     shutil.copy(SRC / "site.js", OUT / "assets" / "site.js")
     shutil.copy(SRC / "favicon.svg", OUT / "assets" / "favicon.svg")
+    shutil.copy(SRC / "og.png", OUT / "assets" / "og.png")
+    shutil.copytree(ROOT / ".frontend", OUT / "assets" / "app")
     pages = {
         "index.html": home(),
         "projects/index.html": projects_page(),
         "about/index.html": about_page(),
         "agent/index.html": agent_page(),
+        "music/index.html": layout("人生原声带 · CengSin", "歌曲与我选择分享的回忆。", "music", '<article class="page"><h1>人生原声带</h1><div id="music-root"></div><noscript>请开启 JavaScript 查看已公开的音乐回忆。</noscript></article>'),
     }
     if SITE["resume"]["enabled"]:
         pages["resume/index.html"] = resume_page()

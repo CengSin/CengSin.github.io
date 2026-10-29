@@ -10,3 +10,9 @@ id = "b18169de36ff4d908f216371d60c83c2"
 
 [vars]
 # GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, and SESSION_SECRET are Worker secrets.
+
+[[d1_databases]]
+binding = "MUSIC"
+database_name = "cengsin-music"
+database_id = "cd8e4aef-44cc-45b2-b412-ae5bc71b0fcd"
+migrations_dir = "migrations"

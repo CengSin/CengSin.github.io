@@ -15,8 +15,19 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci --prefix site
+
       - name: Remove frontend comments
         run: python3 site/src/check_comments.py --fix site/src
+
+      - name: Check
+        run: sh site/test.sh
 
       - name: Build
         run: |

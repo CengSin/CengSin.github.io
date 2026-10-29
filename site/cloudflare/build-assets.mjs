@@ -13,6 +13,8 @@ const output = [
   moduleText("ADMIN_HTML", readFileSync(join(src, "admin/index.html"), "utf8")),
   moduleText("ADMIN_CSS", readFileSync(join(src, "admin/admin.css"), "utf8")),
   moduleText("ADMIN_JS", readFileSync(join(src, "admin/admin.js"), "utf8")),
+  moduleText("MUSIC_ADMIN_JS", readFileSync(join(src, "admin/music.js"), "utf8")),
+  moduleText("TOKENS_CSS", readFileSync(join(src, "frontend/styles/tokens.css"), "utf8")),
   moduleText("FAVICON", readFileSync(join(src, "favicon.svg"), "utf8")),
 ].join("");
 writeFileSync(join(root, "assets.mjs"), output);
