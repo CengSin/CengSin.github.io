@@ -4,17 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#F5F7FA">
+  <meta name="theme-color" content="#0B0C0E">
   <meta name="description" content="后端开发，现在和 Agent 一起做东西。">
-  <meta name="site-config" content="7b12f21296f0e7e9">
+  <meta name="site-config" content="337467271fd734fd">
+  <meta property="og:title" content="CengSin — 个人网站">
+  <meta property="og:description" content="后端开发，现在和 Agent 一起做东西。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cengsin.is-a.dev/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cengsin.is-a.dev/assets/og.png">
   <title>CengSin — 个人网站</title>
   <script>(function () {
-  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  var themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+  var theme = 'dark';
+  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
+  document.documentElement.dataset.theme = theme;
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/app/main-DiEg1wGS.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body class="home" data-page="home">
@@ -25,6 +33,7 @@
         <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
           <nav class="desktop-nav" id="desktop-nav" aria-label="主导航"><a href="/projects">作品</a><a href="/posts/">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
+          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
@@ -37,15 +46,13 @@
       
       <section class="home-hero" aria-labelledby="who-name">
         <div class="home-hero-grid">
-          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>
-          <div>
-            <h1 id="who-name">CengSin</h1>
-            <p class="home-who">后端开发，现在和 Agent 一起做东西。</p>
-            <p class="home-support">从想法到作品。解决问题，探索想法，与 Agent 协作。</p>
-            <div class="home-actions">
-              <a class="button primary" href="#about">了解我</a>
-              <a class="home-quiet" href="#doing">看我在做什么</a>
-            </div>
+          <div class="hero-byline"><div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/CengSin.png?size=80" alt="" width="32" height="32" referrerpolicy="no-referrer"></div><span>CengSin</span></div>
+          <h1 id="who-name">从想法到作品。</h1>
+          <p class="home-who">后端开发，现在和 Agent 一起做东西。</p>
+          <p class="home-support">解决问题，探索想法，与 Agent 协作。</p>
+          <div class="home-actions">
+            <a class="button primary" href="https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872">查看作品</a>
+            <a class="home-quiet" href="#contact">联系我</a>
           </div>
         </div>
       </section>
@@ -105,7 +112,7 @@
           <li>Agent</li>
           <li>独立开发</li>
         </ul>
-      </section>
+      </section><section class="home-block home-method"><h2>做事方式</h2><ul><li>先验证，再相信</li><li>先做小的，再做对的</li><li>能自动化的不手工做</li></ul></section><section class="home-block home-stack"><h2>常用工具</h2><ul><li>Go</li><li>Docker</li><li>MySQL</li><li>Redis</li><li>Agent</li></ul></section>
       <section class="home-history" aria-labelledby="history-title">
         <h2 id="history-title">历史记录</h2>
         <a class="home-record" href="/projects">
@@ -119,6 +126,8 @@
           <em>留在本站</em>
         </a>
       </section>
+<div id="music-root" data-compact="true"></div>
+<div id="contact-root" data-email="cengsin@icloud.com" data-github="https://github.com/CengSin"></div>
     </main>
     
       <footer class="site-footer">
@@ -133,5 +142,6 @@
       </footer>
   </div>
   <script src="/assets/site.js" defer></script>
+  <script type="module" src="/assets/app/app.js"></script>
 </body>
 </html>

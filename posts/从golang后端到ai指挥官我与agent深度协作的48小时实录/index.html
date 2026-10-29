@@ -4,17 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#F5F7FA">
+  <meta name="theme-color" content="#0B0C0E">
   <meta name="description" content="从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录">
-  <meta name="site-config" content="7b12f21296f0e7e9">
+  <meta name="site-config" content="337467271fd734fd">
+  <meta property="og:title" content="从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录 · CengSin">
+  <meta property="og:description" content="从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cengsin.is-a.dev/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cengsin.is-a.dev/assets/og.png">
   <title>从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录 · CengSin</title>
   <script>(function () {
-  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  var themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = dark ? '#111B26' : '#F5F7FA';
+  var theme = 'dark';
+  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
+  document.documentElement.dataset.theme = theme;
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/app/main-DiEg1wGS.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body data-page="posts">
@@ -25,6 +33,7 @@
         <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
         <div class="header-actions">
           <nav class="desktop-nav" id="desktop-nav" aria-label="主导航"><a href="/projects">作品</a><a href="/posts/" aria-current="page">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
+          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
           <nav class="mobile-nav" aria-label="手机导航">
             <details>
               <summary>菜单</summary>
@@ -100,5 +109,6 @@
       </footer>
   </div>
   <script src="/assets/site.js" defer></script>
+  <script type="module" src="/assets/app/app.js"></script>
 </body>
 </html>

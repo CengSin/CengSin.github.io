@@ -1,18 +1,21 @@
 (function () {
   var themeColor = document.querySelector('meta[name="theme-color"]');
-  var systemTheme = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-  var applyTheme = function (theme) {
+  function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    if (themeColor) themeColor.content = theme === "dark" ? "#111B26" : "#F5F7FA";
-  };
-  applyTheme(systemTheme && systemTheme.matches ? "dark" : "light");
-  if (systemTheme) {
-    var onSystemTheme = function (event) {
-      applyTheme(event.matches ? "dark" : "light");
-    };
-    if (systemTheme.addEventListener) systemTheme.addEventListener("change", onSystemTheme);
-    else if (systemTheme.addListener) systemTheme.addListener(onSystemTheme);
+    if (themeColor) themeColor.content = theme === "dark" ? "#0B0C0E" : "#F5F6F5";
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (button) {
+      button.setAttribute("aria-label", theme === "dark" ? "切换到浅色" : "切换到深色");
+    });
   }
+  var theme = "dark";
+  try { theme = localStorage.getItem("cengsin-theme") === "light" ? "light" : "dark"; } catch (error) {}
+  applyTheme(theme);
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest("[data-theme-toggle]")) return;
+    var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem("cengsin-theme", next); } catch (error) {}
+  });
 
   function dropBrokenAvatars() {
     document.querySelectorAll(".hero-avatar img, .home-avatar img").forEach(function (image) {
@@ -179,7 +182,7 @@
   function renderHero(site) {
     var home = site.home;
     var identity = site.identity;
-    return '      <section class="home-hero" aria-labelledby="who-name">\n        <div class="home-hero-grid">\n          <div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/' + esc(identity.github_handle) + '.png?size=240" alt="" width="128" height="128" referrerpolicy="no-referrer"></div>\n          <div>\n            <h1 id="who-name">' + esc(site.brand) + '</h1>\n            <p class="home-who">' + esc(identity.who) + '</p>\n            <p class="home-support">' + esc(identity.intro) + esc(identity.tagline) + '。</p>\n            <div class="home-actions">\n              <a class="button primary" href="' + esc(hrefOf(home.hero_primary_href, site)) + '">' + esc(home.hero_primary_label) + '</a>\n              <a class="home-quiet" href="' + esc(hrefOf(home.hero_secondary_href, site)) + '">' + esc(home.hero_secondary_label) + '</a>\n            </div>\n          </div>\n        </div>\n      </section>';
+    return '<section class="home-hero" aria-labelledby="who-name"><div class="home-hero-grid"><div class="hero-byline"><div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/' + esc(identity.github_handle) + '.png?size=80" alt="" width="32" height="32" referrerpolicy="no-referrer"></div><span>' + esc(site.brand) + '</span></div><h1 id="who-name">' + esc(identity.intro) + '</h1><p class="home-who">' + esc(identity.who) + '</p><p class="home-support">' + esc(identity.tagline) + '。</p><div class="home-actions"><a class="button primary" href="' + esc(hrefOf(home.hero_primary_href, site)) + '">' + esc(home.hero_primary_label) + '</a><a class="home-quiet" href="' + esc(hrefOf(home.hero_secondary_href, site)) + '">' + esc(home.hero_secondary_label) + '</a></div></div></section>';
   }
 
   function renderDoing(site) {
@@ -206,7 +209,11 @@
   }
 
   function renderAboutBlock(site) {
-    return '      <section class="home-block" id="about" aria-labelledby="about-title">\n        <h2 id="about-title">' + esc(site.home.about_title) + '</h2>\n        <p class="home-about-copy">' + esc(site.identity.about) + '</p>\n        <ul class="keyword-tags" aria-label="关键词">\n' + keywordList(site) + '\n        </ul>\n      </section>';
+    var principles = (site.home.principles || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
+    var stack = (site.home.stack || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
+    var extra = principles ? '<section class="home-block home-method"><h2>做事方式</h2><ul>' + principles + '</ul></section>' : "";
+    extra += stack ? '<section class="home-block home-stack"><h2>常用工具</h2><ul>' + stack + '</ul></section>' : "";
+    return '      <section class="home-block" id="about" aria-labelledby="about-title">\n        <h2 id="about-title">' + esc(site.home.about_title) + '</h2>\n        <p class="home-about-copy">' + esc(site.identity.about) + '</p>\n        <ul class="keyword-tags" aria-label="关键词">\n' + keywordList(site) + '\n        </ul>\n      </section>' + extra;
   }
 
   function renderHistory(site) {
@@ -223,7 +230,7 @@
       return section && section.enabled !== false && homeRenderers[section.id];
     }).map(function (section) {
       return homeRenderers[section.id](site);
-    }).join("\n");
+    }).join("\n") + '<div id="music-root" data-compact="true"></div><div id="contact-root" data-email="' + esc(site.identity.email) + '" data-github="' + esc(site.identity.github) + '"></div>';
   }
 
   function renderAboutPage(site) {
@@ -291,6 +298,7 @@
       setDescription(site.projects_page.description);
     }
     dropBrokenAvatars();
+    document.dispatchEvent(new Event("site-updated"));
   }
 
   function resumeReady(site) {
