@@ -1,51 +1,57 @@
 # CengSin 个人站
 
-`cengsin.is-a.dev` 是个人网站入口：公开作品展示在 [Idea Platform 个人作品页](https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872)，新文章在「今天的天气」发布。本站保留原有项目说明及 Hugo 文章网址。唯一工作目录是本仓库，源文件在 `src/`，旧文章 Markdown 在仓库根目录的 `content/posts/`，生成结果在 `dist/`。GitHub Pages 从本仓库的 `gh-pages` 分支发布 `dist/`。
+`cengsin.is-a.dev` 是个人网站，名字叫「想象之城」：每件作品是一栋楼，已经做出来的落在地上，还没做的是天上的图纸。唯一工作目录是本仓库，源文件在 `src/`，内容在 `content/` 和仓库根目录的 `content/posts/`，生成结果在 `dist/`。GitHub Pages 从 `gh-pages` 分支发布 `dist/`。
+
+没有管理后台。内容都是仓库里的文件，改完推到 `main`，GitHub Actions 会检查、构建并发布；它每天 09:00（北京时间）还会自动重建一次，把 Idea Platform 上的新状态带进城里。
 
 ## 预览
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 src/build.py
-python3 -m http.server 8765 --directory dist
+npm ci --prefix site
+python3 -m pip install -r site/requirements.txt
+python3 site/src/build.py
+python3 -m http.server 8765 --directory site/dist
 ```
 
-浏览器打开 http://127.0.0.1:8765/
-
-## 本地管理后台
-
-管理后台只在本机运行，不会放进公开的 `dist/`。只有 GitHub 账号 CengSin 可以登录，其他账号会被拒绝。
-
-```bash
-python3 src/admin_server.py
-```
-
-浏览器打开 http://127.0.0.1:8787/admin/ 。首次使用时，在 GitHub 创建一个 OAuth App：首页地址填 `http://127.0.0.1:8787`，回调地址填 `http://127.0.0.1:8787/admin/oauth/callback`。Client Secret 只保存在本机的 `.local/`，不会进入仓库。
-
-保存后会重新生成本地预览。确认页面没问题之前，不要推送。
+在仓库根目录执行。需要 Node.js 24。浏览器打开 http://127.0.0.1:8765/ 。设置 `CITY_OFFLINE=1` 可以跳过联网，使用 `content/idea_platform.json` 里的缓存。
 
 ## 页面
 
-站点叫「想象之城」：每件作品是一栋楼，已经做出来的落在地上，还没做的是天上的图纸。
-
-- `/` 首页：蓝图天空随滚动下沉成一座等距小城，下面是城市名录、书店和「放一张图纸」
-- `/projects` 城市名录；`/projects/<slug>` 单栋楼的详情
+- `/` 首页：蓝图天空随滚动下沉成一座等距小城，下面是城市导览图、书店和「放一张图纸」
+- `/projects` 城市导览图；`/projects/<slug>` 单栋楼的详情
 - `/posts/` 书店：读过的书和写下的文章；原有 Hugo 文章、标签与分类网址不变
-- `/about` `/agent` `/music`
+- `/about` `/agent`
 - `/llms.txt` `/agent/profile.json` `/agent/profile.md`
 
 底部的 Touch Bar 是全站导航，右侧「人 / Agent」开关会把页面切成蓝图，并显示 `/agent/profile.md`。
 
-## 城市数据
+## 内容怎么改
 
-- `content/city.json`：首屏文案、每栋楼的楼型与地块、天空和吊装的位置。楼型的画法在 `src/frontend/city/iso.js`。
-- `content/bookshop.json`：读过的书、文章书脊的短标题与简介。
-- `content/idea_platform.json`：构建时从 Idea Platform `/api/v1/ideas` 拉取的想法状态缓存。拉取失败时沿用缓存；设置 `CITY_OFFLINE=1` 跳过网络。
-- Idea Platform 上新落地、但 `city.json` 里没有配楼的想法，会自动分到 `generic_plots` 里的空地块；`待承接` 进天空，`搁置` 挂在吊绳上。
+| 要改什么 | 改哪里 |
+| --- | --- |
+| 新作品 | 在 Idea Platform 发布。构建时从 `/api/v1/ideas` 拉取：新落地的想法会自动分到 `content/city.json` 的 `generic_plots` 空地，`待承接` 进天空，`搁置` 挂在吊绳上 |
+| 某件作品的说明 | `content/projects.json` |
+| 某栋楼的楼型、颜色、附注 | `content/city.json` 的 `buildings`；楼型的画法在 `src/frontend/city/iso.js` |
+| 首屏文案、导览图标题 | `content/city.json` 的 `hero`、`registry` |
+| 读过的书 | 用下面的命令，不要手改尺寸 |
+| 文章 | `content/posts/` 下的 Markdown；书脊上的短标题和简介在 `content/bookshop.json` 的 `spines` |
+| 关于、智能体页、导航、页脚 | `content/site.json` |
 
-## 内容管理
+### 读书
 
-新建文章：在 `content/posts/` 新建 `.md` 文件，至少写入以下文件头部，再写正文。`slug` 是网址的一部分，发布后尽量不要修改。
+```bash
+python3 site/src/content.py books
+export WEREAD_API_KEY=wrk-…
+python3 site/src/content.py weread --reviews
+python3 site/src/content.py add-book --title 明朝那些事儿 --line "一句你自己写的感想"
+python3 site/src/content.py remove-book --title 明朝那些事儿
+```
+
+`weread` 读取微信读书书架，只列出「读完」且没有设为私密阅读的书，并跳过已经上架的。候选清单写在仓库根目录的 `.local/weread/`，不会进 Git。`--reviews` 会附上你在这本书上写过的整本书评，只作为参考：书架上那句感想要由人确认后再用 `add-book` 放上去。`WEREAD_API_KEY` 只放在本机环境变量里，不要写进任何文件。
+
+### 新文章
+
+在 `content/posts/` 新建 `.md` 文件，至少写入以下文件头部，再写正文。`slug` 是网址的一部分，发布后尽量不要修改。
 
 ```yaml
 ---
@@ -56,43 +62,12 @@ draft: false
 ---
 ```
 
-更新文章：修改 Markdown 后重新构建和推送。删除文章：删除对应 Markdown；旧文章同时从 `src/posts.py` 的网址映射中移除。`draft: true` 的正文不会进入发布结果。
+`draft: true` 的正文不会进入发布结果。删除旧文章时，同时从 `src/posts.py` 的网址映射中移除。
 
-新作品在 Idea Platform 中维护。`src/projects.py` 的 `PROJECTS` 列表提供每栋楼详情页的说明；楼在城里的位置与楼型在 `content/city.json`。修改旧说明时编辑对应字典，删除旧详情时还要清理其他项目的 `related` 引用。
+## 检查
 
-公开站点不包含任职、求职城市、Now 和 Timeline。姓名、学校和手机号也没有写入 `dist/`。两篇旧日记中原有的一个未列入公开作品的项目名称在构建输出中替换为「一个实验项目」。
+`sh site/test.sh` 检查前端源码没有注释，并校验 `site.json`、`projects.json`、`bookshop.json`。构建时还会扫描整个 `dist/`，发现私密词表里的内容就失败，私密词表在 `src/content_store.py`。
 
-## 音乐与回忆
+## Docker 静态部署
 
-前端使用 Vite、React、Tailwind；原有 Python 构建继续生成静态 HTML 和旧文章网址。需要 Node.js 24，先运行 `npm ci --prefix site`。`python3 site/src/build.py`（在仓库根目录运行）会先构建前端资源。公开站的设计 token 在 `src/site.css` 顶部；`src/frontend/styles/tokens.css` 只给管理后台使用。Noto Serif SC（900，按字符分片）、Inter 和 JetBrains Mono 随资源自托管。默认跟随系统深浅色，Touch Bar 上的 ◐ 可以切换。
-
-音乐独立存入 Worker 的 `MUSIC` D1 数据库，与公开 `/config` 分离。默认关闭音乐名片；每段回忆单独预览、发布。保存修改会撤回该回忆，重新发布后才公开。公开接口 `/music/public` 只返回已发布回忆中的歌曲、时期、正文和主动填写的 Idea Platform 关联链接，不返回播放次数、播放时间、歌单、报告、登录凭据或账号资料；响应不缓存。公开开关不能收回访客此前已保存的副本。
-
-后台新增「音乐与回忆」：导入同步文件、按月份和歌单选歌、编辑回忆、预览发布，以及关闭音乐名片。当前只关联 Idea Platform 的记录链接，不会自动同步该平台的私人想法或文章。个人 AI 和机会雷达尚未接入。
-
-### 私人同步
-
-登录凭据留在已授权的 `codex-agent` 私有目录。同步器 `tools/netease-export.cjs` 使用 `@neteasecloudmusicapienhanced/api@4.41.1`，只调用读取接口。运行示例（在装有该库的私有工作目录中）：
-
-```sh
-node netease-export.cjs --session session.json --months 2026-08,2026-09 --out library-export.json
-```
-
-同步文件只包含歌单、歌曲、最近播放与选定月份的统计，不保留账号、好友、Cookie、播放地址。原子写入，失败不会覆盖上次导出。在后台选择「导入音乐数据」即可导入；重复导入同一采集时间不会重复创建快照。文件上限 8 MB，单份快照上限 1.5 MB。手动同步不会自动发布内容。最近播放可能只保留每首歌最近一次出现，不能作为完整逐次播放日志。歌单中的部分失效歌曲可能无法返回，后台显示实际返回数与来源总数。
-
-本地后台沿用 GitHub 登录，将音乐数据存在被忽略的 `.local/music/library.sqlite`；需安装 Node.js 24。私人资料不参与静态构建。本机后台只监听 `127.0.0.1:8787`。
-
-### 后台部署
-
-```sh
-npm ci --prefix site
-node site/cloudflare/build-assets.mjs
-site/node_modules/.bin/wrangler d1 migrations apply MUSIC --remote --config site/cloudflare/wrangler.toml
-site/node_modules/.bin/wrangler deploy --config site/cloudflare/wrangler.toml
-```
-
-测试：`sh site/test.sh`，涵盖身份验证、跨域写入拒绝、导入去重、字段过滤、公开开关、发布与撤回、修改后退回草稿。
-
-### Docker 静态部署
-
-从仓库根目录执行 `docker build -f site/Dockerfile -t cengsin-site .`，再运行 `docker run --rm -p 8080:80 cengsin-site`。最终镜像只含静态输出；线上音乐数据仍通过现有 Worker 提供。
+从仓库根目录执行 `docker build -f site/Dockerfile -t cengsin-site .`，再运行 `docker run --rm -p 8080:80 cengsin-site`。最终镜像只含静态输出。

@@ -520,7 +520,6 @@ html.agent #world .quiet .tag { opacity: 0 !important; }
 html.agent #world .cable { stroke: var(--bp-line); }
 html.agent .citycap { color: var(--bp-line); }
 html.agent .citycap .k { color: var(--bp-line); opacity: .7; }
-html.agent .soundtrack-art { border-color: var(--bp-line); background: transparent; }
 
 .still .descent { height: auto; }
 .still .stage { position: relative; height: auto; display: flex; flex-direction: column; background: var(--paper); }

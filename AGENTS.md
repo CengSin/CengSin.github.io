@@ -9,18 +9,21 @@
 | `content/posts/` | 文章 Markdown 源文件；构建时生成旧 `/posts/.../` 网址 |
 | `public/` | 旧 Hugo 生成结果的历史归档；当前构建不读取它 |
 | `.local/profile/` | 本地资料、私有仓库清单与设计稿，已被 Git 忽略；绝不发布 |
+| `.local/weread/` | 微信读书候选清单，已被 Git 忽略；绝不发布 |
 
 ## 发布
 
-`main` 上的 GitHub Actions 执行 `python3 site/src/build.py`，把 `site/dist` 推到 `gh-pages`。GitHub Pages 从 `gh-pages` 发布。
+`main` 上的 GitHub Actions 执行 `python3 site/src/build.py`，把 `site/dist` 推到 `gh-pages`。GitHub Pages 从 `gh-pages` 发布。每天 09:00（北京时间）还会定时重建一次，拉取 Idea Platform 的最新状态。
 
 线上地址是 https://cengsin.github.io/ 和 https://cengsin.is-a.dev/ 。`cengsin.is-a.dev` 的 CNAME 指向 `cengsin.github.io`。
 
-改公开入口时，改 `site/src/`，提交并推到 `main`。新作品在 Idea Platform 中管理，公开列表位于 `https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872`；新文章在「今天的天气」发布。本站的 `site/src/projects.py` 仅保留原有项目说明；旧文章内容在 `content/posts/` 中维护，由 `site/src/posts.py` 渲染。不要编辑 `public/` 的旧 HTML。
+改公开入口时，改 `site/src/`，提交并推到 `main`。新作品在 Idea Platform 中管理，公开列表位于 `https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872`；新文章在「今天的天气」发布。作品说明在 `site/content/projects.json`，楼型与位置在 `site/content/city.json`；旧文章内容在 `content/posts/` 中维护，由 `site/src/posts.py` 渲染。不要编辑 `public/` 的旧 HTML。
 
 ## 资料怎么进站点
 
-`.local/profile/` 用来核对事实。页面文案在 `site/content/site.json`，旧作品在 `site/content/projects.json`，由 `site/src/build.py` 生成。线上管理后台在 https://cengsin.de5.net/admin/ ，由 `site/cloudflare/worker.mjs` 提供，配置存在 Cloudflare KV。公开站 `cengsin.is-a.dev` 和 `cengsin.github.io` 在浏览器里读取 `https://cengsin.de5.net/config`。只允许 GitHub 账号 CengSin 登录。本地预览仍可运行 `python3 site/src/admin_server.py`，只监听 `127.0.0.1:8787`；后台页面不会进入 `site/dist/`。不要把 `.local/profile/` 拷进 `public/`、`site/src/` 或 `site/dist/`。
+没有管理后台，也没有线上配置；仓库里的文件就是全部内容。改法见 `site/README.md` 的「内容怎么改」。`.local/profile/` 用来核对事实。不要把 `.local/` 下的任何东西拷进 `public/`、`site/src/`、`site/content/` 或 `site/dist/`。
+
+读书用 `python3 site/src/content.py`：`weread` 列出微信读书里读完且公开的候选，`add-book` 上架。微信读书里设为私密阅读的书绝不能上架，也不要在对话、提交信息或文件里写出它们的书名。书架上的感想必须是用户本人写的或确认过的，不要替用户编写感想。`WEREAD_API_KEY` 只放在本机环境变量，不要写进任何文件。
 
 公开页目前是「想象之城」首页、城市名录与每栋楼的详情、书店（读过的书与旧文章 `/posts/`）、About、Agent 入口，以及 `/llms.txt`、`/agent/profile.json`、`/agent/profile.md`。城市数据在 `site/content/city.json`、`site/content/bookshop.json`，Idea Platform 状态缓存在 `site/content/idea_platform.json`。
 

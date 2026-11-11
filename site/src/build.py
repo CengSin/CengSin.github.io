@@ -10,8 +10,8 @@ from urllib.parse import quote
 
 from markdown_it import MarkdownIt
 
-from content_store import config_hash, forbidden_hits, load_site, resolve_href
-from city import build_city, load_bookshop
+from content_store import forbidden_hits, load_bookshop, load_site, resolve_href
+from city import build_city
 from posts import build_posts, excerpt, load_posts, post_url
 from projects import PROJECTS
 
@@ -33,7 +33,6 @@ MOOD_URL = LINKS["mood_url"]
 EMAIL = IDENTITY["email"]
 GITHUB = IDENTITY["github"]
 PROMPT = SITE["prompt"]
-CONFIG_REV = config_hash(SITE)
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 RESUME_MD = MarkdownIt("commonmark", {"html": False}).enable("table")
 THEME_BOOTSTRAP = """(function () {
@@ -46,7 +45,7 @@ FRONTEND_CSS = ""
 CITY = {}
 BOOKSHOP = load_bookshop()
 POSTS = []
-CRUMBS = {"projects": "城市名录", "posts": "书店", "about": "关于", "agent": "智能体", "music": "人生原声带", "resume": "简历"}
+CRUMBS = {"projects": "城市名录", "posts": "书店", "about": "关于", "agent": "智能体", "resume": "简历"}
 
 
 def esc(value):
@@ -106,9 +105,9 @@ def touchbar(current):
         keys.append(f'<a class="tb" href="{esc(item["href"])}"{external(item["href"])}{current_attr}>{esc(item["label"])}</a>')
     return f"""
   <nav class="touchbar" aria-label="主导航">
-    <a class="tb esc" href="/" id="site-brand" aria-label="回到首页">CS</a>
+    <a class="tb esc" href="/" aria-label="回到首页">CS</a>
     <span class="tb-sep" aria-hidden="true"></span>
-    <span id="touchbar-nav" style="display:contents">{''.join(keys)}</span>
+    <span style="display:contents">{''.join(keys)}</span>
     <span class="tb-sep" aria-hidden="true"></span>
     <button class="tb tb-theme" type="button" data-theme-toggle aria-label="切换深浅色">◐</button>
     <button class="tb tb-toggle" type="button" id="view-toggle" aria-pressed="false" aria-label="切换到 Agent 看到的版本"><span>人</span><span>Agent</span></button>
@@ -126,8 +125,8 @@ def footer():
     note = f" · 图纸状态取自 Idea Platform，{fetched}" if fetched else ""
     return f"""
   <footer class="site-footer">
-    <span><span id="footer-brand">{esc(SITE["brand"])}</span>{esc(note)}</span>
-    <span class="footer-links" id="footer-links">{''.join(links)}</span>
+    <span>{esc(SITE["brand"])}{esc(note)}</span>
+    <span class="footer-links">{''.join(links)}</span>
   </footer>"""
 
 
@@ -163,7 +162,6 @@ def layout(title, description, current, main, crumb=None, html_class=""):
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#0a2150">
   <meta name="description" content="{esc(description)}">
-  <meta name="site-config" content="{CONFIG_REV}">
   <meta property="og:title" content="{esc(title)}">
   <meta property="og:description" content="{esc(description)}">
   <meta property="og:type" content="website">
@@ -278,7 +276,7 @@ def shop_html(posts):
         ink = " ink" if book.get("ink") else ""
         read.append(
             f'<button class="spine{lean}{ink}" type="button" aria-pressed="false" data-kind="read" data-title="{esc(book["title"])}" '
-            f'data-line="{esc(book["line"])}" data-cite="{esc(shop["read_cite"])}" data-group="{esc(book.get("group", ""))}" '
+            f'data-line="{esc(book["line"])}" data-cite="{esc(book.get("cite") or shop["read_cite"])}" data-group="{esc(book.get("group", ""))}" data-year="{esc(book.get("year", ""))}" '
             f'style="--c:var(--{esc(book["tone"])});--h:{int(book["h"])}px;--w:{int(book["w"])}px">{esc(book["title"])}</button>'
         )
     write = [spine_for_post(post, i) for i, post in enumerate(posts)]
@@ -289,7 +287,7 @@ def shop_html(posts):
         <div class="shop" data-shop>
           <div class="shelves">
             <div>
-              <p class="shelf-label"><span>{esc(shop["read_label"])}</span><span>{esc(shop["read_source"])}</span></p>
+              <p class="shelf-label"><span>{esc(shop["read_label"])}</span><span>{len(books)} 本</span></p>
               <div class="shelf">{''.join(read)}</div>
               <p class="shelf-cap">{esc(shop["read_caption"])}</p>
             </div>
@@ -299,7 +297,7 @@ def shop_html(posts):
             </div>
           </div>
           <article class="reader" aria-live="polite">
-            <p class="r-kicker">读过的</p><h3>{esc(first["title"])}</h3><blockquote>{esc(first["line"])}</blockquote><p class="src">{esc(shop["read_cite"])}</p>
+            <p class="r-kicker">读过的{(" · " + esc(first["year"])) if first.get("year") else ""}</p><h3>{esc(first["title"])}</h3><blockquote>{esc(first["line"])}</blockquote><p class="src">{esc(first.get("cite") or shop["read_cite"])}</p>
           </article>
         </div>"""
 
@@ -354,7 +352,6 @@ def home():
       </form>
       <p class="fine">{esc(form["note_before"])}<a href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(form["note_link"])}</a></p>
     </section>
-    <div id="music-root" data-compact="true"></div>
   </main>
   <script type="application/json" id="city-data">{city_json()}</script>"""
     return layout(SITE["site_title"], WHO, "home", main)
@@ -371,8 +368,8 @@ def projects_page():
         <p class="lede">新的作品在 Idea Platform 上持续更新，每次构建，城里就会多出新盖好的楼。</p>
       </header>
       <p class="portal">
-        <a class="button" data-config-href="works_url" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer" data-config="portal_action">{esc(page["portal_action"])}</a>
-        <a class="button secondary" data-config-href="idea_platform_url" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer" data-config="platform_label">{esc(page["platform_label"])}</a>
+        <a class="button" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["portal_action"])}</a>
+        <a class="button secondary" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["platform_label"])}</a>
       </p>
       {atlas_html(CITY, fold=False)}
     </div>
@@ -424,18 +421,18 @@ def project_page(project):
 
 def about_page():
     page = SITE["about_page"]
-    principles = "".join(f"<li><span>0{i + 1}</span>{esc(x)}</li>" for i, x in enumerate(SITE["home"].get("principles", [])))
-    stack = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("stack", []))
+    principles = "".join(f"<li><span>0{i + 1}</span>{esc(x)}</li>" for i, x in enumerate(SITE["about_page"].get("principles", [])))
+    stack = "".join(f"<li>{esc(x)}</li>" for x in SITE["about_page"].get("stack", []))
     keywords = "".join(f"<li>{esc(word)}</li>" for word in IDENTITY["keywords"])
     extra_html = "".join(f"<p>{esc(paragraph)}</p>" for paragraph in page["extra_paragraphs"])
     github_text = GITHUB.removeprefix("https://").removeprefix("http://")
     main = f"""
     <article class="page narrow">
       <header class="page-head">
-        <p class="eyebrow" data-cfg="about_page.kicker">{esc(page["kicker"])}</p>
-        <h1 data-cfg="about_page.title">{esc(page["title"])}</h1>
+        <p class="eyebrow">{esc(page["kicker"])}</p>
+        <h1>{esc(page["title"])}</h1>
       </header>
-      <p class="about-copy" data-cfg="identity.about">{esc(ABOUT)}</p>
+      <p class="about-copy">{esc(ABOUT)}</p>
       {f'<h2 class="minor">做事方式</h2><ol class="principles">{principles}</ol>' if principles else ""}
       {f'<h2 class="minor">常用工具</h2><ul class="stack-list">{stack}</ul>' if stack else ""}
       <ul class="keyword-tags" aria-label="关键词">{keywords}</ul>
@@ -460,9 +457,9 @@ def agent_page():
     main = f"""
     <article class="page narrow">
       <header class="page-head">
-        <p class="eyebrow" data-cfg="agent_page.kicker">{esc(page["kicker"])}</p>
-        <h1 data-cfg="agent_page.title">{esc(page["title"])}</h1>
-        <p class="lede" data-cfg="agent_page.lede">{esc(page["lede"])}</p>
+        <p class="eyebrow">{esc(page["kicker"])}</p>
+        <h1>{esc(page["title"])}</h1>
+        <p class="lede">{esc(page["lede"])}</p>
       </header>
       <div class="table-wrap">
         <table class="resource-table">
@@ -470,25 +467,11 @@ def agent_page():
           <tbody>{table}</tbody>
         </table>
       </div>
-      <h2 class="minor" data-cfg="agent_page.copy_heading">{esc(page["copy_heading"])}</h2>
-      <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly data-cfg="prompt">{esc(PROMPT)}</textarea>
-      <p><button class="button secondary" type="button" data-copy="agent-prompt" data-cfg="agent_page.copy_button">{esc(page["copy_button"])}</button></p>
+      <h2 class="minor">{esc(page["copy_heading"])}</h2>
+      <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly>{esc(PROMPT)}</textarea>
+      <p><button class="button secondary" type="button" data-copy="agent-prompt">{esc(page["copy_button"])}</button></p>
     </article>"""
     return layout(f"{page['title']} · {SITE['brand']}", page["description"], "agent", main, html_class="agent")
-
-
-def music_page():
-    main = """
-    <article class="page">
-      <header class="page-head">
-        <p class="eyebrow">唱片</p>
-        <h1>人生原声带</h1>
-        <p class="lede">歌曲，和我选择分享的回忆。</p>
-      </header>
-      <div id="music-root"></div>
-      <noscript>请开启 JavaScript 查看已公开的音乐回忆。</noscript>
-    </article>"""
-    return layout("人生原声带 · CengSin", "歌曲与我选择分享的回忆。", "music", main)
 
 
 def resume_markdown():
@@ -590,7 +573,7 @@ def markdown_profile(data):
         "",
         data["about"],
         "",
-        "做事方式：" + "；".join(SITE["home"].get("principles", [])) + "。",
+        "做事方式：" + "；".join(SITE["about_page"].get("principles", [])) + "。",
         "",
         "## 想象之城",
         "",
@@ -692,7 +675,6 @@ def generate():
         "projects/index.html": projects_page(),
         "about/index.html": about_page(),
         "agent/index.html": agent_page(),
-        "music/index.html": music_page(),
     }
     if SITE["resume"]["enabled"]:
         pages["resume/index.html"] = resume_page()
@@ -730,7 +712,7 @@ def generate():
     write("llms.txt", llms_text())
     write("CNAME", "cengsin.is-a.dev\n")
     write(".nojekyll", "")
-    removed = ["now/index.html", "timeline/index.html", "resume.md"]
+    removed = ["now/index.html", "timeline/index.html", "resume.md", "music/index.html"]
     if not SITE["resume"]["enabled"]:
         removed.append("resume/index.html")
     leaked = [name for name in removed if (OUT / name).exists()]

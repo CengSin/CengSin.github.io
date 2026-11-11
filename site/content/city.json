@@ -24,7 +24,7 @@
     {"slug": "idea-platform", "type": "plaza", "arch": "中央广场", "tone": "b-blue", "idea": "idea_jkGFFFit", "note": "整座城的图纸，都从这里来。"},
     {"slug": "toubar-replace", "type": "lightbar", "arch": "触控灯带", "tone": "b-bar", "idea": "idea_inZc0S8q", "note": "这一页底下那条导航，就是向它致敬。"},
     {"slug": "resource-steward", "type": "cottage", "arch": "管家小屋", "tone": "b-yellow", "idea": "idea_oT_dasX3", "note": "烟囱里冒的是负载曲线。"},
-    {"slug": "my-face", "type": "weather", "arch": "气象站", "tone": "b-teal", "idea": "idea_UuPK9dMq", "note": "新的文字都写在这里。"},
+    {"slug": "my-face", "type": "weather", "arch": "气象站", "tone": "b-teal", "idea": "idea_UuPK9dMq", "note": "一个有趣的 Markdown 文章平台，用天气来代表心情。新的文字都写在这里。"},
     {"slug": "baby-toy", "type": "playground", "arch": "游乐场", "tone": "b-plum", "idea": "idea_QJkEz6kO", "note": "在这一页随手敲几下键盘也行。"},
     {"slug": "weread-reading-recommender", "type": "bookshop", "arch": "书店", "label": "书店", "tone": "b-teal", "note": "书架上是读过的书和写下的文章，柜台上放着这个推荐工具。", "go": "/posts/"},
     {"slug": "gorm-oracle", "type": "bridge", "arch": "桥", "tone": "b-brick", "note": "GitHub 上 113 颗星、43 个 fork，是城里走的人最多的一座桥。"},

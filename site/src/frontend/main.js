@@ -1,24 +1,12 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/jetbrains-mono/latin-400.css";
 import "@fontsource/noto-serif-sc/900.css";
-import "./styles/app.css";
-import { Music } from "./components/Music";
 import { mountStage } from "./city/stage.js";
 import { mountMini } from "./city/mini.js";
-import { wirePanel } from "./city/panel.js";
 import { mountAtlas } from "./city/map.js";
+import { wirePanel } from "./city/panel.js";
 import { wireAgent, wireCrayon, wireIdeaForm, wireShelves, wireTheme } from "./city/ui.js";
-
-function mountMusic() {
-  document.querySelectorAll("#music-root").forEach(music => {
-    if (music.dataset.mounted) return;
-    music.dataset.mounted = "true";
-    createRoot(music).render(<Music compact={music.dataset.compact === "true"}/>);
-  });
-}
 
 let stage = null;
 let city = null;
@@ -44,5 +32,3 @@ wireAgent(stage);
 wireShelves();
 wireIdeaForm(stage);
 wireCrayon();
-mountMusic();
-document.addEventListener("site-updated", mountMusic);

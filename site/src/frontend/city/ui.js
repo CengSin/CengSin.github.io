@@ -67,7 +67,7 @@ export function wireShelves() {
       spine.setAttribute("aria-pressed", "true");
       const d = spine.dataset;
       if (d.kind === "read") {
-        reader.innerHTML = `<p class="r-kicker">读过的${d.group ? " · " + esc(d.group) : ""}</p><h3>${esc(d.title)}</h3><blockquote>${esc(d.line)}</blockquote><p class="src">${esc(d.cite)}</p>`;
+        reader.innerHTML = `<p class="r-kicker">读过的${d.year ? " · " + esc(d.year) : ""}${d.group ? " · " + esc(d.group) : ""}</p><h3>${esc(d.title)}</h3><blockquote>${esc(d.line)}</blockquote><p class="src">${esc(d.cite)}</p>`;
       } else {
         reader.innerHTML = `<p class="r-kicker">写下的 · ${esc(d.date)}</p><h3>${esc(d.title)}</h3><blockquote>${esc(d.line)}</blockquote><a class="go" href="${esc(d.href)}">读全文 →</a>`;
       }

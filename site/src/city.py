@@ -8,17 +8,12 @@ from datetime import datetime, timezone
 from content_store import CONTENT, forbidden_hits
 
 CITY_PATH = CONTENT / "city.json"
-BOOKSHOP_PATH = CONTENT / "bookshop.json"
 CACHE_PATH = CONTENT / "idea_platform.json"
 STATUS_LABEL = {"published": "待承接", "dormant": "搁置", "realized": "已落地"}
 
 
 def load_city():
     return json.loads(CITY_PATH.read_text(encoding="utf-8"))
-
-
-def load_bookshop():
-    return json.loads(BOOKSHOP_PATH.read_text(encoding="utf-8"))
 
 
 def _clean(text):

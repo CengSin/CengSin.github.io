@@ -1,9 +1,7 @@
-"""Load, validate, and save the editable site content."""
+"""Load and validate the site content kept in the repository."""
 
-import hashlib
 import json
 import re
-from datetime import datetime
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parent
@@ -13,6 +11,8 @@ CONTENT = SITE_DIR / "content"
 SITE_PATH = CONTENT / "site.json"
 PROJECTS_PATH = CONTENT / "projects.json"
 POSTS_DIR = REPO / "content" / "posts"
+BOOKSHOP_PATH = CONTENT / "bookshop.json"
+TONES = ("b-blue", "b-brick", "b-yellow", "b-teal", "b-plum", "b-cream", "b-stone")
 
 PRIVATE_TERMS = [
     "张泽涛",
@@ -37,10 +37,8 @@ PRIVATE_TERMS = [
     "InvokeReplace",
 ]
 RESUME_WORD = "简历"
-SECTION_IDS = ("hero", "doing", "doors", "about", "history")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 KEY_RE = re.compile(r"^[a-z][a-z0-9-]{0,40}$")
-HANDLE_RE = re.compile(r"^[A-Za-z0-9-]{1,39}$")
 EMAIL_RE = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
 RESUME_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9.-]{0,40}\.md$")
 HASH_RE = re.compile(r"^#[A-Za-z][A-Za-z0-9_-]{0,40}$")
@@ -120,9 +118,8 @@ def validate_site(site):
         raise ContentError("站点配置格式不对")
     identity = site.get("identity")
     links = site.get("links")
-    home = site.get("home")
-    if not isinstance(identity, dict) or not isinstance(links, dict) or not isinstance(home, dict):
-        raise ContentError("站点配置缺少介绍、链接或首页")
+    if not isinstance(identity, dict) or not isinstance(links, dict):
+        raise ContentError("站点配置缺少介绍或链接")
     _text(site.get("site_title", ""), "网站标题", 80)
     _text(site.get("brand", ""), "站点名称", 40)
     _text(site.get("prompt", ""), "交给 Agent 的提示词", 2000)
@@ -132,16 +129,12 @@ def validate_site(site):
         ("tagline", "副标题", 120),
         ("background", "背景", 400),
         ("about", "关于正文", 2000),
-        ("doing", "我在做什么", 2000),
     ):
         _text(identity.get(key, ""), label, limit)
     email = _text(identity.get("email", ""), "邮箱", 120)
     if not EMAIL_RE.fullmatch(email):
         raise ContentError("邮箱格式不正确")
     _https(identity.get("github", ""), "GitHub 地址")
-    handle = identity.get("github_handle", "")
-    if not isinstance(handle, str) or not HANDLE_RE.fullmatch(handle):
-        raise ContentError("GitHub 用户名格式不正确")
     keywords = identity.get("keywords")
     if not isinstance(keywords, list) or len(keywords) > 12:
         raise ContentError("关键词需要是列表")
@@ -155,45 +148,6 @@ def validate_site(site):
         _https(links.get(key, ""), label)
     _items(site.get("nav"), "导航", nav=True)
     _items(site.get("footer"), "页脚", nav=False)
-    sections = home.get("sections")
-    if not isinstance(sections, list):
-        raise ContentError("首页栏目格式不对")
-    seen = []
-    for item in sections:
-        if not isinstance(item, dict) or item.get("id") not in SECTION_IDS or not isinstance(item.get("enabled"), bool):
-            raise ContentError("首页栏目开关格式不对")
-        seen.append(item["id"])
-    if sorted(seen) != sorted(SECTION_IDS):
-        raise ContentError("首页栏目需要保留原有五项，可以调整顺序和开关")
-    for key, count in (("principles", 4), ("stack", 12)):
-        values = home.get(key, [])
-        if not isinstance(values, list) or len(values) > count:
-            raise ContentError("首页条目格式不对")
-        for value in values:
-            _text(value, "首页条目", 80)
-    _text(home.get("hero_primary_label", ""), "首屏主按钮", 40)
-    _text(home.get("hero_secondary_label", ""), "首屏次按钮", 40)
-    _href(home.get("hero_primary_href", ""), "首屏主按钮", allow_hash=True)
-    _href(home.get("hero_secondary_href", ""), "首屏次按钮", allow_hash=True)
-    _text(home.get("doing_title", ""), "我在做什么标题", 40)
-    _text(home.get("doors_title", ""), "入口标题", 40)
-    _text(home.get("doors_note", ""), "入口说明", 300)
-    _text(home.get("about_title", ""), "首页关于标题", 40)
-    _text(home.get("history_title", ""), "历史记录标题", 40)
-    _cards(home.get("threads"), "正在做的事", ("title", "text", "href"))
-    _cards(home.get("doors"), "入口卡片", ("dest", "title", "text", "action", "href"))
-    _cards(home.get("history"), "历史记录", ("title", "text", "meta", "href"), href_hash=False)
-    agent = home.get("agent")
-    if not isinstance(agent, dict) or not isinstance(agent.get("enabled"), bool):
-        raise ContentError("首页 Agent 区块格式不对")
-    for key, label, limit in (
-        ("dest", "Agent 区块眉题", 40),
-        ("title", "Agent 区块标题", 40),
-        ("text", "Agent 区块说明", 400),
-        ("button", "复制按钮", 40),
-        ("llms_label", "llms 链接文字", 40),
-    ):
-        _text(agent.get(key, ""), label, limit)
     for page_key in ("projects_page", "about_page", "agent_page", "resume"):
         if not isinstance(site.get(page_key), dict):
             raise ContentError("页面配置不完整")
@@ -204,17 +158,14 @@ def validate_site(site):
         "archive_between", "posts_link_label", "archive_after", "email_label", "github_label",
     ):
         _text(about.get(key, ""), "关于页面", 200)
-    extras = about.get("extra_paragraphs")
-    if not isinstance(extras, list) or len(extras) > 12:
-        raise ContentError("关于页面的补充段落格式不对")
-    for paragraph in extras:
-        _text(paragraph, "关于页面补充", 2000)
-    projects_page = site["projects_page"]
-    for key in (
-        "kicker", "title", "description", "lede", "portal_kicker", "portal_title",
-        "portal_text", "portal_action", "platform_label", "archive_label",
-    ):
-        _text(projects_page.get(key, ""), "作品页", 400)
+    for key, count in (("principles", 4), ("stack", 12), ("extra_paragraphs", 12)):
+        values = about.get(key, [])
+        if not isinstance(values, list) or len(values) > count:
+            raise ContentError("关于页面的列表格式不对")
+        for value in values:
+            _text(value, "关于页面", 2000)
+    for key in ("title", "description", "portal_action", "platform_label"):
+        _text(site["projects_page"].get(key, ""), "作品页", 400)
     agent_page = site["agent_page"]
     for key in ("kicker", "title", "lede", "description", "copy_heading", "copy_button"):
         _text(agent_page.get(key, ""), "智能体页面", 400)
@@ -250,19 +201,6 @@ def _items(items, label, nav):
             keys.append(key)
     if nav and len(keys) != len(set(keys)):
         raise ContentError("导航标识重复了")
-
-
-def _cards(items, label, fields, href_hash=False):
-    if not isinstance(items, list) or len(items) > 12:
-        raise ContentError(f"{label}格式不对")
-    for item in items:
-        if not isinstance(item, dict):
-            raise ContentError(f"{label}格式不对")
-        for field in fields:
-            if field == "href":
-                _href(item.get("href", ""), label, allow_hash=href_hash)
-            else:
-                _text(item.get(field, ""), label, 400)
 
 
 def _validate_resume(resume):
@@ -366,212 +304,43 @@ def validate_projects(projects):
         raise ContentError("作品说明里有不能公开的内容：" + "、".join(hits))
 
 
-def save_site(site):
-    validate_site(site)
-    previous = SITE_PATH.read_text(encoding="utf-8")
-    write_json(SITE_PATH, site)
-    return previous
-
-
-def save_projects(projects):
-    validate_projects(projects)
-    previous = PROJECTS_PATH.read_text(encoding="utf-8")
-    write_json(PROJECTS_PATH, projects)
-    return previous
-
-
-def restore_text(path, previous):
-    path.write_text(previous, encoding="utf-8")
-
-
-def list_posts():
-    from posts import LEGACY_SLUGS
-
-    items = []
-    for path in sorted(POSTS_DIR.glob("*.md"), key=lambda item: item.name):
-        if path.name == "README.md":
-            continue
-        text = path.read_text(encoding="utf-8")
-        legacy = path.name in LEGACY_SLUGS
-        if not legacy and not text.startswith("---\n"):
-            continue
-        meta, _body = parse_post(text)
-        slug = LEGACY_SLUGS[path.name] if legacy else meta.get("slug", "")
-        items.append({
-            "filename": path.name,
-            "title": meta.get("title", path.stem),
-            "date": str(meta.get("date", "")),
-            "slug": slug,
-            "draft": meta.get("draft") == "true",
-            "legacy": legacy,
-            "tags": _as_list(meta.get("tags")),
-            "categories": _as_list(meta.get("categories")),
-        })
-    return items
-
-
-def read_post_source(filename):
-    path = post_path(filename)
-    meta, body = parse_post(path.read_text(encoding="utf-8"))
-    from posts import LEGACY_SLUGS
-
-    legacy = filename in LEGACY_SLUGS
-    return {
-        "filename": filename,
-        "title": meta.get("title", path.stem),
-        "date": str(meta.get("date", "")),
-        "slug": LEGACY_SLUGS[filename] if legacy else meta.get("slug", ""),
-        "draft": meta.get("draft") == "true",
-        "legacy": legacy,
-        "tags": _as_list(meta.get("tags")),
-        "categories": _as_list(meta.get("categories")),
-        "body": body.lstrip("\n"),
-    }
-
-
-def write_post_source(payload):
-    from posts import LEGACY_SLUGS, publishable_post_body
-
-    if not isinstance(payload, dict):
-        raise ContentError("文章格式不对")
-    filename = safe_post_name(payload.get("filename", ""))
-    original = payload.get("original_filename") or filename
-    original = safe_post_name(original)
-    legacy = original in LEGACY_SLUGS
-    creating = bool(payload.get("creating"))
-    title = _text(payload.get("title", ""), "文章标题", 200).strip()
-    if not title:
-        raise ContentError("文章标题不能为空")
-    date = _text(payload.get("date", ""), "文章日期", 40).strip()
-    try:
-        datetime.fromisoformat(date)
-    except ValueError as error:
-        raise ContentError("文章日期需要是 2026-09-27T12:00:00+08:00 这样的格式") from error
-    draft = bool(payload.get("draft"))
-    tags = _string_list(payload.get("tags"), "标签")
-    categories = _string_list(payload.get("categories"), "分类")
-    body = payload.get("body", "")
-    if not isinstance(body, str) or len(body) > 200_000:
-        raise ContentError("文章正文格式不对")
-    if legacy:
-        if filename != original:
-            raise ContentError("旧文章的文件名不能修改，否则原来的网址会失效")
-        slug = LEGACY_SLUGS[original]
-        stored_slug = None
-    else:
-        slug = _text(payload.get("slug", ""), "文章网址", 80).strip()
-        if not SLUG_RE.fullmatch(slug):
-            raise ContentError("新文章的网址只能用小写英文、数字和连字符")
-        if slug in LEGACY_SLUGS.values():
-            raise ContentError("这个网址已经被一篇旧文章使用")
-        filename = f"{slug}.md"
-        stored_slug = slug
-    target = POSTS_DIR / filename
-    source = target if creating else POSTS_DIR / original
-    if creating:
-        if target.exists():
-            raise ContentError("已经有同名文章")
-    elif not source.is_file():
-        raise ContentError("找不到原来的文章")
-    elif target.exists() and target != source:
-        raise ContentError("已经有同名文章")
-    publishable = "\n".join([title, slug, " ".join(tags), " ".join(categories), publishable_post_body(body)])
-    hits = forbidden_hits(publishable, allow_resume_word=False)
-    if hits:
-        raise ContentError("文章里有不能公开的内容：" + "、".join(hits))
-    text = render_post(title, date, draft, tags, categories, body, stored_slug)
-    previous = source.read_text(encoding="utf-8") if source.exists() else None
-    target.write_text(text, encoding="utf-8")
-    if source != target and source.exists():
-        source.unlink()
-    return previous, source, target
-
-
-def delete_post_source(filename):
-    path = post_path(filename)
-    if filename == "README.md":
-        raise ContentError("目录说明不能删除")
-    previous = path.read_text(encoding="utf-8")
-    path.unlink()
-    return previous, path
-
-
-def parse_post(text):
-    if not text.startswith("---\n"):
-        raise ContentError("文章缺少文件头")
-    header, separator, body = text[4:].partition("\n---\n")
-    if not separator:
-        raise ContentError("文章文件头没有结束")
-    meta = {}
-    for line in header.splitlines():
-        key, found, value = line.partition(":")
-        if not found:
-            continue
-        value = value.strip()
-        if value.startswith(('"', "[")):
-            value = json.loads(value)
-        meta[key.strip()] = value
-    return meta, body
-
-
-def render_post(title, date, draft, tags, categories, body, slug):
-    lines = ["---", f"title: {json.dumps(title, ensure_ascii=False)}", f"date: {date}", f"draft: {'true' if draft else 'false'}"]
-    if slug:
-        lines.append(f"slug: {slug}")
-    if tags:
-        lines.append("tags: " + json.dumps(tags, ensure_ascii=False))
-    if categories:
-        lines.append("categories: " + json.dumps(categories, ensure_ascii=False))
-    lines.append("---")
-    body = body.strip("\n")
-    return "\n".join(lines) + "\n\n" + body + "\n"
-
-
-def post_path(filename):
-    name = safe_post_name(filename)
-    path = POSTS_DIR / name
-    if not path.is_file():
-        raise ContentError("找不到这篇文章")
-    return path
-
-
-def safe_post_name(filename):
-    if not isinstance(filename, str) or filename != Path(filename).name or not filename.endswith(".md"):
-        raise ContentError("文章文件名需要以 .md 结尾")
-    if filename.startswith(".") or "/" in filename or "\\" in filename:
-        raise ContentError("文章文件名不能包含路径")
-    return filename
-
-
-def _as_list(value):
-    if value in (None, ""):
-        return []
-    if isinstance(value, list):
-        return [str(item) for item in value]
-    return [str(value)]
-
-
-def _string_list(value, label):
-    if value in (None, ""):
-        return []
-    if isinstance(value, str):
-        value = [part.strip() for part in value.split(",") if part.strip()]
-    if not isinstance(value, list) or len(value) > 12:
-        raise ContentError(f"{label}格式不对")
-    return [_text(item, label, 40).strip() for item in value]
-
-
-def public_config(site):
-    data = json.loads(json.dumps(site))
-    resume = data.get("resume") if isinstance(data.get("resume"), dict) else {}
-    if not resume.get("enabled"):
-        data["resume"] = {"enabled": False, "show_in_nav": False}
+def load_bookshop():
+    data = load_json(BOOKSHOP_PATH)
+    validate_bookshop(data)
     return data
 
 
-def config_hash(site):
-    raw = json.dumps(public_config(site), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(raw.encode()).hexdigest()[:16]
+def validate_bookshop(shop):
+    if not isinstance(shop, dict) or not isinstance(shop.get("books"), list) or not isinstance(shop.get("spines", {}), dict):
+        raise ContentError("书店格式不对")
+    for key in ("eyebrow", "title", "read_label", "read_caption", "read_cite", "write_label", "write_note"):
+        _text(shop.get(key, ""), "书店文案", 200)
+    titles = []
+    for book in shop["books"]:
+        if not isinstance(book, dict):
+            raise ContentError("书的格式不对")
+        title = _text(book.get("title", ""), "书名", 40).strip()
+        if not title or not _text(book.get("line", ""), f"{title} 的感想", 400).strip():
+            raise ContentError("每本书都需要书名和一句感想")
+        if book.get("tone") not in TONES:
+            raise ContentError(f"{title} 的颜色只能是 {'、'.join(TONES)}")
+        for key in ("group", "cite", "year"):
+            _text(str(book.get(key, "")), f"{title} 的{key}", 80)
+        for key, low, high in (("h", 140, 250), ("w", 28, 52)):
+            value = book.get(key)
+            if not isinstance(value, int) or not low <= value <= high:
+                raise ContentError(f"{title} 的书脊尺寸不对")
+        titles.append(title)
+    if len(titles) != len(set(titles)):
+        raise ContentError("书架上有重复的书")
+    for slug, spine in shop.get("spines", {}).items():
+        if not isinstance(spine, dict):
+            raise ContentError(f"{slug} 的书脊格式不对")
+        if spine.get("tone") and spine["tone"] not in TONES:
+            raise ContentError(f"{slug} 的颜色不对")
+    hits = forbidden_hits(json.dumps(shop, ensure_ascii=False))
+    if hits:
+        raise ContentError("书店里有不能公开的内容：" + "、".join(hits))
 
 
 def resolve_href(value, site):
