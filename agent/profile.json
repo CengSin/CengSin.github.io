@@ -1,6 +1,6 @@
 {
   "handle": "CengSin",
-  "who": "后端开发，现在和 Agent 一起做东西。",
+  "who": "后端开发，现在和 Agent 一起做事。",
   "intro": "从想法到作品。",
   "thesis": "如今的建筑和物品，都是从想象里拿出来的。",
   "lede": "我是古法编程时代的后端开发，现在和 Agent 一起，把想法从脑海中落地到互联网。",
@@ -49,7 +49,7 @@
         "status": "已落地",
         "url": "/projects/my-face",
         "idea": "简单的个人网站，用来展示创作者日常的心情和故事",
-        "made": "打开就能看。内容在 Cloudflare D1，应用是 Worker。新的文字都写在这里。"
+        "made": "打开就能看。内容在 Cloudflare D1，应用是 Worker。一个有趣的 Markdown 文章平台，用天气来代表心情。新的文字都写在这里。"
       },
       {
         "name": "敲敲小世界",
