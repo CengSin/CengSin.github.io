@@ -1,0 +1,38 @@
+{
+  "eyebrow": "书店",
+  "title": "读过的，写下的",
+  "read_label": "读过的 · 2025",
+  "read_source": "摘自「循」",
+  "read_caption": "这些书里的字字句句组成了我对生活的模型。",
+  "read_cite": "摘自「循」，2025 年的年终记录",
+  "write_label": "写下的",
+  "write_note": "新的在「今天的天气」",
+  "books": [
+    {"title": "悉达多", "line": "从「悉达多」这本书里，我学会了安静。", "tone": "b-teal", "h": 200, "w": 38},
+    {"title": "影响力", "line": "从「影响力」这本书里，我知道了「外貌会直接影响别人对你的态度」。", "tone": "b-brick", "h": 220, "w": 46},
+    {"title": "谈判", "line": "从「谈判」这本书里，我开始尝试对话和社交中的主动权。", "tone": "b-blue", "h": 180, "w": 34},
+    {"title": "人类简史", "group": "简史三部曲", "line": "从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。", "tone": "b-yellow", "h": 214, "w": 44},
+    {"title": "未来简史", "group": "简史三部曲", "line": "从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。", "tone": "b-yellow", "h": 214, "w": 42},
+    {"title": "今日简史", "group": "简史三部曲", "line": "从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。", "tone": "b-yellow", "h": 214, "w": 40},
+    {"title": "AI", "line": "从「AI」「自动驾驶」中，我得以一窥 AI 可能带来的改变。", "tone": "b-plum", "h": 170, "w": 32},
+    {"title": "自动驾驶", "line": "从「AI」「自动驾驶」中，我得以一窥 AI 可能带来的改变。", "tone": "b-plum", "h": 196, "w": 36},
+    {"title": "论语", "line": "「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。", "tone": "b-cream", "ink": true, "h": 176, "w": 34},
+    {"title": "传习录", "line": "「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。", "tone": "b-stone", "ink": true, "h": 190, "w": 38},
+    {"title": "曾国藩家书", "line": "「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。", "tone": "b-brick", "h": 222, "w": 40},
+    {"title": "置身事内", "line": "从「置身事内」，我了解了国内社会的历程和发展。", "tone": "b-teal", "h": 204, "w": 40},
+    {"title": "毛泽东传", "line": "从「毛泽东传」「毛泽东选集」得以知道伟人的生平，知道这种层次的人尚且会经历困难。", "tone": "b-brick", "h": 230, "w": 46},
+    {"title": "毛泽东选集", "line": "从「毛泽东传」「毛泽东选集」得以知道伟人的生平，知道这种层次的人尚且会经历困难。", "tone": "b-blue", "h": 226, "w": 44}
+  ],
+  "spines": {
+    "-代理社会的黎明": {"short": "代理社会的黎明", "tone": "b-plum", "blurb": "当人类社会进入「愿望发射」时代，AI 的工具属性将超越其实体属性。和 Chronicle（OpenClaw）一起写。"},
+    "从golang后端到ai指挥官我与agent深度协作的48小时实录": {"short": "从 Golang 后端到 AI 指挥官", "tone": "b-brick", "blurb": "我与 Agent 深度协作的 48 小时实录：从 Skill 挂载到 45 分钟手搓 Chrome 插件，以及实现变得太快之后的迟疑。"},
+    "什么才是传统互联网公司进入ai时代的敲门砖": {"short": "AI 时代的敲门砖", "tone": "b-blue", "blurb": "数据资产的价值，和数据融合的能力。"},
+    "2025_content": {"short": "循", "tone": "b-yellow", "blurb": "在未知中，凭借周围的环境以及自己的探索，循路。29 岁的一份快照。"},
+    "2025_content_ai": {"short": "循 · AI 版", "tone": "b-cream", "ink": true, "blurb": "「循」的 AI 版。"},
+    "go语言实现的apns推送服务一次稳定性问题的排查与优化实录": {"short": "APNs 推送服务排查实录", "tone": "b-teal", "blurb": "服务运行约一周后突然停止推送、内存占满。从现象到稳定运行的完整排查。"},
+    "从小米yu7爆火看如今国内的品牌现状": {"short": "从小米 YU7 看国内品牌现状", "tone": "b-stone", "ink": true, "blurb": "3 分钟大定 20 万台，这个世界好像只有我在消费降级吗？"},
+    "number_of_boomerangs": {"short": "回旋镖的数量", "tone": "b-cream", "ink": true, "blurb": "一道算法题。"},
+    "non_negative_integers_without_consecutive_ones": {"short": "不含连续 1 的整数", "tone": "b-cream", "ink": true, "blurb": "一道算法题。"},
+    "implement_rand10_use_rand7": {"short": "用 rand7 实现 rand10", "tone": "b-cream", "ink": true, "blurb": "一道算法题。"}
+  }
+}

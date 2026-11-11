@@ -71,40 +71,62 @@ def post_url(post):
     return f"/posts/{post['slug']}/"
 
 
+def excerpt(post, limit=64):
+    for line in post["body"].splitlines():
+        text = line.strip()
+        if not text or text.startswith(("#", ">", "```", "|", "-", "*", "!", "[")) or text == "---":
+            continue
+        text = re.sub(r"[*_`]", "", text)
+        return text[:limit] + ("…" if len(text) > limit else "")
+    return ""
+
+
+def load_posts(source):
+    files = [
+        path for path in source.glob("*.md")
+        if path.name in LEGACY_SLUGS or path.read_text(encoding="utf-8").startswith("---\n")
+    ]
+    posts = [read_post(path) for path in files]
+    posts.sort(key=lambda post: post["date"], reverse=True)
+    return posts
+
+
 def article(post, layout, esc):
     date = str(post["date"])[:10]
     body = MARKDOWN.render(post["body"])
     main = f"""
-      <article class="page narrow article-page">
-        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
-        <h1>{esc(post['title'])}</h1>
-        <p class="article-date"><time datetime="{esc(date)}">{esc(date)}</time></p>
-        <div class="prose article-prose">{body}</div>
-        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+      <article class="page narrow">
+        <header class="article-head">
+          <p class="eyebrow"><a href="/posts/">书店</a> · 写下的</p>
+          <h1>{esc(post['title'])}</h1>
+          <time datetime="{esc(date)}">{esc(date)}</time>
+        </header>
+        <div class="article-prose">{body}</div>
+        <p class="article-back"><a href="/posts/">← 回到书店</a></p>
       </article>"""
-    return layout(f"{post['title']} · CengSin", post["title"], "posts", main)
+    return layout(f"{post['title']} · CengSin", post["title"], "posts", main, crumb="书店")
 
 
-def listing(title, posts, layout, esc, mood_entry=False, mood_url="https://mood.z-agent.ccwu.cc/"):
-    rows = "".join(
-        f'<li><a href="{esc(post_url(post))}"><span>{esc(str(post["date"])[:10])}</span><strong>{esc(post["title"])}</strong></a></li>'
+def catalog(posts, esc):
+    return "".join(
+        f'<li><a href="{esc(post_url(post))}"><time datetime="{esc(str(post["date"])[:10])}">{esc(str(post["date"])[:10])}</time><strong>{esc(post["title"])}</strong></a></li>'
         for post in posts
     )
-    mood_card = f"""
-        <a class="writing-card" href="{esc(mood_url)}" target="_blank" rel="noopener noreferrer">
-          <span class="writing-card-label mono">新的写作</span>
-          <strong>新的文字在「今天的天气」</strong>
-          <span class="writing-card-description">日常写作与新文章都在那里更新。这里继续保留早期文章归档。</span>
-          <span class="writing-card-action">去读新文章 <span aria-hidden="true">↗</span></span>
-        </a>""" if mood_entry else ""
+
+
+def listing(title, posts, layout, esc, shop=None, lede=""):
+    head = f"""
+        <header class="page-head">
+          <p class="eyebrow">书店</p>
+          <h1>{esc(title)}</h1>
+          {f'<p class="lede">{lede}</p>' if lede else ""}
+        </header>"""
     main = f"""
-      <div class="page narrow">
-        <p class="page-kicker micro">文章</p>
-        <h1>{esc(title)}</h1>
-        {mood_card}
-        <ul class="post-list">{rows}</ul>
+      <div class="page">{head}
+        {shop(posts) if shop else ""}
+        <ul class="catalog" aria-label="全部文章">{catalog(posts, esc)}</ul>
       </div>"""
-    return layout(f"{title} · CengSin", title, "posts", main)
+    return layout(f"{title} · CengSin", title, "posts", main, crumb="书店")
 
 
 def rss(posts):
@@ -126,28 +148,24 @@ def rss(posts):
     )
 
 
-def build_posts(source, images, dist, layout, write, esc, mood_url="https://mood.z-agent.ccwu.cc/"):
-    files = [
-        path for path in source.glob("*.md")
-        if path.name in LEGACY_SLUGS or path.read_text(encoding="utf-8").startswith("---\n")
-    ]
-    posts = [read_post(path) for path in files]
+def build_posts(source, images, dist, layout, write, esc, mood_url="https://mood.z-agent.ccwu.cc/", shop=None):
+    posts = load_posts(source)
     slugs = [post["slug"] for post in posts]
     if len(slugs) != len(set(slugs)):
         raise ValueError("duplicate article URL slug")
-    posts.sort(key=lambda post: post["date"], reverse=True)
     for post in posts:
         if post["draft"]:
             if post["slug"] == "my-first-post":
                 # Keep the historical URL without publishing the draft body.
                 write(
                     "posts/my-first-post/index.html",
-                    layout("文章 · CengSin", "文章归档", "posts", '<div class="page"><p>这篇文章尚未发布。<a href="/posts/">查看文章列表</a></p></div>'),
+                    layout("文章 · CengSin", "文章归档", "posts", '<div class="page"><p>这篇文章尚未发布。<a href="/posts/">回到书店</a></p></div>', crumb="书店"),
                 )
             continue
         write(f"posts/{post['slug']}/index.html", article(post, layout, esc))
     listed = [post for post in posts if not post["draft"]]
-    write("posts/index.html", listing("文章", listed, layout, esc, mood_entry=True, mood_url=mood_url))
+    lede = f'新的文字写在<a href="{esc(mood_url)}" target="_blank" rel="noopener noreferrer">「今天的天气」↗</a>，这里放着读过的书和以前写下的文章。'
+    write("posts/index.html", listing("读过的，写下的", listed, layout, esc, shop=shop, lede=lede))
     write("posts/index.xml", rss(listed))
     write("index.xml", rss(listed))
     for group, field in (("tags", "tags"), ("categories", "categories")):
@@ -158,7 +176,7 @@ def build_posts(source, images, dist, layout, write, esc, mood_url="https://mood
             selected = [post for post in listed if value in post[field]]
             write(f"{group}/{slug}/index.html", listing(value, selected, layout, esc))
     # An old Hugo route pointed to its source directory instructions.
-    write("posts/readme/index.html", layout("文章 · CengSin", "文章归档", "posts", '<div class="page"><p><a href="/posts/">查看文章列表</a></p></div>'))
+    write("posts/readme/index.html", layout("文章 · CengSin", "文章归档", "posts", '<div class="page"><p><a href="/posts/">回到书店</a></p></div>', crumb="书店"))
     (dist / "images").mkdir(parents=True)
     for image in images.glob("*"):
         if image.is_file():

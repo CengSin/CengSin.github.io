@@ -847,5 +847,44 @@
     "related": [
       "baby-toy"
     ]
+  },
+  {
+    "slug": "guopiao",
+    "name": "过票",
+    "group": "experiment",
+    "number": "16",
+    "kind": "Web 应用",
+    "problem": "目前的择股软件交互太乏味了。",
+    "summary": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。",
+    "stack": "Web",
+    "diagram": null,
+    "links": [
+      [
+        "在 Idea Platform 查看",
+        "https://idea-platform.z-agent.ccwu.cc/explore/idea_UFsyCMW1"
+      ]
+    ],
+    "source": "依据 Idea Platform 上的想法与作品记录。",
+    "sections": [
+      [
+        "它解决什么问题",
+        [
+          [
+            "p",
+            "目前的择股软件交互太乏味了。想用交友软件一样的方式，来选择股票。"
+          ]
+        ]
+      ],
+      [
+        "访客如何使用",
+        [
+          [
+            "p",
+            "打开今日的候选列表，左划跳过，右划放进待研究。"
+          ]
+        ]
+      ]
+    ],
+    "related": []
   }
 ]

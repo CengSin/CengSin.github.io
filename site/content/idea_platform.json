@@ -1,0 +1,122 @@
+{
+  "fetched": "2026-11-11",
+  "ideas": [
+    {
+      "id": "idea_jkGFFFit",
+      "title": "idea_platform",
+      "summary": "共享idea，共享开发",
+      "status": "realized",
+      "created": "2026-08-29",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_UuPK9dMq",
+      "title": "个人心情网站",
+      "summary": "简单的个人网站，用来展示创作者日常的心情和故事",
+      "status": "realized",
+      "created": "2026-08-29",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_UFsyCMW1",
+      "title": "像交友一样择股",
+      "summary": "像交友软件一样的交互方式选择你的股票",
+      "status": "realized",
+      "created": "2026-08-31",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_QJkEz6kO",
+      "title": "baby-toy",
+      "summary": "宝宝总喜欢模仿大人敲击键盘，但却不知道敲击键盘的作用。所以我们来做一个游戏，让敲击键盘这件事情变的有趣。",
+      "status": "realized",
+      "created": "2026-08-31",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_inZc0S8q",
+      "title": "TouchbarReplace",
+      "summary": "把TouchBar做成Macbook的Agent启动台",
+      "status": "realized",
+      "created": "2026-09-01",
+      "active": 1,
+      "works": 1
+    },
+    {
+      "id": "idea_eD9LKL2-",
+      "title": "AI商品管理网站",
+      "summary": "通过和Agent聊天对网站上出售的商品进行管理\n弃用原因：\n1. 功能太单一，不适合作为一个单独的系统开发\n2. 如果是第三方平台，普通用户配置接口难度大",
+      "status": "dormant",
+      "created": "2026-09-01",
+      "active": 0,
+      "works": 0
+    },
+    {
+      "id": "idea_wslnU0tz",
+      "title": "idea-agent",
+      "summary": "1. 为idea-platform添加agent\n2. idea-agent扫描平台已完成且未关闭的作品\n3. 为这些作品提2~3个可能的下一步实现想法\n4. 给用户发送邮件\n5. 用户查阅后，让agent拉取平台想法并实现\n6. 回到2或者用户关闭作品",
+      "status": "realized",
+      "created": "2026-09-03",
+      "active": 0,
+      "works": 0
+    },
+    {
+      "id": "idea_mrFLMwts",
+      "title": "codex模型切换器",
+      "summary": "在尽量达到astra的质量的同时，降低codex对用户额度的消耗",
+      "status": "dormant",
+      "created": "2026-09-06",
+      "active": 0,
+      "works": 0
+    },
+    {
+      "id": "idea_wP1zz4ZS",
+      "title": "添加股票的选择说明",
+      "summary": "用户点击股票之后，股票卡片放大成页面，然后在下方添加股票的消息面和技术面说明，阐述为什么这只股票会进入候选池。",
+      "status": "published",
+      "created": "2026-09-08",
+      "active": 0,
+      "works": 0
+    },
+    {
+      "id": "idea_oT_dasX3",
+      "title": "一个懂你工作场景的资源管家（Context-aware resource manager）",
+      "summary": "软件会根据用户习惯动态进行推荐，让用户在不同的场景下规划CPU、内存等资源",
+      "status": "realized",
+      "created": "2026-09-14",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_6xVE3y9m",
+      "title": "翻译",
+      "summary": "用户可以使用不专业的词汇来描述专业的项目效果，让AI能实现出用户想要的产品",
+      "status": "published",
+      "created": "2026-09-24",
+      "active": 0,
+      "works": 0
+    },
+    {
+      "id": "idea_6JFyk23S",
+      "title": "CENGSIN个人网站解决的问题",
+      "summary": "后端开发，现在和 Agent 一起做东西。",
+      "status": "realized",
+      "created": "2026-09-29",
+      "active": 0,
+      "works": 1
+    },
+    {
+      "id": "idea_v_ML88UP",
+      "title": "提示词管理解决的问题",
+      "summary": "收集日常看到/使用效果比较好的提示词并管理",
+      "status": "realized",
+      "created": "2026-10-01",
+      "active": 0,
+      "works": 1
+    }
+  ]
+}

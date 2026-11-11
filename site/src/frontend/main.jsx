@@ -3,26 +3,46 @@ import { createRoot } from "react-dom/client";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/noto-serif-sc/900.css";
 import "./styles/app.css";
-import { Contact } from "./components/Contact";
 import { Music } from "./components/Music";
+import { mountStage } from "./city/stage.js";
+import { mountMini } from "./city/mini.js";
+import { wirePanel } from "./city/panel.js";
+import { mountAtlas } from "./city/map.js";
+import { wireAgent, wireCrayon, wireIdeaForm, wireShelves, wireTheme } from "./city/ui.js";
 
-function mount() {
-  const contact = document.getElementById("contact-root");
-  if (contact && !contact.dataset.mounted) {
-    contact.dataset.mounted = "true";
-    createRoot(contact).render(<Contact email={contact.dataset.email} github={contact.dataset.github}/>);
-  }
-  const music = document.getElementById("music-root");
-  if (music && !music.dataset.mounted) {
+function mountMusic() {
+  document.querySelectorAll("#music-root").forEach(music => {
+    if (music.dataset.mounted) return;
     music.dataset.mounted = "true";
     createRoot(music).render(<Music compact={music.dataset.compact === "true"}/>);
+  });
+}
+
+let stage = null;
+let city = null;
+const stageRoot = document.getElementById("descent");
+const cityData = document.getElementById("city-data");
+try {
+  city = cityData ? JSON.parse(cityData.textContent) : null;
+} catch {
+  city = null;
+}
+if (stageRoot && city) {
+  try {
+    stage = mountStage(stageRoot, city);
+  } catch {
+    stage = null;
   }
 }
-mount();
-document.addEventListener("site-updated", mount);
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!reduced && "IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("revealed"); observer.unobserve(entry.target); } }), { threshold: .06 });
-  document.querySelectorAll(".home-block, .home-history, #contact-root").forEach(node => { node.classList.add("reveal"); observer.observe(node); });
-}
+if (city) document.querySelectorAll("[data-atlas]").forEach(root => mountAtlas(root, city, stage));
+document.querySelectorAll(".lot[data-type]").forEach(mountMini);
+wirePanel();
+wireTheme();
+wireAgent(stage);
+wireShelves();
+wireIdeaForm(stage);
+wireCrayon();
+mountMusic();
+document.addEventListener("site-updated", mountMusic);

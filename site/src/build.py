@@ -11,14 +11,14 @@ from urllib.parse import quote
 from markdown_it import MarkdownIt
 
 from content_store import config_hash, forbidden_hits, load_site, resolve_href
-from posts import build_posts
+from city import build_city, load_bookshop
+from posts import build_posts, excerpt, load_posts, post_url
 from projects import PROJECTS
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 DIST = ROOT / "dist"
 OUT = DIST
-SNAPSHOT = "2026-09-24"
 SITE = load_site()
 IDENTITY = SITE["identity"]
 LINKS = SITE["links"]
@@ -27,7 +27,6 @@ INTRO = IDENTITY["intro"]
 TAGLINE = IDENTITY["tagline"]
 BACKGROUND = IDENTITY["background"]
 ABOUT = IDENTITY["about"]
-DOING = IDENTITY["doing"]
 WORKS_URL = LINKS["works_url"]
 IDEA_PLATFORM_URL = LINKS["idea_platform_url"]
 MOOD_URL = LINKS["mood_url"]
@@ -38,12 +37,16 @@ CONFIG_REV = config_hash(SITE)
 BY_SLUG = {item["slug"]: item for item in PROJECTS}
 RESUME_MD = MarkdownIt("commonmark", {"html": False}).enable("table")
 THEME_BOOTSTRAP = """(function () {
-  var theme = 'dark';
-  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
-  document.documentElement.dataset.theme = theme;
+  try {
+    var theme = localStorage.getItem('cengsin-theme');
+    if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+  } catch (error) {}
 })();"""
 FRONTEND_CSS = ""
-
+CITY = {}
+BOOKSHOP = load_bookshop()
+POSTS = []
+CRUMBS = {"projects": "城市名录", "posts": "书店", "about": "关于", "agent": "智能体", "music": "人生原声带", "resume": "简历"}
 
 
 def esc(value):
@@ -57,9 +60,7 @@ def inline(nodes):
             parts.append(esc(node))
             continue
         label, href = node
-        external = href.startswith("http") or href.startswith("mailto")
-        attrs = ' target="_blank" rel="noopener noreferrer" class="print-url"' if external else ""
-        parts.append(f'<a href="{esc(href)}"{attrs}>{esc(label)}</a>')
+        parts.append(f'<a href="{esc(href)}"{external(href)}>{esc(label)}</a>')
     return "".join(parts)
 
 
@@ -78,24 +79,8 @@ def blocks(items):
 
 
 def external(href):
-    if href.startswith("http") or href.startswith("mailto"):
-        return ' target="_blank" rel="noopener noreferrer" class="print-url"'
-    return ""
-
-
-def link_html(label, href, klass="text-link"):
-    return f'<a class="{klass}" href="{esc(href)}"{external(href)}>{esc(label)}</a>'
-
-
-def diagram(kind):
-    if kind == "idea":
-        return """<div class="work-art idea-art" role="img" aria-label="示意图，不是产品截图。一个想法连接承接分支和完成的作品。"><span class="idea-node one">IDEA</span><span class="idea-node two">BRANCH</span><span class="idea-node three">WORK</span><span class="art-caption">示意图，不是产品截图</span></div>"""
-    if kind == "touch":
-        return """<div class="work-art touch-art" role="img" aria-label="示意图，不是产品截图。键盘下方有一条 Touch Bar。"><div class="touch-device"><div class="touch-line"></div><div class="touch-bar"><i></i><i></i><i></i></div></div><span class="art-caption">示意图，不是产品截图</span></div>"""
-    if kind == "resource":
-        return """<div class="work-art resource-art" role="img" aria-label="示意图，不是产品截图。CPU、内存和 GPU 三条占用。"><div class="resource-window"><div class="resource-title mono">RESOURCE / VIEW</div><div class="resource-line"><span class="mono">CPU</span><b></b></div><div class="resource-line"><span class="mono">MEMORY</span><b></b></div><div class="resource-line"><span class="mono">GPU</span><b></b></div></div><span class="art-caption">示意图，不是产品截图</span></div>"""
-    if kind == "mark":
-        return '<div class="wide-symbol" aria-hidden="true">g/o</div>'
+    if href.startswith("http"):
+        return ' target="_blank" rel="noopener noreferrer"'
     return ""
 
 
@@ -110,38 +95,24 @@ def visible_nav():
             continue
         items.append({**item, "href": href})
     if resume.get("enabled") and resume.get("show_in_nav") and not any(item.get("key") == "resume" for item in items):
-        items.append({
-            "href": "/resume",
-            "label": resume.get("nav_label") or "简历",
-            "key": "resume",
-            "enabled": True,
-        })
+        items.append({"href": "/resume", "label": resume.get("nav_label") or "简历", "key": "resume", "enabled": True})
     return items
 
 
-def nav(current):
-    desktop = []
-    mobile = []
+def touchbar(current):
+    keys = []
     for item in visible_nav():
-        href, label, key = item["href"], item["label"], item["key"]
-        current_attr = ' aria-current="page"' if key == current else ""
-        class_attr = ' class="agent-link"' if key == "agent" else ""
-        desktop.append(f'<a href="{esc(href)}"{class_attr}{current_attr}>{esc(label)}</a>')
-        mobile.append(f'<a href="{esc(href)}"{current_attr}>{esc(label)}</a>')
+        current_attr = ' aria-current="page"' if item["key"] == current else ""
+        keys.append(f'<a class="tb" href="{esc(item["href"])}"{external(item["href"])}{current_attr}>{esc(item["label"])}</a>')
     return f"""
-      <header class="site-header">
-        <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>{esc(SITE["brand"])}</a>
-        <div class="header-actions">
-          <nav class="desktop-nav" id="desktop-nav" aria-label="主导航">{''.join(desktop)}</nav>
-          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
-          <nav class="mobile-nav" aria-label="手机导航">
-            <details>
-              <summary>菜单</summary>
-              <div class="mobile-links" id="mobile-links">{''.join(mobile)}</div>
-            </details>
-          </nav>
-        </div>
-      </header>"""
+  <nav class="touchbar" aria-label="主导航">
+    <a class="tb esc" href="/" id="site-brand" aria-label="回到首页">CS</a>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <span id="touchbar-nav" style="display:contents">{''.join(keys)}</span>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <button class="tb tb-theme" type="button" data-theme-toggle aria-label="切换深浅色">◐</button>
+    <button class="tb tb-toggle" type="button" id="view-toggle" aria-pressed="false" aria-label="切换到 Agent 看到的版本"><span>人</span><span>Agent</span></button>
+  </nav>"""
 
 
 def footer():
@@ -150,25 +121,47 @@ def footer():
         href = resolve_href(item["href"], SITE)
         if not SITE["resume"].get("enabled") and href.rstrip("/") == "/resume":
             continue
-        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("https://") else ""
-        links.append(f'          <a href="{esc(href)}"{attrs}>{esc(item["label"])}</a>')
+        links.append(f'<a href="{esc(href)}"{external(href)}>{esc(item["label"])}</a>')
+    fetched = CITY.get("fetched") or ""
+    note = f" · 图纸状态取自 Idea Platform，{fetched}" if fetched else ""
     return f"""
-      <footer class="site-footer">
-        <span class="mono" id="footer-brand">{esc(SITE["brand"])}</span>
-        <div class="footer-links" id="footer-links">
-{chr(10).join(links)}
-        </div>
-      </footer>"""
+  <footer class="site-footer">
+    <span><span id="footer-brand">{esc(SITE["brand"])}</span>{esc(note)}</span>
+    <span class="footer-links" id="footer-links">{''.join(links)}</span>
+  </footer>"""
 
 
-def layout(title, description, current, main):
+def chrome_tail(home):
+    panel = """
+  <aside class="panel" id="panel" hidden aria-labelledby="p-title">
+    <button class="x" type="button" aria-label="关闭">×</button>
+    <p class="p-kicker" data-p="kicker"></p>
+    <h2 id="p-title" data-p="title"></h2>
+    <dl data-p="body"></dl>
+    <div class="p-links" data-p="links"></div>
+  </aside>""" if home else ""
+    return f"""{panel}
+  <aside class="md" id="md" hidden aria-label="Agent 看到的版本">
+    <header><span>profile.md · Agent 看到的图纸</span><button type="button" id="md-copy">复制给 Agent</button></header>
+    <pre id="md-text">正在读取 /agent/profile.md …</pre>
+  </aside>
+  <canvas id="crayon" aria-hidden="true"></canvas>
+  <div class="toast" id="toast" hidden role="status"></div>"""
+
+
+def layout(title, description, current, main, crumb=None, html_class=""):
+    home = current == "home"
+    crumb = crumb or CRUMBS.get(current, "")
+    top = "" if home else f"""
+  <header class="topline"><a class="brand" href="/">CengSin</a><span aria-hidden="true">/</span><span>{esc(crumb)}</span></header>"""
+    body = main if home else f'\n  <main id="main" class="wrap">{main}\n  </main>'
     return f"""<!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN"{f' class="{html_class}"' if html_class else ""}>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0B0C0E">
+  <meta name="theme-color" content="#0a2150">
   <meta name="description" content="{esc(description)}">
   <meta name="site-config" content="{CONFIG_REV}">
   <meta property="og:title" content="{esc(title)}">
@@ -184,16 +177,13 @@ def layout(title, description, current, main):
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/app/{FRONTEND_CSS}">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="CengSin 文章" href="/index.xml">
 </head>
-<body{(' class="home" data-page="home"' if current == "home" else f' data-page="{esc(current)}"')}>
-  <a class="skip-link" href="#main">跳到主要内容</a>
-  <div class="shell">
-    {nav(current)}
-    <main id="main">
-      {main}
-    </main>
-    {footer()}
-  </div>
+<body class="{'home' if home else 'inner'}" data-page="{esc(current)}" data-idea-platform="{esc(IDEA_PLATFORM_URL)}">
+  <a class="skip-link" href="#main">跳到主要内容</a>{top}{body}
+  {footer()}
+  {touchbar(current)}
+  {chrome_tail(home)}
   <script src="/assets/site.js" defer></script>
   <script type="module" src="/assets/app/app.js"></script>
 </body>
@@ -201,224 +191,263 @@ def layout(title, description, current, main):
 """
 
 
-def keyword_list():
-    return "\n".join(f"          <li>{esc(word)}</li>" for word in IDENTITY["keywords"])
+def thesis_html(hero):
+    text = esc(hero["thesis"]).replace("，", "，<br>", 1)
+    mark = esc(hero.get("mark", ""))
+    if mark:
+        text = text.replace(mark, f"<em>{mark}</em>", 1)
+    return text
 
 
-def render_hero():
-    home = SITE["home"]
-    return f"""      <section class="home-hero" aria-labelledby="who-name">
-        <div class="home-hero-grid">
-          <div class="hero-byline"><div class="home-avatar"><span aria-hidden="true">CS</span><img src="https://github.com/{esc(IDENTITY['github_handle'])}.png?size=80" alt="" width="32" height="32" referrerpolicy="no-referrer"></div><span>{esc(SITE['brand'])}</span></div>
-          <h1 id="who-name">{esc(INTRO)}</h1>
-          <p class="home-who">{esc(WHO)}</p>
-          <p class="home-support">{esc(TAGLINE)}。</p>
-          <div class="home-actions">
-            <a class="button primary" href="{esc(resolve_href(home['hero_primary_href'], SITE))}">{esc(home['hero_primary_label'])}</a>
-            <a class="home-quiet" href="{esc(resolve_href(home['hero_secondary_href'], SITE))}">{esc(home['hero_secondary_label'])}</a>
-          </div>
-        </div>
-      </section>"""
+def first_sentence(text):
+    text = str(text or "").strip()
+    cut = text.find("。")
+    return text if cut < 0 else text[:cut + 1]
 
 
-def render_doing():
-    home = SITE["home"]
-    threads = []
-    for item in home["threads"]:
-        href = resolve_href(item["href"], SITE)
-        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("http") else ""
-        threads.append(
-            f"""          <a class="home-thread" href="{esc(href)}"{attrs}>
-            <strong>{esc(item["title"])}</strong>
-            <span>{esc(item["text"])}</span>
-          </a>"""
+def atlas_html(city, fold=True, limit=10):
+    groups = [(f"已经落地 · {len(city['built'])}", city["built"])]
+    hanging = {}
+    for d in city["hanging"]:
+        hanging.setdefault(d["status"], []).append(d)
+    groups.extend((f"{status} · {len(items)}", items) for status, items in hanging.items())
+    if city["sky"]:
+        groups.append((f"还在天上 · {len(city['sky'])}", city["sky"]))
+    n = 0
+    parts = []
+    for title, items in groups:
+        head_extra = " extra" if n >= limit else ""
+        rows = []
+        for item in items:
+            extra = ' class="extra"' if n >= limit else ""
+            n += 1
+            built = item["kind"] == "built"
+            arch = item["arch"] if built else item["status"]
+            tone = f' style="--c:var(--{esc(item["tone"])})"' if built else ""
+            badge = f'<span class="lg-st">{esc(item["status"])}</span>' if built and item["status"] != "已落地" else ""
+            rows.append(
+                f'<li{extra}><a class="lg {esc(item["kind"])}" href="{esc(item["href"])}"{external(item["href"])} data-id="{esc(item["id"])}"{tone}>'
+                f'<span class="n">{n}</span><span class="lg-arch">{esc(arch)}</span><span class="lg-name">{esc(item["name"])}</span>{badge}</a></li>'
+            )
+        parts.append(f'<p class="legend-group{head_extra}">{esc(title)}</p><ol class="legend-list" start="{n - len(items) + 1}">{"".join(rows)}</ol>')
+    hidden = max(0, n - limit)
+    button = f'<button class="legend-more" type="button" hidden aria-expanded="true" data-more="展开图例（还有 {hidden} 项）" data-less="收起图例">收起图例</button>' if hidden else ""
+    return f"""
+      <div class="atlas" data-atlas data-fold="{'true' if fold else 'false'}">
+        <div class="atlas-map"></div>
+        <div class="legend">{''.join(parts)}{button}</div>
+      </div>"""
+
+
+def city_counts(city):
+    parts = [f'<span><b>{len(city["built"])}</b><span class="k">件已经落地</span></span>']
+    counts = {}
+    for d in city["hanging"]:
+        counts[d["status"]] = counts.get(d["status"], 0) + 1
+    for status, n in counts.items():
+        label = "件正在吊装" if status == "实现中" else f"张图纸{status}"
+        parts.append(f'<span><b>{n}</b><span class="k">{esc(label)}</span></span>')
+    parts.append(f'<span><b>{len(city["sky"])}</b><span class="k">张图纸还在天上</span></span>')
+    return "".join(parts)
+
+
+def spine_for_post(post, index):
+    meta = BOOKSHOP.get("spines", {}).get(post["slug"], {})
+    tones = ["b-blue", "b-brick", "b-teal", "b-plum", "b-yellow"]
+    short = meta.get("short") or post["title"].split("：")[0][:14]
+    tone = meta.get("tone") or tones[index % len(tones)]
+    line = meta.get("blurb") or excerpt(post)
+    date = str(post["date"])[:10]
+    units = sum(1 if ord(ch) > 0x2e80 else .55 for ch in short)
+    height = int(min(250, max(170, 64 + units * 15.5)))
+    width = 46 if units > 11 else 40
+    ink = " ink" if meta.get("ink") else ""
+    return (
+        f'<button class="spine{ink}" type="button" aria-pressed="false" data-kind="write" data-title="{esc(post["title"])}" '
+        f'data-line="{esc(line)}" data-date="{esc(date)}" data-href="{esc(post_url(post))}" '
+        f'style="--c:var(--{esc(tone)});--h:{height}px;--w:{width}px"><span>{esc(short)}</span><small>{esc(date[:4])}</small></button>'
+    )
+
+
+def shop_html(posts):
+    shop = BOOKSHOP
+    books = shop["books"]
+    read = []
+    for i, book in enumerate(books):
+        lean = " lean" if i == len(books) - 1 else ""
+        ink = " ink" if book.get("ink") else ""
+        read.append(
+            f'<button class="spine{lean}{ink}" type="button" aria-pressed="false" data-kind="read" data-title="{esc(book["title"])}" '
+            f'data-line="{esc(book["line"])}" data-cite="{esc(shop["read_cite"])}" data-group="{esc(book.get("group", ""))}" '
+            f'style="--c:var(--{esc(book["tone"])});--h:{int(book["h"])}px;--w:{int(book["w"])}px">{esc(book["title"])}</button>'
         )
-    return f"""      <section class="home-block" id="doing" aria-labelledby="doing-title">
-        <h2 id="doing-title">{esc(home["doing_title"])}</h2>
-        <p class="home-lede">{esc(DOING)}</p>
-        <div class="home-threads">
-{chr(10).join(threads)}
-        </div>
-      </section>"""
-
-
-def render_doors():
-    home = SITE["home"]
-    cards = []
-    for item in home["doors"]:
-        href = resolve_href(item["href"], SITE)
-        attrs = ' target="_blank" rel="noopener noreferrer"' if href.startswith("http") else ""
-        cards.append(
-            f"""          <a class="home-door" href="{esc(href)}"{attrs}>
-            <span class="home-dest">{esc(item["dest"])}</span>
-            <h3>{esc(item["title"])}</h3>
-            <p>{esc(item["text"])}</p>
-            <span class="home-go">{esc(item["action"])}</span>
-          </a>"""
-        )
-    agent = home["agent"]
-    agent_html = ""
-    if agent.get("enabled", True):
-        agent_html = f"""
-        <div class="home-agent" id="agent">
-          <div>
-            <span class="home-dest">{esc(agent["dest"])}</span>
-            <h3>{esc(agent["title"])}</h3>
-            <p>{esc(agent["text"])}</p>
+    write = [spine_for_post(post, i) for i, post in enumerate(posts)]
+    first = books[0]
+    years = sorted({str(p["date"])[:4] for p in posts})
+    span = f"{years[0]}—{years[-1]}" if years else ""
+    return f"""
+        <div class="shop" data-shop>
+          <div class="shelves">
+            <div>
+              <p class="shelf-label"><span>{esc(shop["read_label"])}</span><span>{esc(shop["read_source"])}</span></p>
+              <div class="shelf">{''.join(read)}</div>
+              <p class="shelf-cap">{esc(shop["read_caption"])}</p>
+            </div>
+            <div>
+              <p class="shelf-label"><span>{esc(shop["write_label"])} · {esc(span)}</span><a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">{esc(shop["write_note"])} ↗</a></p>
+              <div class="shelf">{''.join(write)}</div>
+            </div>
           </div>
-          <div class="home-agent-actions">
-            <button class="button secondary" type="button" data-copy="agent-prompt">{esc(agent["button"])}</button>
-            <a href="/llms.txt">{esc(agent["llms_label"])}</a>
-            <textarea id="agent-prompt" aria-label="交给 Agent 的提示词" class="visually-hidden" readonly>{esc(PROMPT)}</textarea>
-          </div>
+          <article class="reader" aria-live="polite">
+            <p class="r-kicker">读过的</p><h3>{esc(first["title"])}</h3><blockquote>{esc(first["line"])}</blockquote><p class="src">{esc(shop["read_cite"])}</p>
+          </article>
         </div>"""
-    return f"""      <section class="home-block" id="doors" aria-labelledby="doors-title">
-        <h2 id="doors-title">{esc(home["doors_title"])}</h2>
-        <p class="home-note">{esc(home["doors_note"])}</p>
-        <div class="home-doors">
-{chr(10).join(cards)}
-        </div>{agent_html}
-      </section>"""
 
 
-def render_about():
-    principles = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("principles", []))
-    stack = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("stack", []))
-    extra = (f'<section class="home-block home-method"><h2>做事方式</h2><ul>{principles}</ul></section>' if principles else "")
-    extra += (f'<section class="home-block home-stack"><h2>常用工具</h2><ul>{stack}</ul></section>' if stack else "")
-    return f"""      <section class="home-block" id="about" aria-labelledby="about-title">
-        <h2 id="about-title">{esc(SITE["home"]["about_title"])}</h2>
-        <p class="home-about-copy">{esc(ABOUT)}</p>
-        <ul class="keyword-tags" aria-label="关键词">
-{keyword_list()}
-        </ul>
-      </section>{extra}"""
-
-
-def render_history():
-    records = []
-    for item in SITE["home"]["history"]:
-        href = resolve_href(item["href"], SITE)
-        records.append(
-            f"""        <a class="home-record" href="{esc(href)}">
-          <strong>{esc(item["title"])}</strong>
-          <span>{esc(item["text"])}</span>
-          <em>{esc(item["meta"])}</em>
-        </a>"""
-        )
-    return f"""      <section class="home-history" aria-labelledby="history-title">
-        <h2 id="history-title">{esc(SITE["home"]["history_title"])}</h2>
-{chr(10).join(records)}
-      </section>"""
-
-
-RENDERERS = {
-    "hero": render_hero,
-    "doing": render_doing,
-    "doors": render_doors,
-    "about": render_about,
-    "history": render_history,
-}
+def city_json():
+    return json.dumps(CITY, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
 
 def home():
-    parts = [RENDERERS[section["id"]]() for section in SITE["home"]["sections"] if section.get("enabled", True)]
-    parts.append('<div id="music-root" data-compact="true"></div>')
-    parts.append(f'<div id="contact-root" data-email="{esc(EMAIL)}" data-github="{esc(GITHUB)}"></div>')
-    return layout(SITE["site_title"], WHO, "home", "\n" + "\n".join(parts))
+    hero = CITY["hero"]
+    reg = CITY["registry"]
+    form = CITY["sky_form"]
+    listed = [post for post in POSTS if not post["draft"]]
+    main = f"""
+  <div class="descent" id="descent">
+    <div class="stage">
+      <svg id="world" role="img" aria-label="想象之城：天上是还没落地的想法图纸，地上是已经做出来的作品" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="hero">
+        <p class="eyebrow">{esc(hero["eyebrow"])}</p>
+        <h1>{thesis_html(hero)}</h1>
+        <p class="lede">{esc(hero["lede"])}</p>
+      </div>
+      <p class="hint"><span>{esc(hero["hint"])}</span></p>
+      <p class="citycap" aria-hidden="true">{city_counts(CITY)}</p>
+    </div>
+  </div>
+  <main id="main">
+    <section class="sec" id="registry" aria-labelledby="registry-title">
+      <div class="sec-head">
+        <p class="eyebrow">{esc(reg["eyebrow"])}</p>
+        <h2 id="registry-title">{esc(reg["title"])}</h2>
+        <p>{esc(reg["lede"])}</p>
+      </div>
+      {atlas_html(CITY)}
+    </section>
+    <section class="sec" id="books" aria-labelledby="books-title">
+      <div class="sec-head">
+        <p class="eyebrow">{esc(BOOKSHOP["eyebrow"])}</p>
+        <h2 id="books-title">{esc(BOOKSHOP["title"])}</h2>
+      </div>{shop_html(listed)}
+      <p class="sec-more"><a href="/posts/">走进书店，看全部文章 →</a></p>
+    </section>
+    <section class="sec" id="ideas" aria-labelledby="ideas-title">
+      <div class="sec-head">
+        <p class="eyebrow">{esc(form["eyebrow"])}</p>
+        <h2 id="ideas-title">{esc(form["title"])}</h2>
+      </div>
+      <form class="idea-form" id="idea-form">
+        <label class="sr" for="idea-input">你的想法</label>
+        <input id="idea-input" maxlength="20" autocomplete="off" placeholder="{esc(form["placeholder"])}">
+        <button class="btn" type="submit">{esc(form["button"])}</button>
+      </form>
+      <p class="fine">{esc(form["note_before"])}<a href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(form["note_link"])}</a></p>
+    </section>
+    <div id="music-root" data-compact="true"></div>
+  </main>
+  <script type="application/json" id="city-data">{city_json()}</script>"""
+    return layout(SITE["site_title"], WHO, "home", main)
 
 
 def projects_page():
     page = SITE["projects_page"]
-    cards = []
-    for project in PROJECTS:
-        if project["group"] != "selected":
-            continue
-        art = diagram(project["diagram"]) if project["diagram"] not in {None, "mark"} else ""
-        primary = project["links"][0]
-        links = link_html(primary[0], primary[1]) + link_html("看这件作品", f"/projects/{project['slug']}", "text-link internal")
-        klass = "card feature-card" if art else "card feature-card no-art"
-        cards.append(f"""
-          <article class="{klass}">
-            <div class="work-copy">
-              <div class="work-meta mono"><span class="number">{project["number"]}</span><span>/</span><span>{esc(project["kind"])}</span></div>
-              <h3><a href="/projects/{project["slug"]}">{esc(project["name"])}</a></h3>
-              <p>{esc(project["problem"])}</p>
-              <div class="links">{links}</div>
-            </div>
-            {art}
-          </article>""")
+    reg = CITY["registry"]
     main = f"""
-      <div class="page">
-        <p class="page-kicker micro" data-config="kicker">{esc(page["kicker"])}</p>
-        <h1 data-config="title">{esc(page["title"])}</h1>
-        <p class="lede" data-config="lede">{esc(page["lede"])}</p>
-        <a class="works-portal" data-config-href="works_url" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">
-          <span class="micro" data-config="portal_kicker">{esc(page["portal_kicker"])}</span>
-          <strong data-config="portal_title">{esc(page["portal_title"])}</strong>
-          <span data-config="portal_text">{esc(page["portal_text"])}</span>
-          <span class="works-portal-action" data-config="portal_action">{esc(page["portal_action"])}</span>
-        </a>
-        <a class="platform-entry" data-config-href="idea_platform_url" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer"><span data-config="platform_label">{esc(page["platform_label"])}</span> <span aria-hidden="true">↗</span></a>
-        <details class="work-archive" open>
-          <summary data-config="archive_label">{esc(page["archive_label"])}（{len(cards)} 项）</summary>
-          <div class="feature-list">{''.join(cards)}</div>
-        </details>
-      </div>"""
+    <div class="page">
+      <header class="page-head">
+        <p class="eyebrow">{esc(reg["eyebrow"])}</p>
+        <h1>{esc(reg["title"])}</h1>
+        <p class="lede">新的作品在 Idea Platform 上持续更新，每次构建，城里就会多出新盖好的楼。</p>
+      </header>
+      <p class="portal">
+        <a class="button" data-config-href="works_url" href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer" data-config="portal_action">{esc(page["portal_action"])}</a>
+        <a class="button secondary" data-config-href="idea_platform_url" href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer" data-config="platform_label">{esc(page["platform_label"])}</a>
+      </p>
+      {atlas_html(CITY, fold=False)}
+    </div>
+    <script type="application/json" id="city-data">{city_json()}</script>"""
     return layout(f"{page['title']} · {SITE['brand']}", page["description"], "projects", main)
 
 
+def building_of(slug):
+    return next((b for b in CITY["built"] if b["id"] == slug), None)
+
+
 def project_page(project):
-    links = "".join(f"<li>{link_html(label, href)}</li>" for label, href in project["links"])
-    sections = []
-    for title, content in project["sections"]:
-        sections.append(f"<section><h2>{esc(title)}</h2>{blocks(content)}</section>")
-    related = []
-    for slug in project["related"]:
-        other = BY_SLUG[slug]
-        related.append(f'<li><a href="/projects/{slug}">{esc(other["name"])}</a></li>')
-    related_html = f'<aside class="related"><h2>相关作品</h2><ul>{"".join(related)}</ul></aside>' if related else ""
-    art = ""
-    if project["diagram"] in {"idea", "touch", "resource"}:
-        art = f'<div class="card" style="margin-top:28px">{diagram(project["diagram"])}</div>'
+    b = building_of(project["slug"])
+    links = "".join(f'<li><a href="{esc(href)}"{external(href)}>{esc(label)} ↗</a></li>' for label, href in project["links"])
+    sections = "".join(f"<section><h2>{esc(title)}</h2>{blocks(content)}</section>" for title, content in project["sections"])
+    related = [f'<li><a href="/projects/{slug}">{esc(BY_SLUG[slug]["name"])}</a></li>' for slug in project["related"]]
+    related_html = f'<aside class="related"><h2>相邻的楼</h2><ul>{"".join(related)}</ul></aside>' if related else ""
+    if b:
+        kicker = f'{b["arch"]} · {b["status"]}'
+        lot = f'<div class="lot" data-type="{esc(b["type"])}" data-tone="{esc(b["tone"])}" data-label="{esc(b["arch"])}：{esc(project["name"])}"><span class="lot-tag">{esc(b["arch"])}</span></div>'
+        facts = (
+            (f'<div><dt>原来的想法</dt><dd class="q">{esc(b["idea"])}</dd></div>' if b["idea"] else "")
+            + f'<div><dt>拿出来之后</dt><dd>{esc(b["made"])}</dd></div>'
+            + (f'<div><dt>我做的取舍</dt><dd>{esc(b["trade"])}</dd></div>' if b["trade"] else "")
+            + f'<div><dt>材料</dt><dd>{esc(project["stack"])}</dd></div>'
+        )
+    else:
+        kicker = f'{project["number"]} · {project["kind"]}'
+        lot = ""
+        facts = f'<div><dt>做成了什么</dt><dd>{esc(project["summary"])}</dd></div><div><dt>材料</dt><dd>{esc(project["stack"])}</dd></div>'
     main = f"""
-      <article class="page detail-top">
-        <p><a class="text-link internal" href="/projects">全部作品</a></p>
-        <p class="page-kicker micro">{esc(project["number"])} / {esc(project["kind"])}</p>
-        <h1>{esc(project["name"])}</h1>
-        <p class="lede">{esc(project["problem"])}</p>
-        <ul class="entry-links">{links}</ul>
-        {art}
-        <div class="prose">{''.join(sections)}</div>
-        {related_html}
-        <p class="source-note">{esc(project["source"])}</p>
-      </article>"""
+    <article class="page">
+      <div class="building">
+        <header class="page-head">
+          <p class="eyebrow">{esc(kicker)}</p>
+          <h1>{esc(project["name"])}</h1>
+          <p class="lede">{esc(project["problem"])}</p>
+        </header>
+        {lot}
+      </div>
+      <dl class="facts">{facts}</dl>
+      <ul class="entry-links">{links}</ul>
+      <div class="prose">{sections}</div>
+      {related_html}
+      <p class="source-note">{esc(project["source"])} · <a href="/projects">回到城市名录</a></p>
+    </article>"""
     return layout(f"{project['name']} · CengSin", project["problem"], "projects", main)
 
 
 def about_page():
     page = SITE["about_page"]
-    extra_html = ""
-    if page["extra_paragraphs"]:
-        extra_html = "\n" + "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in page["extra_paragraphs"])
+    principles = "".join(f"<li><span>0{i + 1}</span>{esc(x)}</li>" for i, x in enumerate(SITE["home"].get("principles", [])))
+    stack = "".join(f"<li>{esc(x)}</li>" for x in SITE["home"].get("stack", []))
+    keywords = "".join(f"<li>{esc(word)}</li>" for word in IDENTITY["keywords"])
+    extra_html = "".join(f"<p>{esc(paragraph)}</p>" for paragraph in page["extra_paragraphs"])
     github_text = GITHUB.removeprefix("https://").removeprefix("http://")
     main = f"""
-      <article class="page narrow">
-        <p class="page-kicker micro">{esc(page["kicker"])}</p>
-        <h1>{esc(page["title"])}</h1>
-        <p class="lede">{esc(ABOUT)}</p>
-        <ul class="keyword-tags" aria-label="关键词">
-{keyword_list()}
-        </ul>
-        <div class="prose">
-          <p>{esc(page["intro_before"])}<a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["works_link_label"])}</a>{esc(page["intro_between"])}<a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["writing_link_label"])}</a>{esc(page["intro_after"])}</p>
-          <p>{esc(page["archive_before"])}<a href="/projects">{esc(page["projects_link_label"])}</a>{esc(page["archive_between"])}<a href="/posts/">{esc(page["posts_link_label"])}</a>{esc(page["archive_after"])}</p>{extra_html}
-        </div>
-        <dl class="facts">
-          <div><dt>{esc(page["email_label"])}</dt><dd><a href="mailto:{esc(EMAIL)}">{esc(EMAIL)}</a></dd></div>
-          <div><dt>{esc(page["github_label"])}</dt><dd><a href="{esc(GITHUB)}" target="_blank" rel="noopener noreferrer">{esc(github_text)}</a></dd></div>
-        </dl>
-      </article>"""
+    <article class="page narrow">
+      <header class="page-head">
+        <p class="eyebrow" data-cfg="about_page.kicker">{esc(page["kicker"])}</p>
+        <h1 data-cfg="about_page.title">{esc(page["title"])}</h1>
+      </header>
+      <p class="about-copy" data-cfg="identity.about">{esc(ABOUT)}</p>
+      {f'<h2 class="minor">做事方式</h2><ol class="principles">{principles}</ol>' if principles else ""}
+      {f'<h2 class="minor">常用工具</h2><ul class="stack-list">{stack}</ul>' if stack else ""}
+      <ul class="keyword-tags" aria-label="关键词">{keywords}</ul>
+      <div class="about-links prose">
+        <p>{esc(page["intro_before"])}<a href="{esc(WORKS_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["works_link_label"])}</a>{esc(page["intro_between"])}<a href="{esc(MOOD_URL)}" target="_blank" rel="noopener noreferrer">{esc(page["writing_link_label"])}</a>{esc(page["intro_after"])}</p>
+        <p>{esc(page["archive_before"])}<a href="/projects">{esc(page["projects_link_label"])}</a>{esc(page["archive_between"])}<a href="/posts/">{esc(page["posts_link_label"])}</a>{esc(page["archive_after"])}</p>{extra_html}
+      </div>
+      <dl class="facts">
+        <div><dt>{esc(page["email_label"])}</dt><dd><a href="mailto:{esc(EMAIL)}">{esc(EMAIL)}</a></dd></div>
+        <div><dt>{esc(page["github_label"])}</dt><dd><a href="{esc(GITHUB)}" target="_blank" rel="noopener noreferrer">{esc(github_text)}</a></dd></div>
+      </dl>
+    </article>"""
     return layout(f"{page['title']} · {SITE['brand']}", INTRO, "about", main)
 
 
@@ -429,19 +458,37 @@ def agent_page():
         for item in page["resources"]
     )
     main = f"""
-      <article class="page">
-        <p class="page-kicker micro">{esc(page["kicker"])}</p>
-        <h1>{esc(page["title"])}</h1>
-        <p class="lede">{esc(page["lede"])}</p>
+    <article class="page narrow">
+      <header class="page-head">
+        <p class="eyebrow" data-cfg="agent_page.kicker">{esc(page["kicker"])}</p>
+        <h1 data-cfg="agent_page.title">{esc(page["title"])}</h1>
+        <p class="lede" data-cfg="agent_page.lede">{esc(page["lede"])}</p>
+      </header>
+      <div class="table-wrap">
         <table class="resource-table">
           <thead><tr><th>资源</th><th>内容</th></tr></thead>
           <tbody>{table}</tbody>
         </table>
-        <h2>{esc(page["copy_heading"])}</h2>
-        <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly>{esc(PROMPT)}</textarea>
-        <p><button class="button secondary" type="button" data-copy="agent-prompt">{esc(page["copy_button"])}</button></p>
-      </article>"""
-    return layout(f"智能体入口 · {SITE['brand']}", page["description"], "agent", main)
+      </div>
+      <h2 class="minor" data-cfg="agent_page.copy_heading">{esc(page["copy_heading"])}</h2>
+      <textarea class="prompt" id="agent-prompt" aria-label="交给 Agent 的提示词" readonly data-cfg="prompt">{esc(PROMPT)}</textarea>
+      <p><button class="button secondary" type="button" data-copy="agent-prompt" data-cfg="agent_page.copy_button">{esc(page["copy_button"])}</button></p>
+    </article>"""
+    return layout(f"{page['title']} · {SITE['brand']}", page["description"], "agent", main, html_class="agent")
+
+
+def music_page():
+    main = """
+    <article class="page">
+      <header class="page-head">
+        <p class="eyebrow">唱片</p>
+        <h1>人生原声带</h1>
+        <p class="lede">歌曲，和我选择分享的回忆。</p>
+      </header>
+      <div id="music-root"></div>
+      <noscript>请开启 JavaScript 查看已公开的音乐回忆。</noscript>
+    </article>"""
+    return layout("人生原声带 · CengSin", "歌曲与我选择分享的回忆。", "music", main)
 
 
 def resume_markdown():
@@ -465,22 +512,38 @@ def resume_page():
     actions = []
     if resume.get("download"):
         filename = resume["filename"]
-        actions.append(
-            f'<a class="button primary" href="/resume/{esc(filename)}" download="{esc(filename)}">{esc(resume["download_label"])}</a>'
-        )
+        actions.append(f'<a class="button" href="/resume/{esc(filename)}" download="{esc(filename)}">{esc(resume["download_label"])}</a>')
     if resume.get("print_label"):
-        actions.append(f'<button class="button" type="button" data-print>{esc(resume["print_label"])}</button>')
-    action_html = f'<div class="hero-actions">{"".join(actions)}</div>' if actions else ""
+        actions.append(f'<button class="button secondary" type="button" data-print>{esc(resume["print_label"])}</button>')
+    action_html = f'<p class="portal">{"".join(actions)}</p>' if actions else ""
     summary = f'<p class="lede">{esc(resume["summary"])}</p>' if resume["summary"].strip() else ""
     main = f"""
-      <article class="page narrow">
-        <p class="page-kicker micro">{esc(resume["kicker"])}</p>
+    <article class="page narrow">
+      <header class="page-head">
+        <p class="eyebrow">{esc(resume["kicker"])}</p>
         <h1>{esc(resume["title"])}</h1>
         {summary}
-        {action_html}
-        <div class="prose">{''.join(parts)}</div>
-      </article>"""
+      </header>
+      {action_html}
+      <div class="prose">{''.join(parts)}</div>
+    </article>"""
     return layout(f"{resume['title']} · {SITE['brand']}", resume["summary"] or resume["title"], "resume", main)
+
+
+def city_lines():
+    lines = [f"### 已经落地（{len(CITY['built'])}）", ""]
+    for b in CITY["built"]:
+        lines.append(f"- {b['name']}（{b['arch']} · {b['status']}）：{first_sentence(b['made'])} {b['href'] if b['href'].startswith('http') else b['href']}")
+    groups = {}
+    for d in CITY["hanging"]:
+        groups.setdefault(d["status"], []).append(d)
+    for status, items in groups.items():
+        lines.extend(["", f"### {status}（{len(items)}）", ""])
+        lines.extend(f"- {d['name']} · {d['date']} · {d['href']}" for d in items)
+    if CITY["sky"]:
+        lines.extend(["", f"### 还在天上（{len(CITY['sky'])}）", ""])
+        lines.extend(f"- {d['name']} · {d['date']}{' · 由「' + d['from'] + '」衍生' if d.get('from') else ''} · {d['href']}" for d in CITY["sky"])
+    return lines
 
 
 def profile_data():
@@ -488,6 +551,8 @@ def profile_data():
         "handle": "CengSin",
         "who": WHO,
         "intro": INTRO,
+        "thesis": CITY["hero"]["thesis"],
+        "lede": CITY["hero"]["lede"],
         "tagline": TAGLINE,
         "background": BACKGROUND,
         "about": ABOUT,
@@ -497,6 +562,11 @@ def profile_data():
         "primary_writing_url": MOOD_URL,
         "project_archive_path": "/projects/",
         "article_archive_path": "/posts/",
+        "city": {
+            "snapshot": CITY.get("fetched", ""),
+            "built": [{"name": b["name"], "building": b["arch"], "status": b["status"], "url": b["href"], "idea": b["idea"], "made": b["made"]} for b in CITY["built"]],
+            "unbuilt": [{"name": d["name"], "status": d["status"], "date": d["date"], "url": d["href"]} for d in CITY["hanging"] + CITY["sky"]],
+        },
         "projects": [
             {
                 "name": project["name"],
@@ -514,13 +584,19 @@ def markdown_profile(data):
     lines = [
         "# CengSin",
         "",
-        data["who"],
+        f"> {data['thesis']}",
         "",
-        data["intro"],
-        "",
-        data["tagline"],
+        data["lede"],
         "",
         data["about"],
+        "",
+        "做事方式：" + "；".join(SITE["home"].get("principles", [])) + "。",
+        "",
+        "## 想象之城",
+        "",
+        f"本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。状态取自 Idea Platform（{CITY.get('fetched', '')}）。",
+        "",
+        *city_lines(),
         "",
         "## 联系",
         "",
@@ -532,63 +608,56 @@ def markdown_profile(data):
         f"- 作品与想法：{WORKS_URL}",
         f"- Idea Platform 平台：{IDEA_PLATFORM_URL}",
         f"- 新文章：{MOOD_URL}",
-        "- 本站原有作品说明：/projects/",
-        "- 旧文归档：/posts/",
+        "- 城市名录：/projects/",
+        "- 书店（文章）：/posts/",
         "",
-        "## 本站原有作品说明",
+        "## 作品详情",
         "",
     ]
     if SITE["resume"]["enabled"]:
-        lines.insert(lines.index("- 旧文归档：/posts/") + 1, "- 简历：/resume")
+        lines.insert(lines.index("- 书店（文章）：/posts/") + 1, "- 简历：/resume")
     for project in PROJECTS:
         links = "，".join(f"{label} {href}" for label, href in project["links"])
-        lines.append(f"### {project['name']}")
-        lines.append("")
-        lines.append(project["problem"])
-        lines.append("")
-        lines.append(project["summary"])
-        lines.append("")
-        lines.append(f"页面：/projects/{project['slug']}")
-        lines.append(f"入口：{links}")
-        lines.append("")
+        lines.extend([f"### {project['name']}", "", project["problem"], "", project["summary"], "", f"页面：/projects/{project['slug']}", f"入口：{links}", ""])
     return "\n".join(lines)
 
 
 def llms_text():
-    project_lines = "\n".join(
-        f"- {project['name']}: /projects/{project['slug']} — {project['problem']}" for project in PROJECTS
-    )
+    project_lines = "\n".join(f"- {project['name']}: /projects/{project['slug']} — {project['problem']}" for project in PROJECTS)
     resume_line = "\n- /resume 简历" if SITE["resume"]["enabled"] else ""
+    city = "\n".join(city_lines())
     return f"""# CengSin
 
-> {WHO}
+> {CITY["hero"]["thesis"]}
 
-{INTRO}{TAGLINE}。
+{CITY["hero"]["lede"]}
 
 {ABOUT}
 
 ## 页面
 
-- / 首页
-- /projects 作品
-- /posts/ 文章
-- /about 介绍
+- / 首页：想象之城
+- /projects 城市名录
+- /posts/ 书店：读过的书和写下的文章
+- /about 关于
 - /agent 把这份介绍交给 Agent{resume_line}
+
+## 想象之城
+
+{city}
 
 ## 主要入口
 
 - 作品与想法：{WORKS_URL}
 - Idea Platform 平台：{IDEA_PLATFORM_URL}
 - 新文章：{MOOD_URL}
-- 本站原有作品说明：/projects/
-- 旧文归档：/posts/
 
 ## 机器可读
 
 - /agent/profile.json
 - /agent/profile.md
 
-## 本站原有作品说明
+## 作品详情
 
 {project_lines}
 
@@ -606,8 +675,10 @@ def write(rel, content):
 
 
 def generate():
-    global FRONTEND_CSS
-    subprocess.run(["npm", "run", "build"], cwd=ROOT, check=True, timeout=120)
+    global FRONTEND_CSS, CITY, POSTS
+    CITY = build_city(SITE, PROJECTS)
+    POSTS = load_posts(ROOT.parent / "content" / "posts")
+    subprocess.run(["npm", "run", "build"], cwd=ROOT, check=True, timeout=180)
     frontend = ROOT / ".frontend"
     FRONTEND_CSS = next(frontend.glob("*.css")).name
     (OUT / "assets").mkdir(parents=True)
@@ -621,7 +692,7 @@ def generate():
         "projects/index.html": projects_page(),
         "about/index.html": about_page(),
         "agent/index.html": agent_page(),
-        "music/index.html": layout("人生原声带 · CengSin", "歌曲与我选择分享的回忆。", "music", '<article class="page"><h1>人生原声带</h1><div id="music-root"></div><noscript>请开启 JavaScript 查看已公开的音乐回忆。</noscript></article>'),
+        "music/index.html": music_page(),
     }
     if SITE["resume"]["enabled"]:
         pages["resume/index.html"] = resume_page()
@@ -639,6 +710,7 @@ def generate():
         write,
         esc,
         mood_url=MOOD_URL,
+        shop=shop_html,
     )
     routes = sorted(
         "/" + path.parent.relative_to(OUT).as_posix().strip(".") + "/"

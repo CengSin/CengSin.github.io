@@ -26,16 +26,22 @@ python3 src/admin_server.py
 
 ## 页面
 
-- `/` 首页
-- `/projects` Idea Platform 作品入口及本站原有项目说明
-- `/projects/idea-platform` 以及其他旧项目详情
-- `/about` `/agent`
-- `/posts/` 和原有 Hugo 文章详情、标签与分类网址
+站点叫「想象之城」：每件作品是一栋楼，已经做出来的落在地上，还没做的是天上的图纸。
+
+- `/` 首页：蓝图天空随滚动下沉成一座等距小城，下面是城市名录、书店和「放一张图纸」
+- `/projects` 城市名录；`/projects/<slug>` 单栋楼的详情
+- `/posts/` 书店：读过的书和写下的文章；原有 Hugo 文章、标签与分类网址不变
+- `/about` `/agent` `/music`
 - `/llms.txt` `/agent/profile.json` `/agent/profile.md`
 
-首页直接链接到 Idea Platform 的公开个人作品页和「今天的天气」；`/projects` 同时提供个人作品页与 Idea Platform 平台入口，并折叠保留本站原有作品说明；`/posts/` 保留本站旧文章。导航栏使用中文，浏览器标签图标由 `src/favicon.svg` 生成。首页头像直接加载 GitHub 账号 `CengSin` 的当前头像，若外部图片不可用则显示 `CS` 字样。
+底部的 Touch Bar 是全站导航，右侧「人 / Agent」开关会把页面切成蓝图，并显示 `/agent/profile.md`。
 
-修改文章请编辑仓库根目录的 `content/posts/`。旧文章的网址映射保存在 `src/posts.py`，新文章在 Markdown 文件头部写 `slug` 即可。旧 `public/` 目录仅作历史归档，构建不会读取其中的 HTML。个人资料在仓库根目录 `.local/profile/`，已被 Git 忽略，不参与构建。
+## 城市数据
+
+- `content/city.json`：首屏文案、每栋楼的楼型与地块、天空和吊装的位置。楼型的画法在 `src/frontend/city/iso.js`。
+- `content/bookshop.json`：读过的书、文章书脊的短标题与简介。
+- `content/idea_platform.json`：构建时从 Idea Platform `/api/v1/ideas` 拉取的想法状态缓存。拉取失败时沿用缓存；设置 `CITY_OFFLINE=1` 跳过网络。
+- Idea Platform 上新落地、但 `city.json` 里没有配楼的想法，会自动分到 `generic_plots` 里的空地块；`待承接` 进天空，`搁置` 挂在吊绳上。
 
 ## 内容管理
 
@@ -52,13 +58,13 @@ draft: false
 
 更新文章：修改 Markdown 后重新构建和推送。删除文章：删除对应 Markdown；旧文章同时从 `src/posts.py` 的网址映射中移除。`draft: true` 的正文不会进入发布结果。
 
-新作品在 Idea Platform 中维护。`src/projects.py` 的 `PROJECTS` 列表只用于本站原有项目说明和旧详情页；不再控制首页展示。修改旧说明时编辑对应字典，删除旧详情时还要清理其他项目的 `related` 引用。
+新作品在 Idea Platform 中维护。`src/projects.py` 的 `PROJECTS` 列表提供每栋楼详情页的说明；楼在城里的位置与楼型在 `content/city.json`。修改旧说明时编辑对应字典，删除旧详情时还要清理其他项目的 `related` 引用。
 
 公开站点不包含任职、求职城市、Now 和 Timeline。姓名、学校和手机号也没有写入 `dist/`。两篇旧日记中原有的一个未列入公开作品的项目名称在构建输出中替换为「一个实验项目」。
 
 ## 音乐与回忆
 
-前端使用 Vite、React、Tailwind；原有 Python 构建继续生成静态 HTML 和旧文章网址。需要 Node.js 24，先运行 `npm ci --prefix site`。`python3 site/src/build.py`（在仓库根目录运行）会先构建前端资源。设计 token 在 `src/frontend/styles/tokens.css`。Inter 和 JetBrains Mono 随资源自托管，默认深色，可切换浅色。
+前端使用 Vite、React、Tailwind；原有 Python 构建继续生成静态 HTML 和旧文章网址。需要 Node.js 24，先运行 `npm ci --prefix site`。`python3 site/src/build.py`（在仓库根目录运行）会先构建前端资源。公开站的设计 token 在 `src/site.css` 顶部；`src/frontend/styles/tokens.css` 只给管理后台使用。Noto Serif SC（900，按字符分片）、Inter 和 JetBrains Mono 随资源自托管。默认跟随系统深浅色，Touch Bar 上的 ◐ 可以切换。
 
 音乐独立存入 Worker 的 `MUSIC` D1 数据库，与公开 `/config` 分离。默认关闭音乐名片；每段回忆单独预览、发布。保存修改会撤回该回忆，重新发布后才公开。公开接口 `/music/public` 只返回已发布回忆中的歌曲、时期、正文和主动填写的 Idea Platform 关联链接，不返回播放次数、播放时间、歌单、报告、登录凭据或账号资料；响应不缓存。公开开关不能收回访客此前已保存的副本。
 
