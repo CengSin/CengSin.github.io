@@ -2,73 +2,82 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0B0C0E">
-  <meta name="description" content="文章">
+  <meta name="theme-color" content="#0a2150">
+  <meta name="description" content="读过的，写下的">
   <meta name="site-config" content="337467271fd734fd">
-  <meta property="og:title" content="文章 · CengSin">
-  <meta property="og:description" content="文章">
+  <meta property="og:title" content="读过的，写下的 · CengSin">
+  <meta property="og:description" content="读过的，写下的">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://cengsin.is-a.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://cengsin.is-a.dev/assets/og.png">
-  <title>文章 · CengSin</title>
+  <title>读过的，写下的 · CengSin</title>
   <script>(function () {
-  var theme = 'dark';
-  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
-  document.documentElement.dataset.theme = theme;
+  try {
+    var theme = localStorage.getItem('cengsin-theme');
+    if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+  } catch (error) {}
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
-  <link rel="stylesheet" href="/assets/app/main-DiEg1wGS.css">
+  <link rel="stylesheet" href="/assets/app/main-CbhgVH4b.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="CengSin 文章" href="/index.xml">
 </head>
-<body data-page="posts">
+<body class="inner" data-page="posts" data-idea-platform="https://idea-platform.z-agent.ccwu.cc/">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <div class="shell">
-    
-      <header class="site-header">
-        <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
-        <div class="header-actions">
-          <nav class="desktop-nav" id="desktop-nav" aria-label="主导航"><a href="/projects">作品</a><a href="/posts/" aria-current="page">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
-          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
-          <nav class="mobile-nav" aria-label="手机导航">
-            <details>
-              <summary>菜单</summary>
-              <div class="mobile-links" id="mobile-links"><a href="/projects">作品</a><a href="/posts/" aria-current="page">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
-            </details>
-          </nav>
-        </div>
-      </header>
-    <main id="main">
-      
-      <div class="page narrow">
-        <p class="page-kicker micro">文章</p>
-        <h1>文章</h1>
+  <header class="topline"><a class="brand" href="/">CengSin</a><span aria-hidden="true">/</span><span>书店</span></header>
+  <main id="main" class="wrap">
+      <div class="page">
+        <header class="page-head">
+          <p class="eyebrow">书店</p>
+          <h1>读过的，写下的</h1>
+          <p class="lede">新的文字写在<a href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">「今天的天气」↗</a>，这里放着读过的书和以前写下的文章。</p>
+        </header>
         
-        <a class="writing-card" href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">
-          <span class="writing-card-label mono">新的写作</span>
-          <strong>新的文字在「今天的天气」</strong>
-          <span class="writing-card-description">日常写作与新文章都在那里更新。这里继续保留早期文章归档。</span>
-          <span class="writing-card-action">去读新文章 <span aria-hidden="true">↗</span></span>
-        </a>
-        <ul class="post-list"><li><a href="/posts/-代理社会的黎明/"><span>2026-03-01</span><strong>🧶 代理社会的黎明：物理协议、法律真空与人类的阶级退行</strong></a></li><li><a href="/posts/从golang后端到ai指挥官我与agent深度协作的48小时实录/"><span>2026-01-31</span><strong>从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录</strong></a></li><li><a href="/posts/什么才是传统互联网公司进入ai时代的敲门砖/"><span>2026-01-23</span><strong>什么才是传统互联网公司进入AI时代的敲门砖</strong></a></li><li><a href="/posts/2025_content/"><span>2025-12-31</span><strong>循</strong></a></li><li><a href="/posts/2025_content_ai/"><span>2025-12-31</span><strong>循-AI版</strong></a></li><li><a href="/posts/从小米yu7爆火看如今国内的品牌现状/"><span>2025-06-27</span><strong>从小米YU7爆火看如今国内的品牌现状</strong></a></li><li><a href="/posts/go语言实现的apns推送服务一次稳定性问题的排查与优化实录/"><span>2025-06-27</span><strong>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</strong></a></li><li><a href="/posts/number_of_boomerangs/"><span>2021-09-13</span><strong>回旋镖的数量</strong></a></li><li><a href="/posts/non_negative_integers_without_consecutive_ones/"><span>2021-09-12</span><strong>不包含连续的1的整数</strong></a></li><li><a href="/posts/implement_rand10_use_rand7/"><span>2021-09-05</span><strong>使用rand7实现rand10</strong></a></li></ul>
-      </div>
-    </main>
-    
-      <footer class="site-footer">
-        <span class="mono" id="footer-brand">CengSin</span>
-        <div class="footer-links" id="footer-links">
-          <a href="/projects">作品</a>
-          <a href="/posts/">文章</a>
-          <a href="/agent">智能体</a>
-          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">邮箱</a>
+        <div class="shop" data-shop>
+          <div class="shelves">
+            <div>
+              <p class="shelf-label"><span>读过的 · 2025</span><span>摘自「循」</span></p>
+              <div class="shelf"><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="悉达多" data-line="从「悉达多」这本书里，我学会了安静。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-teal);--h:200px;--w:38px">悉达多</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="影响力" data-line="从「影响力」这本书里，我知道了「外貌会直接影响别人对你的态度」。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-brick);--h:220px;--w:46px">影响力</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="谈判" data-line="从「谈判」这本书里，我开始尝试对话和社交中的主动权。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-blue);--h:180px;--w:34px">谈判</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="人类简史" data-line="从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。" data-cite="摘自「循」，2025 年的年终记录" data-group="简史三部曲" style="--c:var(--b-yellow);--h:214px;--w:44px">人类简史</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="未来简史" data-line="从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。" data-cite="摘自「循」，2025 年的年终记录" data-group="简史三部曲" style="--c:var(--b-yellow);--h:214px;--w:42px">未来简史</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="今日简史" data-line="从「简史三部曲」中，我知道了历史、现在、未来的一些谈资。" data-cite="摘自「循」，2025 年的年终记录" data-group="简史三部曲" style="--c:var(--b-yellow);--h:214px;--w:40px">今日简史</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="AI" data-line="从「AI」「自动驾驶」中，我得以一窥 AI 可能带来的改变。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-plum);--h:170px;--w:32px">AI</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="自动驾驶" data-line="从「AI」「自动驾驶」中，我得以一窥 AI 可能带来的改变。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-plum);--h:196px;--w:36px">自动驾驶</button><button class="spine ink" type="button" aria-pressed="false" data-kind="read" data-title="论语" data-line="「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-cream);--h:176px;--w:34px">论语</button><button class="spine ink" type="button" aria-pressed="false" data-kind="read" data-title="传习录" data-line="「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-stone);--h:190px;--w:38px">传习录</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="曾国藩家书" data-line="「论语」「传习录」「曾国藩家书」让我对中国传统文化有了一些了解，朦胧中感受到了「贤」「仁」这些概念。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-brick);--h:222px;--w:40px">曾国藩家书</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="置身事内" data-line="从「置身事内」，我了解了国内社会的历程和发展。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-teal);--h:204px;--w:40px">置身事内</button><button class="spine" type="button" aria-pressed="false" data-kind="read" data-title="毛泽东传" data-line="从「毛泽东传」「毛泽东选集」得以知道伟人的生平，知道这种层次的人尚且会经历困难。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-brick);--h:230px;--w:46px">毛泽东传</button><button class="spine lean" type="button" aria-pressed="false" data-kind="read" data-title="毛泽东选集" data-line="从「毛泽东传」「毛泽东选集」得以知道伟人的生平，知道这种层次的人尚且会经历困难。" data-cite="摘自「循」，2025 年的年终记录" data-group="" style="--c:var(--b-blue);--h:226px;--w:44px">毛泽东选集</button></div>
+              <p class="shelf-cap">这些书里的字字句句组成了我对生活的模型。</p>
+            </div>
+            <div>
+              <p class="shelf-label"><span>写下的 · 2021—2026</span><a href="https://mood.z-agent.ccwu.cc/" target="_blank" rel="noopener noreferrer">新的在「今天的天气」 ↗</a></p>
+              <div class="shelf"><button class="spine" type="button" aria-pressed="false" data-kind="write" data-title="🧶 代理社会的黎明：物理协议、法律真空与人类的阶级退行" data-line="当人类社会进入「愿望发射」时代，AI 的工具属性将超越其实体属性。和 Chronicle（OpenClaw）一起写。" data-date="2026-03-01" data-href="/posts/-代理社会的黎明/" style="--c:var(--b-plum);--h:172px;--w:40px"><span>代理社会的黎明</span><small>2026</small></button><button class="spine" type="button" aria-pressed="false" data-kind="write" data-title="从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录" data-line="我与 Agent 深度协作的 48 小时实录：从 Skill 挂载到 45 分钟手搓 Chrome 插件，以及实现变得太快之后的迟疑。" data-date="2026-01-31" data-href="/posts/从golang后端到ai指挥官我与agent深度协作的48小时实录/" style="--c:var(--b-brick);--h:250px;--w:46px"><span>从 Golang 后端到 AI 指挥官</span><small>2026</small></button><button class="spine" type="button" aria-pressed="false" data-kind="write" data-title="什么才是传统互联网公司进入AI时代的敲门砖" data-line="数据资产的价值，和数据融合的能力。" data-date="2026-01-23" data-href="/posts/什么才是传统互联网公司进入ai时代的敲门砖/" style="--c:var(--b-blue);--h:182px;--w:40px"><span>AI 时代的敲门砖</span><small>2026</small></button><button class="spine" type="button" aria-pressed="false" data-kind="write" data-title="循" data-line="在未知中，凭借周围的环境以及自己的探索，循路。29 岁的一份快照。" data-date="2025-12-31" data-href="/posts/2025_content/" style="--c:var(--b-yellow);--h:170px;--w:40px"><span>循</span><small>2025</small></button><button class="spine ink" type="button" aria-pressed="false" data-kind="write" data-title="循-AI版" data-line="「循」的 AI 版。" data-date="2025-12-31" data-href="/posts/2025_content_ai/" style="--c:var(--b-cream);--h:170px;--w:40px"><span>循 · AI 版</span><small>2025</small></button><button class="spine ink" type="button" aria-pressed="false" data-kind="write" data-title="从小米YU7爆火看如今国内的品牌现状" data-line="3 分钟大定 20 万台，这个世界好像只有我在消费降级吗？" data-date="2025-06-27" data-href="/posts/从小米yu7爆火看如今国内的品牌现状/" style="--c:var(--b-stone);--h:250px;--w:46px"><span>从小米 YU7 看国内品牌现状</span><small>2025</small></button><button class="spine" type="button" aria-pressed="false" data-kind="write" data-title="Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录" data-line="服务运行约一周后突然停止推送、内存占满。从现象到稳定运行的完整排查。" data-date="2025-06-27" data-href="/posts/go语言实现的apns推送服务一次稳定性问题的排查与优化实录/" style="--c:var(--b-teal);--h:230px;--w:40px"><span>APNs 推送服务排查实录</span><small>2025</small></button><button class="spine ink" type="button" aria-pressed="false" data-kind="write" data-title="回旋镖的数量" data-line="一道算法题。" data-date="2021-09-13" data-href="/posts/number_of_boomerangs/" style="--c:var(--b-cream);--h:170px;--w:40px"><span>回旋镖的数量</span><small>2021</small></button><button class="spine ink" type="button" aria-pressed="false" data-kind="write" data-title="不包含连续的1的整数" data-line="一道算法题。" data-date="2021-09-12" data-href="/posts/non_negative_integers_without_consecutive_ones/" style="--c:var(--b-cream);--h:198px;--w:40px"><span>不含连续 1 的整数</span><small>2021</small></button><button class="spine ink" type="button" aria-pressed="false" data-kind="write" data-title="使用rand7实现rand10" data-line="一道算法题。" data-date="2021-09-05" data-href="/posts/implement_rand10_use_rand7/" style="--c:var(--b-cream);--h:229px;--w:40px"><span>用 rand7 实现 rand10</span><small>2021</small></button></div>
+            </div>
+          </div>
+          <article class="reader" aria-live="polite">
+            <p class="r-kicker">读过的</p><h3>悉达多</h3><blockquote>从「悉达多」这本书里，我学会了安静。</blockquote><p class="src">摘自「循」，2025 年的年终记录</p>
+          </article>
         </div>
-      </footer>
-  </div>
+        <ul class="catalog" aria-label="全部文章"><li><a href="/posts/-代理社会的黎明/"><time datetime="2026-03-01">2026-03-01</time><strong>🧶 代理社会的黎明：物理协议、法律真空与人类的阶级退行</strong></a></li><li><a href="/posts/从golang后端到ai指挥官我与agent深度协作的48小时实录/"><time datetime="2026-01-31">2026-01-31</time><strong>从 Golang 后端到 AI 指挥官：我与 Agent 深度协作的 48 小时实录</strong></a></li><li><a href="/posts/什么才是传统互联网公司进入ai时代的敲门砖/"><time datetime="2026-01-23">2026-01-23</time><strong>什么才是传统互联网公司进入AI时代的敲门砖</strong></a></li><li><a href="/posts/2025_content/"><time datetime="2025-12-31">2025-12-31</time><strong>循</strong></a></li><li><a href="/posts/2025_content_ai/"><time datetime="2025-12-31">2025-12-31</time><strong>循-AI版</strong></a></li><li><a href="/posts/从小米yu7爆火看如今国内的品牌现状/"><time datetime="2025-06-27">2025-06-27</time><strong>从小米YU7爆火看如今国内的品牌现状</strong></a></li><li><a href="/posts/go语言实现的apns推送服务一次稳定性问题的排查与优化实录/"><time datetime="2025-06-27">2025-06-27</time><strong>Go语言实现的APNs推送服务：一次稳定性问题的排查与优化实录</strong></a></li><li><a href="/posts/number_of_boomerangs/"><time datetime="2021-09-13">2021-09-13</time><strong>回旋镖的数量</strong></a></li><li><a href="/posts/non_negative_integers_without_consecutive_ones/"><time datetime="2021-09-12">2021-09-12</time><strong>不包含连续的1的整数</strong></a></li><li><a href="/posts/implement_rand10_use_rand7/"><time datetime="2021-09-05">2021-09-05</time><strong>使用rand7实现rand10</strong></a></li></ul>
+      </div>
+  </main>
+  
+  <footer class="site-footer">
+    <span><span id="footer-brand">CengSin</span> · 图纸状态取自 Idea Platform，2026-11-11</span>
+    <span class="footer-links" id="footer-links"><a href="/projects">作品</a><a href="/posts/">文章</a><a href="/agent">智能体</a><a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:cengsin@icloud.com">邮箱</a></span>
+  </footer>
+  
+  <nav class="touchbar" aria-label="主导航">
+    <a class="tb esc" href="/" id="site-brand" aria-label="回到首页">CS</a>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <span id="touchbar-nav" style="display:contents"><a class="tb" href="/projects">作品</a><a class="tb" href="/posts/" aria-current="page">文章</a><a class="tb" href="/about">关于</a><a class="tb" href="/agent">智能体</a></span>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <button class="tb tb-theme" type="button" data-theme-toggle aria-label="切换深浅色">◐</button>
+    <button class="tb tb-toggle" type="button" id="view-toggle" aria-pressed="false" aria-label="切换到 Agent 看到的版本"><span>人</span><span>Agent</span></button>
+  </nav>
+  
+  <aside class="md" id="md" hidden aria-label="Agent 看到的版本">
+    <header><span>profile.md · Agent 看到的图纸</span><button type="button" id="md-copy">复制给 Agent</button></header>
+    <pre id="md-text">正在读取 /agent/profile.md …</pre>
+  </aside>
+  <canvas id="crayon" aria-hidden="true"></canvas>
+  <div class="toast" id="toast" hidden role="status"></div>
   <script src="/assets/site.js" defer></script>
   <script type="module" src="/assets/app/app.js"></script>
 </body>

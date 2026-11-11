@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0B0C0E">
+  <meta name="theme-color" content="#0a2150">
   <meta name="description" content="循-AI版">
   <meta name="site-config" content="337467271fd734fd">
   <meta property="og:title" content="循-AI版 · CengSin">
@@ -17,38 +17,27 @@
   <meta name="twitter:image" content="https://cengsin.is-a.dev/assets/og.png">
   <title>循-AI版 · CengSin</title>
   <script>(function () {
-  var theme = 'dark';
-  try { theme = localStorage.getItem('cengsin-theme') === 'light' ? 'light' : 'dark'; } catch (error) {}
-  document.documentElement.dataset.theme = theme;
+  try {
+    var theme = localStorage.getItem('cengsin-theme');
+    if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+  } catch (error) {}
 })();</script>
   <link rel="stylesheet" href="/assets/site.css">
-  <link rel="stylesheet" href="/assets/app/main-DiEg1wGS.css">
+  <link rel="stylesheet" href="/assets/app/main-CbhgVH4b.css">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="CengSin 文章" href="/index.xml">
 </head>
-<body data-page="posts">
+<body class="inner" data-page="posts" data-idea-platform="https://idea-platform.z-agent.ccwu.cc/">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <div class="shell">
-    
-      <header class="site-header">
-        <a class="brand" id="site-brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CengSin</a>
-        <div class="header-actions">
-          <nav class="desktop-nav" id="desktop-nav" aria-label="主导航"><a href="/projects">作品</a><a href="/posts/" aria-current="page">文章</a><a href="/about">关于</a><a href="/agent" class="agent-link">智能体</a></nav>
-          <button type="button" class="theme-toggle" aria-label="切换到浅色" data-theme-toggle>◐</button>
-          <nav class="mobile-nav" aria-label="手机导航">
-            <details>
-              <summary>菜单</summary>
-              <div class="mobile-links" id="mobile-links"><a href="/projects">作品</a><a href="/posts/" aria-current="page">文章</a><a href="/about">关于</a><a href="/agent">智能体</a></div>
-            </details>
-          </nav>
-        </div>
-      </header>
-    <main id="main">
-      
-      <article class="page narrow article-page">
-        <p class="page-kicker micro"><a href="/posts/">文章</a></p>
-        <h1>循-AI版</h1>
-        <p class="article-date"><time datetime="2025-12-31">2025-12-31</time></p>
-        <div class="prose article-prose"><p>循-在未知中，凭借周围的环境以及自己的探索，循路。</p>
+  <header class="topline"><a class="brand" href="/">CengSin</a><span aria-hidden="true">/</span><span>书店</span></header>
+  <main id="main" class="wrap">
+      <article class="page narrow">
+        <header class="article-head">
+          <p class="eyebrow"><a href="/posts/">书店</a> · 写下的</p>
+          <h1>循-AI版</h1>
+          <time datetime="2025-12-31">2025-12-31</time>
+        </header>
+        <div class="article-prose"><p>循-在未知中，凭借周围的环境以及自己的探索，循路。</p>
 <blockquote>
 <p>一年一年过得真快，2026年我就30了。所以把2025年，29岁的我和以前的我用文字快照的形式记录在这里。</p>
 </blockquote>
@@ -85,21 +74,30 @@
 <h2>2025</h2>
 <p>就用这些文字来记录这一年吧。</p>
 </div>
-        <p class="article-back"><a href="/posts/">← 返回文章列表</a></p>
+        <p class="article-back"><a href="/posts/">← 回到书店</a></p>
       </article>
-    </main>
-    
-      <footer class="site-footer">
-        <span class="mono" id="footer-brand">CengSin</span>
-        <div class="footer-links" id="footer-links">
-          <a href="/projects">作品</a>
-          <a href="/posts/">文章</a>
-          <a href="/agent">智能体</a>
-          <a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="mailto:cengsin@icloud.com">邮箱</a>
-        </div>
-      </footer>
-  </div>
+  </main>
+  
+  <footer class="site-footer">
+    <span><span id="footer-brand">CengSin</span> · 图纸状态取自 Idea Platform，2026-11-11</span>
+    <span class="footer-links" id="footer-links"><a href="/projects">作品</a><a href="/posts/">文章</a><a href="/agent">智能体</a><a href="https://github.com/CengSin" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:cengsin@icloud.com">邮箱</a></span>
+  </footer>
+  
+  <nav class="touchbar" aria-label="主导航">
+    <a class="tb esc" href="/" id="site-brand" aria-label="回到首页">CS</a>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <span id="touchbar-nav" style="display:contents"><a class="tb" href="/projects">作品</a><a class="tb" href="/posts/" aria-current="page">文章</a><a class="tb" href="/about">关于</a><a class="tb" href="/agent">智能体</a></span>
+    <span class="tb-sep" aria-hidden="true"></span>
+    <button class="tb tb-theme" type="button" data-theme-toggle aria-label="切换深浅色">◐</button>
+    <button class="tb tb-toggle" type="button" id="view-toggle" aria-pressed="false" aria-label="切换到 Agent 看到的版本"><span>人</span><span>Agent</span></button>
+  </nav>
+  
+  <aside class="md" id="md" hidden aria-label="Agent 看到的版本">
+    <header><span>profile.md · Agent 看到的图纸</span><button type="button" id="md-copy">复制给 Agent</button></header>
+    <pre id="md-text">正在读取 /agent/profile.md …</pre>
+  </aside>
+  <canvas id="crayon" aria-hidden="true"></canvas>
+  <div class="toast" id="toast" hidden role="status"></div>
   <script src="/assets/site.js" defer></script>
   <script type="module" src="/assets/app/app.js"></script>
 </body>

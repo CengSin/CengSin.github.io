@@ -2,6 +2,8 @@
   "handle": "CengSin",
   "who": "后端开发，现在和 Agent 一起做东西。",
   "intro": "从想法到作品。",
+  "thesis": "如今的建筑和物品，都是从想象里拿出来的。",
+  "lede": "我是古法编程时代的后端开发，现在和 Agent 一起，把想法从脑海中落地到互联网。",
   "tagline": "解决问题，探索想法，与 Agent 协作",
   "background": "古法编程时代从事后端开发。",
   "about": "古法编程时代从事后端开发。现在更常和 Agent 一起把想法推进成作品：人决定做什么，Agent 顺着准备好的上下文去实现，结果再回到同一条链路里。我在意的是，一个问题能不能被做成可以打开、也可以继续的东西。",
@@ -14,6 +16,181 @@
   "primary_writing_url": "https://mood.z-agent.ccwu.cc/",
   "project_archive_path": "/projects/",
   "article_archive_path": "/posts/",
+  "city": {
+    "snapshot": "2026-11-11",
+    "built": [
+      {
+        "name": "Idea Platform",
+        "building": "中央广场",
+        "status": "已落地",
+        "url": "/projects/idea-platform",
+        "idea": "共享idea，共享开发",
+        "made": "发布想法，独立承接，再把完成的东西发布成作品。Agent 可以顺着这条分支往下做。整座城的图纸，都从这里来。"
+      },
+      {
+        "name": "ToubarReplace",
+        "building": "触控灯带",
+        "status": "迭代中",
+        "url": "/projects/toubar-replace",
+        "idea": "把TouchBar做成Macbook的Agent启动台",
+        "made": "把 Touch Bar 变成 Agent 项目启动入口。这一页底下那条导航，就是向它致敬。"
+      },
+      {
+        "name": "ResourceSteward",
+        "building": "管家小屋",
+        "status": "已落地",
+        "url": "/projects/resource-steward",
+        "idea": "软件会根据用户习惯动态进行推荐，让用户在不同的场景下规划CPU、内存等资源",
+        "made": "按负载建议降低优先级，或请求应用正常退出。不压缩内存，不读取窗口和剪贴板。烟囱里冒的是负载曲线。"
+      },
+      {
+        "name": "今天的天气",
+        "building": "气象站",
+        "status": "已落地",
+        "url": "/projects/my-face",
+        "idea": "简单的个人网站，用来展示创作者日常的心情和故事",
+        "made": "打开就能看。内容在 Cloudflare D1，应用是 Worker。新的文字都写在这里。"
+      },
+      {
+        "name": "敲敲小世界",
+        "building": "游乐场",
+        "status": "已落地",
+        "url": "/projects/baby-toy",
+        "idea": "宝宝总喜欢模仿大人敲击键盘，但却不知道敲击键盘的作用。所以我们来做一个游戏，让敲击键盘这件事情变的有趣。",
+        "made": "全屏蜡笔画纸。敲键留下笔触，词语会召唤动物、天气和地面。在这一页随手敲几下键盘也行。"
+      },
+      {
+        "name": "weread-reading-recommender",
+        "building": "书店",
+        "status": "已落地",
+        "url": "/projects/weread-reading-recommender",
+        "idea": "下一本读什么，应该能对照自己已经读过的书，而不是只看一个公共榜单。",
+        "made": "读取本机记录，整理成适合推荐的 JSON，再按阅读史和当前想学的主题推荐。书架上是读过的书和写下的文章，柜台上放着这个推荐工具。"
+      },
+      {
+        "name": "gorm-oracle",
+        "building": "桥",
+        "status": "已落地",
+        "url": "/projects/gorm-oracle",
+        "idea": "GORM 没有现成的 Oracle 用法时，需要一个能打开连接、跟着 GORM 走的驱动。",
+        "made": "让 GORM 连上 Oracle。GitHub 上 113 颗星、43 个 fork，是城里走的人最多的一座桥。"
+      },
+      {
+        "name": "过票",
+        "building": "交易所",
+        "status": "已落地",
+        "url": "/projects/guopiao",
+        "idea": "像交友软件一样的交互方式选择你的股票",
+        "made": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。它后来又长出了一张新图纸，就挂在它头顶的天上。"
+      },
+      {
+        "name": "develop-workflow",
+        "building": "调度站",
+        "status": "已落地",
+        "url": "/projects/develop-workflow",
+        "idea": "一步失败就整段重来，开发和 Agent 的流程都很难改。步骤应该能单独重试。",
+        "made": "用 Temporal 串起 worker、命令行和 Agent。本地依赖用 Docker Compose 拉起。哪节车厢出了问题，就只重发那一节。"
+      },
+      {
+        "name": "temporal-openclaw-research-agent",
+        "building": "研究列车",
+        "status": "已落地",
+        "url": "/projects/temporal-openclaw-research-agent",
+        "idea": "直接调用模型时，中间某一步失败，整次任务就得重头开始，也看不清是哪一步出了问题。",
+        "made": "用 Temporal 编排本地 OpenClaw。示例是把新能源行业的材料收成一篇脱水稿。车上装的是一篇新能源行业的脱水稿。"
+      },
+      {
+        "name": "Fish Audio MCP",
+        "building": "广播塔",
+        "status": "已落地",
+        "url": "/projects/fishaudio-mcp",
+        "idea": "支持 MCP 的客户端需要一个文字转语音的工具，而不是单独打开 Fish Audio 的网站。",
+        "made": "一个 Python MCP 服务。可以做基本合成，也可以指定格式和比特率。"
+      },
+      {
+        "name": "Idea Platform Plugin",
+        "building": "信使亭",
+        "status": "已落地",
+        "url": "/projects/idea-platform-plugin",
+        "idea": "Agent 要参与一个想法，应该读站点准备好的上下文，而不是把网页刮下来。",
+        "made": "Cursor 插件。用 MCP 列出公开想法、读取上下文；只有带上分支凭证才写回进展。编辑器里的 Agent 从这里取想法，而不是去爬网页。"
+      },
+      {
+        "name": "DirMap",
+        "building": "地图牌",
+        "status": "已落地",
+        "url": "/projects/dirmap",
+        "idea": "Agent 要看懂一个项目，不该每次都重新扫一遍没有说明的目录树。",
+        "made": "监听目录变化，调用兼容 Claude 的接口，为每个文件夹写一行说明，输出 Markdown。目录一变，地图牌就重写一遍。"
+      },
+      {
+        "name": "Crawler Skill Studio",
+        "building": "采集站",
+        "status": "已落地",
+        "url": "/projects/crawl-online",
+        "idea": "写爬虫之前，先在页面上指出要的字段，看提取结果对不对，再把这一步收成可复用的 skill。",
+        "made": "输入网址，在预览里点元素，导出包含字段、预览和脚本的 JSON。"
+      },
+      {
+        "name": "Fold Studio",
+        "building": "折叠亭",
+        "status": "已落地",
+        "url": "/projects/fold-studio",
+        "idea": "折叠不是把界面挤扁。不同角度下，哪一面显示半幅、哪一面承接投影，需要能直接试。",
+        "made": "A 屏绕中线向 B 屏折叠。角度改变时，半幅内容、投影和失焦跟着变。"
+      },
+      {
+        "name": "Clawd Hands",
+        "building": "工具棚",
+        "status": "已落地",
+        "url": "/projects/clawd-hands",
+        "idea": "技能散落在本机时，不容易看清哪些开着，也不容易把一个技能包交给别人。",
+        "made": "在网页上管理技能要不要启用，本机定时同步；也可以把技能包交给别人下载。"
+      },
+      {
+        "name": "idea-agent",
+        "building": "小楼",
+        "status": "已落地",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_wslnU0tz",
+        "idea": "1. 为idea-platform添加agent\n2. idea-agent扫描平台已完成且未关闭的作品\n3. 为这些作品提2~3个可能的下一步实现想法\n4. 给用户发送邮件\n5. 用户查阅后，让agent拉取平台想法并实现\n6. 回到2或者用户关闭作品",
+        "made": "已经在 Idea Platform 上落地。"
+      },
+      {
+        "name": "提示词管理",
+        "building": "小楼",
+        "status": "已落地",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_v_ML88UP",
+        "idea": "收集日常看到/使用效果比较好的提示词并管理",
+        "made": "已经在 Idea Platform 上落地。"
+      }
+    ],
+    "unbuilt": [
+      {
+        "name": "AI商品管理网站",
+        "status": "搁置",
+        "date": "2026-09-01",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_eD9LKL2-"
+      },
+      {
+        "name": "codex模型切换器",
+        "status": "搁置",
+        "date": "2026-09-06",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_mrFLMwts"
+      },
+      {
+        "name": "添加股票的选择说明",
+        "status": "待承接",
+        "date": "2026-09-08",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_wP1zz4ZS"
+      },
+      {
+        "name": "翻译",
+        "status": "待承接",
+        "date": "2026-09-24",
+        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_6xVE3y9m"
+      }
+    ]
+  },
   "projects": [
     {
       "name": "Idea Platform",
@@ -212,6 +389,18 @@
         {
           "label": "GitHub",
           "url": "https://github.com/CengSin/my-face"
+        }
+      ]
+    },
+    {
+      "name": "过票",
+      "path": "/projects/guopiao",
+      "problem": "目前的择股软件交互太乏味了。",
+      "summary": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。",
+      "links": [
+        {
+          "label": "在 Idea Platform 查看",
+          "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_UFsyCMW1"
         }
       ]
     }

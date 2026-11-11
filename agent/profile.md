@@ -1,12 +1,47 @@
 # CengSin
 
-后端开发，现在和 Agent 一起做东西。
+> 如今的建筑和物品，都是从想象里拿出来的。
 
-从想法到作品。
-
-解决问题，探索想法，与 Agent 协作
+我是古法编程时代的后端开发，现在和 Agent 一起，把想法从脑海中落地到互联网。
 
 古法编程时代从事后端开发。现在更常和 Agent 一起把想法推进成作品：人决定做什么，Agent 顺着准备好的上下文去实现，结果再回到同一条链路里。我在意的是，一个问题能不能被做成可以打开、也可以继续的东西。
+
+做事方式：先验证，再相信；先做小的，再做对的；能自动化的不手工做。
+
+## 想象之城
+
+本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。状态取自 Idea Platform（2026-11-11）。
+
+### 已经落地（18）
+
+- Idea Platform（中央广场 · 已落地）：发布想法，独立承接，再把完成的东西发布成作品。 /projects/idea-platform
+- ToubarReplace（触控灯带 · 迭代中）：把 Touch Bar 变成 Agent 项目启动入口。 /projects/toubar-replace
+- ResourceSteward（管家小屋 · 已落地）：按负载建议降低优先级，或请求应用正常退出。 /projects/resource-steward
+- 今天的天气（气象站 · 已落地）：打开就能看。 /projects/my-face
+- 敲敲小世界（游乐场 · 已落地）：全屏蜡笔画纸。 /projects/baby-toy
+- weread-reading-recommender（书店 · 已落地）：读取本机记录，整理成适合推荐的 JSON，再按阅读史和当前想学的主题推荐。 /projects/weread-reading-recommender
+- gorm-oracle（桥 · 已落地）：让 GORM 连上 Oracle。 /projects/gorm-oracle
+- 过票（交易所 · 已落地）：用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。 /projects/guopiao
+- develop-workflow（调度站 · 已落地）：用 Temporal 串起 worker、命令行和 Agent。 /projects/develop-workflow
+- temporal-openclaw-research-agent（研究列车 · 已落地）：用 Temporal 编排本地 OpenClaw。 /projects/temporal-openclaw-research-agent
+- Fish Audio MCP（广播塔 · 已落地）：一个 Python MCP 服务。 /projects/fishaudio-mcp
+- Idea Platform Plugin（信使亭 · 已落地）：Cursor 插件。 /projects/idea-platform-plugin
+- DirMap（地图牌 · 已落地）：监听目录变化，调用兼容 Claude 的接口，为每个文件夹写一行说明，输出 Markdown。 /projects/dirmap
+- Crawler Skill Studio（采集站 · 已落地）：输入网址，在预览里点元素，导出包含字段、预览和脚本的 JSON。 /projects/crawl-online
+- Fold Studio（折叠亭 · 已落地）：A 屏绕中线向 B 屏折叠。 /projects/fold-studio
+- Clawd Hands（工具棚 · 已落地）：在网页上管理技能要不要启用，本机定时同步；也可以把技能包交给别人下载。 /projects/clawd-hands
+- idea-agent（小楼 · 已落地）：已经在 Idea Platform 上落地。 https://idea-platform.z-agent.ccwu.cc/explore/idea_wslnU0tz
+- 提示词管理（小楼 · 已落地）：已经在 Idea Platform 上落地。 https://idea-platform.z-agent.ccwu.cc/explore/idea_v_ML88UP
+
+### 搁置（2）
+
+- AI商品管理网站 · 2026-09-01 · https://idea-platform.z-agent.ccwu.cc/explore/idea_eD9LKL2-
+- codex模型切换器 · 2026-09-06 · https://idea-platform.z-agent.ccwu.cc/explore/idea_mrFLMwts
+
+### 还在天上（2）
+
+- 添加股票的选择说明 · 2026-09-08 · 由「过票」衍生 · https://idea-platform.z-agent.ccwu.cc/explore/idea_wP1zz4ZS
+- 翻译 · 2026-09-24 · https://idea-platform.z-agent.ccwu.cc/explore/idea_6xVE3y9m
 
 ## 联系
 
@@ -18,10 +53,10 @@
 - 作品与想法：https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872
 - Idea Platform 平台：https://idea-platform.z-agent.ccwu.cc/
 - 新文章：https://mood.z-agent.ccwu.cc/
-- 本站原有作品说明：/projects/
-- 旧文归档：/posts/
+- 城市名录：/projects/
+- 书店（文章）：/posts/
 
-## 本站原有作品说明
+## 作品详情
 
 ### Idea Platform
 
@@ -157,3 +192,12 @@ A 屏绕中线向 B 屏折叠。角度改变时，半幅内容、投影和失焦
 
 页面：/projects/my-face
 入口：打开站点 https://mood.z-agent.ccwu.cc/，GitHub https://github.com/CengSin/my-face
+
+### 过票
+
+目前的择股软件交互太乏味了。
+
+用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。
+
+页面：/projects/guopiao
+入口：在 Idea Platform 查看 https://idea-platform.z-agent.ccwu.cc/explore/idea_UFsyCMW1
