@@ -10,12 +10,12 @@
 
 ## 想象之城
 
-本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。状态取自 Idea Platform（2026-11-11）。
+本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。
 
-### 已经落地（18）
+### 已经落地（16）
 
 - Idea Platform（中央广场 · 已落地）：发布想法，独立承接，再把完成的东西发布成作品。 /projects/idea-platform
-- ToubarReplace（触控灯带 · 迭代中）：把 Touch Bar 变成 Agent 项目启动入口。 /projects/toubar-replace
+- ToubarReplace（触控灯带 · 已落地）：把 Touch Bar 变成 Agent 项目启动入口。 /projects/toubar-replace
 - ResourceSteward（管家小屋 · 已落地）：按负载建议降低优先级，或请求应用正常退出。 /projects/resource-steward
 - 今天的天气（气象站 · 已落地）：打开就能看。 /projects/my-face
 - 敲敲小世界（游乐场 · 已落地）：全屏蜡笔画纸。 /projects/baby-toy
@@ -30,18 +30,6 @@
 - Crawler Skill Studio（采集站 · 已落地）：输入网址，在预览里点元素，导出包含字段、预览和脚本的 JSON。 /projects/crawl-online
 - Fold Studio（折叠亭 · 已落地）：A 屏绕中线向 B 屏折叠。 /projects/fold-studio
 - Clawd Hands（工具棚 · 已落地）：在网页上管理技能要不要启用，本机定时同步；也可以把技能包交给别人下载。 /projects/clawd-hands
-- idea-agent（小楼 · 已落地）：已经在 Idea Platform 上落地。 https://idea-platform.z-agent.ccwu.cc/explore/idea_wslnU0tz
-- 提示词管理（小楼 · 已落地）：已经在 Idea Platform 上落地。 https://idea-platform.z-agent.ccwu.cc/explore/idea_v_ML88UP
-
-### 搁置（2）
-
-- AI商品管理网站 · 2026-09-01 · https://idea-platform.z-agent.ccwu.cc/explore/idea_eD9LKL2-
-- codex模型切换器 · 2026-09-06 · https://idea-platform.z-agent.ccwu.cc/explore/idea_mrFLMwts
-
-### 还在天上（2）
-
-- 添加股票的选择说明 · 2026-09-08 · 由「过票」衍生 · https://idea-platform.z-agent.ccwu.cc/explore/idea_wP1zz4ZS
-- 翻译 · 2026-09-24 · https://idea-platform.z-agent.ccwu.cc/explore/idea_6xVE3y9m
 
 ## 联系
 
@@ -50,7 +38,7 @@
 
 ## 入口
 
-- 作品与想法：https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872
+- 作品与想法：https://idea-platform.z-agent.ccwu.cc/
 - Idea Platform 平台：https://idea-platform.z-agent.ccwu.cc/
 - 新文章：https://mood.z-agent.ccwu.cc/
 - 城市名录：/projects/
@@ -200,4 +188,4 @@ A 屏绕中线向 B 屏折叠。角度改变时，半幅内容、投影和失焦
 用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。
 
 页面：/projects/guopiao
-入口：在 Idea Platform 查看 https://idea-platform.z-agent.ccwu.cc/explore/idea_UFsyCMW1
+入口：

@@ -11,13 +11,12 @@
     "email": "cengsin@icloud.com",
     "github": "https://github.com/CengSin"
   },
-  "primary_works_url": "https://idea-platform.z-agent.ccwu.cc/works?user=user_38c0e310a872",
+  "primary_works_url": "https://idea-platform.z-agent.ccwu.cc/",
   "idea_platform_url": "https://idea-platform.z-agent.ccwu.cc/",
   "primary_writing_url": "https://mood.z-agent.ccwu.cc/",
   "project_archive_path": "/projects/",
   "article_archive_path": "/posts/",
   "city": {
-    "snapshot": "2026-11-11",
     "built": [
       {
         "name": "Idea Platform",
@@ -30,7 +29,7 @@
       {
         "name": "ToubarReplace",
         "building": "触控灯带",
-        "status": "迭代中",
+        "status": "已落地",
         "url": "/projects/toubar-replace",
         "idea": "把TouchBar做成Macbook的Agent启动台",
         "made": "把 Touch Bar 变成 Agent 项目启动入口。这一页底下那条导航，就是向它致敬。"
@@ -81,7 +80,7 @@
         "status": "已落地",
         "url": "/projects/guopiao",
         "idea": "像交友软件一样的交互方式选择你的股票",
-        "made": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。它后来又长出了一张新图纸，就挂在它头顶的天上。"
+        "made": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。"
       },
       {
         "name": "develop-workflow",
@@ -146,50 +145,9 @@
         "url": "/projects/clawd-hands",
         "idea": "技能散落在本机时，不容易看清哪些开着，也不容易把一个技能包交给别人。",
         "made": "在网页上管理技能要不要启用，本机定时同步；也可以把技能包交给别人下载。"
-      },
-      {
-        "name": "idea-agent",
-        "building": "小楼",
-        "status": "已落地",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_wslnU0tz",
-        "idea": "1. 为idea-platform添加agent\n2. idea-agent扫描平台已完成且未关闭的作品\n3. 为这些作品提2~3个可能的下一步实现想法\n4. 给用户发送邮件\n5. 用户查阅后，让agent拉取平台想法并实现\n6. 回到2或者用户关闭作品",
-        "made": "已经在 Idea Platform 上落地。"
-      },
-      {
-        "name": "提示词管理",
-        "building": "小楼",
-        "status": "已落地",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_v_ML88UP",
-        "idea": "收集日常看到/使用效果比较好的提示词并管理",
-        "made": "已经在 Idea Platform 上落地。"
       }
     ],
-    "unbuilt": [
-      {
-        "name": "AI商品管理网站",
-        "status": "搁置",
-        "date": "2026-09-01",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_eD9LKL2-"
-      },
-      {
-        "name": "codex模型切换器",
-        "status": "搁置",
-        "date": "2026-09-06",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_mrFLMwts"
-      },
-      {
-        "name": "添加股票的选择说明",
-        "status": "待承接",
-        "date": "2026-09-08",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_wP1zz4ZS"
-      },
-      {
-        "name": "翻译",
-        "status": "待承接",
-        "date": "2026-09-24",
-        "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_6xVE3y9m"
-      }
-    ]
+    "unbuilt": []
   },
   "projects": [
     {
@@ -397,12 +355,7 @@
       "path": "/projects/guopiao",
       "problem": "目前的择股软件交互太乏味了。",
       "summary": "用 Tinder 式的左划跳过、右划待研究，来筛今日的 A 股候选。",
-      "links": [
-        {
-          "label": "在 Idea Platform 查看",
-          "url": "https://idea-platform.z-agent.ccwu.cc/explore/idea_UFsyCMW1"
-        }
-      ]
+      "links": []
     }
   ]
 }
