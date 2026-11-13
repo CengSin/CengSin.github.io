@@ -31,8 +31,7 @@ export function openPanel(item) {
     const from = item.from ? `<div><dt>从哪来</dt><dd>从「${esc(item.from)}」长出来的新想法。</dd></div>` : "";
     body.innerHTML = `<div><dt>状态</dt><dd>${esc(item.status)}${item.date ? " · " + esc(item.date) : ""}</dd></div>` + from +
       (item.text ? `<div><dt>${item.mine ? "现在" : "想法"}</dt><dd class="q pre">${esc(item.text)}</dd></div>` : "");
-    const href = item.href || document.body.dataset.ideaPlatform || "https://idea-platform.z-agent.ccwu.cc/";
-    links.innerHTML = `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${item.mine ? "发到 Idea Platform" : "在 Idea Platform 查看"} ↗</a>`;
+    links.innerHTML = item.href ? `<a href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">查看 ↗</a>` : "";
   }
   panel.hidden = false;
   panel.querySelector(".x").focus({ preventScroll: true });

@@ -121,11 +121,9 @@ def footer():
         if not SITE["resume"].get("enabled") and href.rstrip("/") == "/resume":
             continue
         links.append(f'<a href="{esc(href)}"{external(href)}>{esc(item["label"])}</a>')
-    fetched = CITY.get("fetched") or ""
-    note = f" · 图纸状态取自 Idea Platform，{fetched}" if fetched else ""
     return f"""
   <footer class="site-footer">
-    <span>{esc(SITE["brand"])}{esc(note)}</span>
+    <span>{esc(SITE["brand"])}</span>
     <span class="footer-links">{''.join(links)}</span>
   </footer>"""
 
@@ -245,7 +243,8 @@ def city_counts(city):
     for status, n in counts.items():
         label = "件正在吊装" if status == "实现中" else f"张图纸{status}"
         parts.append(f'<span><b>{n}</b><span class="k">{esc(label)}</span></span>')
-    parts.append(f'<span><b>{len(city["sky"])}</b><span class="k">张图纸还在天上</span></span>')
+    if city["sky"]:
+        parts.append(f'<span><b>{len(city["sky"])}</b><span class="k">张图纸还在天上</span></span>')
     return "".join(parts)
 
 
@@ -350,7 +349,7 @@ def home():
         <input id="idea-input" maxlength="20" autocomplete="off" placeholder="{esc(form["placeholder"])}">
         <button class="btn" type="submit">{esc(form["button"])}</button>
       </form>
-      <p class="fine">{esc(form["note_before"])}<a href="{esc(IDEA_PLATFORM_URL)}" target="_blank" rel="noopener noreferrer">{esc(form["note_link"])}</a></p>
+      <p class="fine">{esc(form["note_before"])}</p>
     </section>
   </main>
   <script type="application/json" id="city-data">{city_json()}</script>"""
@@ -546,7 +545,6 @@ def profile_data():
         "project_archive_path": "/projects/",
         "article_archive_path": "/posts/",
         "city": {
-            "snapshot": CITY.get("fetched", ""),
             "built": [{"name": b["name"], "building": b["arch"], "status": b["status"], "url": b["href"], "idea": b["idea"], "made": b["made"]} for b in CITY["built"]],
             "unbuilt": [{"name": d["name"], "status": d["status"], "date": d["date"], "url": d["href"]} for d in CITY["hanging"] + CITY["sky"]],
         },
@@ -577,7 +575,7 @@ def markdown_profile(data):
         "",
         "## 想象之城",
         "",
-        f"本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。状态取自 Idea Platform（{CITY.get('fetched', '')}）。",
+        "本站把每件作品画成一栋楼：做出来的落在地上，还没做的是天上的图纸。",
         "",
         *city_lines(),
         "",

@@ -1,5 +1,4 @@
 {
-  "owner": "user_38c0e310a872",
   "hero": {
     "eyebrow": "CengSin · 想象之城",
     "thesis": "如今的建筑和物品，都是从想象里拿出来的。",
@@ -17,18 +16,17 @@
     "title": "你脑子里也有一张图纸？",
     "placeholder": "比如：会提醒我喝水的 Touch Bar",
     "button": "放上天空",
-    "note_before": "只会出现在你这台浏览器的天空里。想让别人接手实现，发到 ",
-    "note_link": "Idea Platform ↗"
+    "note_before": "只会出现在你这台浏览器的天空里。"
   },
   "buildings": [
-    {"slug": "idea-platform", "type": "plaza", "arch": "中央广场", "tone": "b-blue", "idea": "idea_jkGFFFit", "note": "整座城的图纸，都从这里来。"},
-    {"slug": "toubar-replace", "type": "lightbar", "arch": "触控灯带", "tone": "b-bar", "idea": "idea_inZc0S8q", "note": "这一页底下那条导航，就是向它致敬。"},
-    {"slug": "resource-steward", "type": "cottage", "arch": "管家小屋", "tone": "b-yellow", "idea": "idea_oT_dasX3", "note": "烟囱里冒的是负载曲线。"},
-    {"slug": "my-face", "type": "weather", "arch": "气象站", "tone": "b-teal", "idea": "idea_UuPK9dMq", "note": "一个有趣的 Markdown 文章平台，用天气来代表心情。新的文字都写在这里。"},
-    {"slug": "baby-toy", "type": "playground", "arch": "游乐场", "tone": "b-plum", "idea": "idea_QJkEz6kO", "note": "在这一页随手敲几下键盘也行。"},
+    {"slug": "idea-platform", "type": "plaza", "arch": "中央广场", "tone": "b-blue", "origin": "共享idea，共享开发", "note": "整座城的图纸，都从这里来。"},
+    {"slug": "toubar-replace", "type": "lightbar", "arch": "触控灯带", "tone": "b-bar", "origin": "把TouchBar做成Macbook的Agent启动台", "note": "这一页底下那条导航，就是向它致敬。"},
+    {"slug": "resource-steward", "type": "cottage", "arch": "管家小屋", "tone": "b-yellow", "origin": "软件会根据用户习惯动态进行推荐，让用户在不同的场景下规划CPU、内存等资源", "note": "烟囱里冒的是负载曲线。"},
+    {"slug": "my-face", "type": "weather", "arch": "气象站", "tone": "b-teal", "origin": "简单的个人网站，用来展示创作者日常的心情和故事", "note": "一个有趣的 Markdown 文章平台，用天气来代表心情。新的文字都写在这里。"},
+    {"slug": "baby-toy", "type": "playground", "arch": "游乐场", "tone": "b-plum", "origin": "宝宝总喜欢模仿大人敲击键盘，但却不知道敲击键盘的作用。所以我们来做一个游戏，让敲击键盘这件事情变的有趣。", "note": "在这一页随手敲几下键盘也行。"},
     {"slug": "weread-reading-recommender", "type": "bookshop", "arch": "书店", "label": "书店", "tone": "b-teal", "note": "书架上是读过的书和写下的文章，柜台上放着这个推荐工具。", "go": "/posts/"},
     {"slug": "gorm-oracle", "type": "bridge", "arch": "桥", "tone": "b-brick", "note": "GitHub 上 113 颗星、43 个 fork，是城里走的人最多的一座桥。"},
-    {"slug": "guopiao", "type": "exchange", "arch": "交易所", "tone": "b-cream", "idea": "idea_UFsyCMW1", "note": "它后来又长出了一张新图纸，就挂在它头顶的天上。"},
+    {"slug": "guopiao", "type": "exchange", "arch": "交易所", "tone": "b-cream", "origin": "像交友软件一样的交互方式选择你的股票"},
     {"slug": "develop-workflow", "type": "station", "arch": "调度站", "tone": "b-blue", "note": "哪节车厢出了问题，就只重发那一节。"},
     {"slug": "temporal-openclaw-research-agent", "type": "train", "arch": "研究列车", "label": "研究列车", "tone": "b-brick", "quiet": true, "note": "车上装的是一篇新能源行业的脱水稿。"},
     {"slug": "fishaudio-mcp", "type": "tower", "arch": "广播塔", "tone": "b-brick"},
@@ -38,12 +36,5 @@
     {"slug": "fold-studio", "type": "pavilion", "arch": "折叠亭", "tone": "b-blue", "quiet": true},
     {"slug": "clawd-hands", "type": "shed", "arch": "工具棚", "tone": "b-plum", "quiet": true}
   ],
-  "skip_ideas": ["idea_6JFyk23S"],
-  "rename": {"idea_v_ML88UP": "提示词管理"},
-  "loops": [["guopiao", "idea_wP1zz4ZS"]],
-  "generic_plots": [[10.0, -0.85], [11.5, -0.85], [13.0, -0.85], [0.1, 13.2]],
-  "generic_tones": ["b-teal", "b-plum", "b-yellow", "b-brick"],
-  "hang_spots": [[-1.8, 15.0, 2.9], [14.3, -1.3, 2.7], [-2.6, 9.4, 3.4], [15.8, 7.6, 3.2]],
-  "sky_spots": [[2.6, 3.2, 29], [10.9, 5.6, 33], [6.5, 9.5, 31], [0.5, 11.0, 27], [12.5, 1.0, 30], [4.0, 0.0, 34]],
   "crane": {"mast": [9.75, 2.2], "height": 6.5}
 }
