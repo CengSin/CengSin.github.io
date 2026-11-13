@@ -2,7 +2,7 @@
 
 `cengsin.is-a.dev` 是个人网站，名字叫「想象之城」：每件作品是一栋楼，已经做出来的落在地上，还没做的是天上的图纸。唯一工作目录是本仓库，源文件在 `src/`，内容在 `content/` 和仓库根目录的 `content/posts/`，生成结果在 `dist/`。GitHub Pages 从 `gh-pages` 分支发布 `dist/`。
 
-没有管理后台。内容都是仓库里的文件，改完推到 `main`，GitHub Actions 会检查、构建并发布；它每天 09:00（北京时间）还会自动重建一次，把 Idea Platform 上的新状态带进城里。
+没有管理后台。内容都是仓库里的文件，改完推到 `main`，GitHub Actions 会检查、构建并发布。构建不联网读取任何外部数据。
 
 ## 预览
 
@@ -13,7 +13,7 @@ python3 site/src/build.py
 python3 -m http.server 8765 --directory site/dist
 ```
 
-在仓库根目录执行。需要 Node.js 24。浏览器打开 http://127.0.0.1:8765/ 。设置 `CITY_OFFLINE=1` 可以跳过联网，使用 `content/idea_platform.json` 里的缓存。
+在仓库根目录执行。需要 Node.js 24。浏览器打开 http://127.0.0.1:8765/ 。
 
 ## 页面
 
@@ -29,9 +29,9 @@ python3 -m http.server 8765 --directory site/dist
 
 | 要改什么 | 改哪里 |
 | --- | --- |
-| 新作品 | 在 Idea Platform 发布。构建时从 `/api/v1/ideas` 拉取：新落地的想法会自动分到 `content/city.json` 的 `generic_plots` 空地，`待承接` 进天空，`搁置` 挂在吊绳上 |
+| 新作品 | 在 `content/projects.json` 写说明，再在 `content/city.json` 的 `buildings` 加一栋楼。城里的楼是固定的，Idea Platform 上的置顶项目变了再手动同步 |
 | 某件作品的说明 | `content/projects.json` |
-| 某栋楼的楼型、颜色、附注 | `content/city.json` 的 `buildings`；楼型的画法在 `src/frontend/city/iso.js` |
+| 某栋楼的楼型、颜色、附注、原来的想法 | `content/city.json` 的 `buildings`（`note`、`origin`，可选 `status`，默认「已落地」）；楼型的画法在 `src/frontend/city/iso.js` |
 | 首屏文案、导览图标题 | `content/city.json` 的 `hero`、`registry` |
 | 读过的书 | 用下面的命令，不要手改尺寸 |
 | 文章 | `content/posts/` 下的 Markdown；书脊上的短标题和简介在 `content/bookshop.json` 的 `spines` |

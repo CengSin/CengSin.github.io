@@ -266,8 +266,6 @@ def validate_projects(projects):
         related = project.get("related")
         if not isinstance(links, list) or not isinstance(sections, list) or not isinstance(related, list):
             raise ContentError(f"{slug} 的链接或章节格式不对")
-        if not links:
-            raise ContentError(f"{slug} 至少需要一个链接")
         if len(links) > 8 or len(sections) > 8 or len(related) > 8:
             raise ContentError(f"{slug} 的条目过多")
         for link in links:

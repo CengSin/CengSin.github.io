@@ -1,6 +1,6 @@
 # CengSin 网站
 
-这个仓库是 `cengsin.is-a.dev` 的唯一工作目录。网站叫「想象之城」：[Idea Platform](https://idea-platform.z-agent.ccwu.cc/) 上的作品是城里的楼，还没做的想法是天上的图纸；书店里放着读过的书和以前的文章。没有管理后台，内容都在仓库文件里。
+这个仓库是 `cengsin.is-a.dev` 的唯一工作目录。网站叫「想象之城」：做出来的作品是城里的楼，还没做的想法是天上的图纸，项目的最新动态在 [Idea Platform](https://idea-platform.z-agent.ccwu.cc/)；书店里放着读过的书和以前的文章。没有管理后台，内容都在仓库文件里。
 
 - `site/src/`：当前站点源码
 - `content/posts/`：文章 Markdown 源文件，构建时生成旧 `/posts/` 网址
